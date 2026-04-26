@@ -25,9 +25,8 @@ layout: default
                 frameborder="0" allowfullscreen></iframe>
       </div>
     {% elsif page.platform == "instagram" %}
-      <div style="display: flex; justify-content: center; background: white;">
+      <div style="display: flex; justify-content: center; background: white; min-height: 450px;">
         <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/{{ page.video_id }}/" data-instgrm-version="14" style="width: 100%; border:0; margin:0;"></blockquote>
-        <script async src="//www.instagram.com/embed.js"></script>
       </div>
     {% endif %}
   </div>
@@ -52,3 +51,12 @@ layout: default
   </div>
 
 </article>
+
+<script async src="//www.instagram.com/embed.js"></script>
+<script>
+  window.onload = function() {
+    if (window.instgrm) {
+      window.instgrm.Embeds.process();
+    }
+  };
+</script>

@@ -5,13 +5,12 @@ title: "Goalie Vault Home"
 
 <div style="text-align: center; padding: 30px 10px; background: #1a1a1a; border-radius: 0 0 30px 30px; margin: -20px -20px 20px -20px;">
   <img src="{{ site.baseurl }}/assets/images/logo.jpg" alt="Goalie Vault Logo" style="width: 140px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.3);">
-  ```markdown
+  
   <!-- 
     <h1 style="color: #ffffff; margin-top: 15px; font-size: 2rem;">Goalie Vault</h1>
     <p style="color: #00d4ff; font-weight: bold; letter-spacing: 1px;">BY BRNDKFR</p>
   -->
-  ```
-
+  
 <div style="display: grid; gap: 15px; padding: 10px;">
   
   <a href="{{ site.baseurl }}/warmup" style="display: flex; align-items: center; justify-content: center; background: #00d4ff; color: white; padding: 25px; border-radius: 15px; text-decoration: none; font-weight: 800; font-size: 1.3rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
