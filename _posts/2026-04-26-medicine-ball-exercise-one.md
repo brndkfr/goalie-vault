@@ -8,4 +8,6 @@ video_id: "ByxlPw4HMax"  # The ID from the URL
 description: "This excerise builds your core"
 ---
 
-Any extra notes or text you write down here will appear if you add `{{ content }}` to the layout, but for now, the description above will handle most of your needs!
+* Achte auf eine stabile Körpermitte.
+* Die Bewegung sollte kontrolliert aus den Armen kommen.
+* Atme gleichmäßig während der Übung.
