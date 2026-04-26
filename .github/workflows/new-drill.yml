@@ -84,6 +84,4 @@ jobs:
         run: gh issue close ${{ github.event.issue.number }} --comment "Success! The drill is now live in the Vault. ✅"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-
-
+          
