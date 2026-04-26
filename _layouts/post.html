@@ -1,9 +1,9 @@
 ---
 layout: default
 ---
-<article class="post-container" style="max-width: 600px; margin: 0 auto; padding: 15px; font-family: sans-serif;">
+<article class="post-container" style="max-width: 600px; margin: 0 auto; padding: 15px;">
   
-  <h1 style="text-align: center; margin-bottom: 5px;">{{ page.title }}</h1>
+  <h1 style="text-align: center;">{{ page.title }}</h1>
   
   <div style="text-align: center; margin-bottom: 25px;">
     <span style="color: #888;">By {{ page.author }}</span>
@@ -16,7 +16,7 @@ layout: default
     {% endif %}
   </div>
   
-  <div class="video-wrapper" style="margin-bottom: 25px; border-radius: 12px; overflow: hidden; background: #fff; min-height: 450px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+  <div class="video-wrapper" style="margin-bottom: 25px; border-radius: 12px; overflow: hidden; background: #fff; min-height: 500px; border: 1px solid #eee;">
     {% if page.platform == "instagram" %}
       <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/{{ page.video_id }}/" data-instgrm-version="14" style="width: 100%; border:0; margin:0;"></blockquote>
       <script async src="https://www.instagram.com/embed.js"></script>
@@ -31,23 +31,25 @@ layout: default
 
   {% if page.description %}
   <div style="background: #f9f9f9; padding: 20px; border-left: 5px solid #00d4ff; border-radius: 8px; margin-bottom: 30px;">
-    <p style="margin: 0; line-height: 1.6;">{{ page.description }}</p>
+    {{ page.description }}
   </div>
   {% endif %}
 
   <div class="main-content">{{ content }}</div>
 
-  <div style="margin-top: 50px; text-align: center; padding-bottom: 40px;">
-    <a href="{{ site.baseurl }}/" style="display: inline-block; background: #333; color: white; padding: 12px 30px; border-radius: 30px; text-decoration: none; font-weight: bold;">
-      ← Zurück
-    </a>
+  <div style="margin-top: 50px; text-align: center;">
+    <a href="{{ site.baseurl }}/" style="display: inline-block; background: #333; color: white; padding: 12px 30px; border-radius: 30px; text-decoration: none;">← Zurück</a>
   </div>
 </article>
 
 <script>
+  // Spezieller Firefox Android Fix: 
+  // Falls Instagram nicht lädt, erzwinge nach 2 Sekunden einen Re-Scan
   window.addEventListener('load', function() {
-    if (window.instgrm) {
-      window.instgrm.Embeds.process();
-    }
+    setTimeout(function() {
+      if (window.instgrm) {
+        window.instgrm.Embeds.process();
+      }
+    }, 2000);
   });
 </script>
