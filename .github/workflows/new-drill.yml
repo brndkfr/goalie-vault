@@ -5,7 +5,7 @@ on:
 
 jobs:
   create-post:
-    # Führt den Job aus, wenn das Label vorhanden ist oder gerade hinzugefügt wurde
+    # Only run if the issue has the 'new-drill' label
     if: |
       contains(github.event.issue.labels.*.name, 'new-drill') ||
       github.event.label.name == 'new-drill'
@@ -14,28 +14,36 @@ jobs:
       contents: write
       issues: write
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
       - name: Extract Data from Issue Form
         id: parse
         uses: zentered/issue-forms-body-parser@v2.2.0
         with:
-          issue_id: ${{ github.event.issue.number }}
+          body: ${{ github.event.issue.body }}
 
       - name: Build Markdown Post
         shell: bash
         run: |
-          # Daten aus dem Formular ziehen (IDs müssen zum Template passen)
+          # Extract data from the parser output
           TITLE="${{ fromJson(steps.parse.outputs.data).title.text }}"
           AUTHOR="${{ fromJson(steps.parse.outputs.data).author.text }}"
           HANDLE="${{ fromJson(steps.parse.outputs.data).handle.text }}"
           URL="${{ fromJson(steps.parse.outputs.data).url.text }}"
           NOTES="${{ fromJson(steps.parse.outputs.data).notes.text }}"
           
-          # Checkboxen verarbeiten: Markierte Labels extrahieren
-          CATEGORY=$(echo "${{ fromJson(steps.parse.outputs.data).category.raw }}" | grep "\[x\]" | sed 's/- \[x\] //' | xargs | sed 's/ /, /g')
+          # Process Checkboxes: Extract marked labels and separate with commas
+          RAW_CAT="${{ fromJson(steps.parse.outputs.data).category.raw }}"
+          CATEGORY=$(echo "$RAW_CAT" | grep "\[x\]" | sed 's/- \[x\] //' | xargs | sed 's/ /, /g')
 
-          # Video ID Logik für Instagram und YouTube
+          # Validation: Exit if URL is empty
+          if [ -z "$URL" ]; then
+            echo "Error: Video URL is empty. Please check the Issue Form."
+            exit 1
+          fi
+
+          # Extract Video ID (Instagram or YouTube)
           if [[ "$URL" == *"instagram.com"* ]]; then
             PLATFORM="instagram"
             VIDEO_ID=$(echo "$URL" | grep -oE '(/p/|/reels/)[^/]+' | cut -d'/' -f3)
@@ -45,12 +53,12 @@ jobs:
             if [ -z "$VIDEO_ID" ]; then VIDEO_ID=$(echo "$URL" | awk -F'/' '{print $NF}' | cut -d'?' -f1); fi
           fi
 
-          # Dateiname generieren (Datum + Titel-Slug)
+          # Generate Filename (Date + Slugified Title)
           DATE=$(date +%Y-%m-%d)
-          SAFE_TITLE=$(echo "$TITLE" | sed 's/[^a-zA-Z0-9]/ /g' | xargs | tr ' ' '-' | tr '[:upper:]' '[:lower:]')
+          SAFE_TITLE=$(echo "$TITLE" | tr -cd '[:alnum:] ' | tr ' ' '-' | tr '[:upper:]' '[:lower:]')
           FILENAME="_posts/${DATE}-${SAFE_TITLE}.md"
 
-          # Markdown Datei schreiben
+          # Create the Markdown file with Frontmatter
           {
             echo "---"
             echo "layout: post"
@@ -64,17 +72,18 @@ jobs:
             echo "---"
           } > $FILENAME
 
-      - name: Commit and Push
+      - name: Commit and Push Changes
         run: |
           git config --global user.name "GoalieVault-Bot"
           git config --global user.email "actions@github.com"
           git add _posts/*.md
-          git commit -m "New Drill: ${{ github.event.issue.title }}"
+          git commit -m "Automated: New Drill - ${{ github.event.issue.title }}"
           git push
 
       - name: Close Issue
-        run: gh issue close ${{ github.event.issue.number }} --comment "Drill is live! ✅ Everything was processed successfully."
+        run: gh issue close ${{ github.event.issue.number }} --comment "Success! The drill is now live in the Vault. ✅"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
 
