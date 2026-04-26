@@ -1,0 +1,11 @@
+---
+layout: post
+title: "Descriptive Title"
+author: "Author here"
+handle: "brndkfr"
+platform: "instagram"  # or "youtube"
+video_id: "xxxxx"  # The ID from the URL
+description: "Focus on keeping your chest up and weight centered. Do 3 sets of 10 reps."
+---
+
+Any extra notes or text you write down here will appear if you add `{{ content }}` to the layout, but for now, the description above will handle most of your needs!
