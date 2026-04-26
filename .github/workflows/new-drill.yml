@@ -5,7 +5,10 @@ on:
 
 jobs:
   create-post:
-    if: contains(github.event.issue.labels.*.name, 'new-drill')
+    # Führt den Job aus, wenn das Label vorhanden ist oder gerade hinzugefügt wurde
+    if: |
+      contains(github.event.issue.labels.*.name, 'new-drill') ||
+      github.event.label.name == 'new-drill'
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -22,17 +25,17 @@ jobs:
       - name: Build Markdown Post
         shell: bash
         run: |
-          # Basis-Daten extrahieren
+          # Daten aus dem Formular ziehen (IDs müssen zum Template passen)
           TITLE="${{ fromJson(steps.parse.outputs.data).title.text }}"
           AUTHOR="${{ fromJson(steps.parse.outputs.data).author.text }}"
           HANDLE="${{ fromJson(steps.parse.outputs.data).handle.text }}"
           URL="${{ fromJson(steps.parse.outputs.data).url.text }}"
           NOTES="${{ fromJson(steps.parse.outputs.data).notes.text }}"
           
-          # Checkboxen verarbeiten: Extrahiert markierte Labels und trennt sie mit Komma
+          # Checkboxen verarbeiten: Markierte Labels extrahieren
           CATEGORY=$(echo "${{ fromJson(steps.parse.outputs.data).category.raw }}" | grep "\[x\]" | sed 's/- \[x\] //' | xargs | sed 's/ /, /g')
 
-          # Video ID Logik
+          # Video ID Logik für Instagram und YouTube
           if [[ "$URL" == *"instagram.com"* ]]; then
             PLATFORM="instagram"
             VIDEO_ID=$(echo "$URL" | grep -oE '(/p/|/reels/)[^/]+' | cut -d'/' -f3)
@@ -42,10 +45,12 @@ jobs:
             if [ -z "$VIDEO_ID" ]; then VIDEO_ID=$(echo "$URL" | awk -F'/' '{print $NF}' | cut -d'?' -f1); fi
           fi
 
+          # Dateiname generieren (Datum + Titel-Slug)
           DATE=$(date +%Y-%m-%d)
           SAFE_TITLE=$(echo "$TITLE" | sed 's/[^a-zA-Z0-9]/ /g' | xargs | tr ' ' '-' | tr '[:upper:]' '[:lower:]')
           FILENAME="_posts/${DATE}-${SAFE_TITLE}.md"
 
+          # Markdown Datei schreiben
           {
             echo "---"
             echo "layout: post"
@@ -68,6 +73,8 @@ jobs:
           git push
 
       - name: Close Issue
-        run: gh issue close ${{ github.event.issue.number }} --comment "Drill is live! ✅ Check it out on the website."
+        run: gh issue close ${{ github.event.issue.number }} --comment "Drill is live! ✅ Everything was processed successfully."
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
