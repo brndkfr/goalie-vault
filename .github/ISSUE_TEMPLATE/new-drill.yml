@@ -1,0 +1,55 @@
+name: "New Video Drill"
+description: "Add a new video to the Goalie Vault"
+title: "[Drill]: "
+labels: ["new-drill"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### Thanks for contributing! 🧤
+        Select multiple categories if the drill covers different areas.
+  - type: input
+    id: title
+    attributes:
+      label: "Drill Title:"
+      placeholder: "e.g., Medicine Ball Core Stability"
+    validations:
+      required: true
+  - type: input
+    id: author
+    attributes:
+      label: "Author Name:"
+      placeholder: "BUK"
+  - type: input
+    id: handle
+    attributes:
+      label: "Social Media Handle:"
+      placeholder: "buk"
+  - type: checkboxes
+    id: category
+    attributes:
+      label: "Categories:"
+      description: "Select all that apply:"
+      options:
+        - label: warmup
+        - label: goal-technical
+        - label: coordination
+        - label: strength
+        - label: reaction
+        - label: movement
+        - label: theory
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: "Video Link:"
+      placeholder: "Paste Instagram or YouTube URL here"
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: "Coaching Notes:"
+      placeholder: "What are the key points of this exercise?"
+
