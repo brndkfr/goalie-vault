@@ -7,5 +7,5 @@ category: [warmup, coordination, strength, reaction, movement]
 platform: "instagram"
 video_id: "DUjRucmiAFy"
 thumbnail: ""
-description: "Nice warmup excercise."
+description: "Nice warmup exercise."
 ---
