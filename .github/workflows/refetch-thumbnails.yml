@@ -107,5 +107,6 @@ jobs:
           else
             COUNT=$(git diff --cached --name-only | grep 'assets/images/thumbs/' | wc -l)
             git commit -m "chore: refetch ${COUNT} missing Instagram thumbnail(s)"
+            git pull --rebase
             git push
           fi
