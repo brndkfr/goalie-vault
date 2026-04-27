@@ -148,12 +148,12 @@ a:hover { text-decoration: underline; }
 
 /* Instagram placeholder thumbnail */
 .drill-card__thumb--ig {
-  aspect-ratio: 1 / 1;
-  background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+  aspect-ratio: 16 / 9;
+  background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.5rem;
+  opacity: 0.85;
 }
 
 .drill-card__body {

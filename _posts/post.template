@@ -5,6 +5,8 @@ author: "Author here"
 handle: "brndkfr"
 platform: "instagram"  # or "youtube"
 video_id: "xxxxx"  # The ID from the URL
+thumbnail: ""       # Optional: /assets/images/my-thumb.jpg — used as card preview image
+                    # For Instagram posts: screenshot the video and upload to assets/images/
 description: "Focus on keeping your chest up and weight centered. Do 3 sets of 10 reps."
 ---
 
