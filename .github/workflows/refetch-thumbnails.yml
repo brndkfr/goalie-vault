@@ -40,7 +40,8 @@ jobs:
             PLATFORM=$(grep -m1 '^platform:' "$POST" | sed 's/platform: *"\([^"]*\)".*/\1/') || true
             THUMBNAIL=$(grep -m1 '^thumbnail:' "$POST" | sed 's/thumbnail: *"\([^"]*\)".*/\1/') || true
 
-            if [[ "$PLATFORM" != "instagram" ]] || [[ -n "$THUMBNAIL" ]]; then
+            # Skip if not instagram, or already has a thumbnail, or permanently marked skip
+            if [[ "$PLATFORM" != "instagram" ]] || [[ "$THUMBNAIL" == "skip" ]] || [[ -n "$THUMBNAIL" ]]; then
               continue
             fi
 
@@ -66,8 +67,10 @@ jobs:
               FIXED+=("✅ $SLUG → $THUMB_PATH")
               echo "  Fixed: $THUMB_PATH"
             else
-              STILL_MISSING+=("❌ $SLUG")
-              echo "  Still missing"
+              # Mark as permanently unfetchable so weekly cron skips it
+              sed -i 's|^thumbnail: *""$|thumbnail: "skip"|' "$POST"
+              STILL_MISSING+=("⚠️ $SLUG (marked skip)")
+              echo "  Still missing — marked thumbnail: \"skip\""
             fi
           done
 
