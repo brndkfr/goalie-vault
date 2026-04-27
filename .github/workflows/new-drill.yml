@@ -32,12 +32,12 @@ jobs:
           TITLE=$(echo "$PARSE_DATA" | jq -r '.["drill-title"].text')
           AUTHOR=$(echo "$PARSE_DATA" | jq -r '.["author-name"].text')
           HANDLE=$(echo "$PARSE_DATA" | jq -r '.["social-media-handle"].text')
-          URL=$(echo "$PARSE_DATA" | jq -r '.["video-link"].text')
-          NOTES=$(echo "$PARSE_DATA" | jq -r '.["coaching-notes"].text')
+          # Use links[0].src for a clean URL without angle brackets
+          URL=$(echo "$PARSE_DATA" | jq -r '.["video-link"].links[0].src')
+          NOTES=$(echo "$PARSE_DATA" | jq -r '[.["coaching-notes"].list[].text] | join(" | ")')
 
-          # Process Checkboxes: Extract marked labels and separate with commas
-          RAW_CAT=$(echo "$PARSE_DATA" | jq -r '.categories.raw')
-          CATEGORY=$(echo "$RAW_CAT" | grep "\[x\]" | sed 's/- \[x\] //' | xargs | sed 's/ /, /g')
+          # Process Checkboxes: use the structured list array instead of raw text
+          CATEGORY=$(echo "$PARSE_DATA" | jq -r '.categories.list[] | select(.checked == true) | .text' | paste -sd ',' - | sed 's/,/, /g')
 
           # Validation: Exit if URL is empty
           if [ -z "$URL" ]; then
