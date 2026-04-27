@@ -81,17 +81,29 @@ The site will be available at `http://localhost:4000/goalie-vault`.
 
 ---
 
+## Workflows
+
+| Workflow | Trigger | What it does |
+|---|---|---|
+| `new-drill.yml` | Issue labeled `new-drill` | Parses the issue form, fetches a thumbnail (YouTube CDN URL or `yt-dlp` for Instagram), creates `_posts/*.md`, commits, and closes the issue |
+| `remove-thumbnail.yml` | Manual — Actions tab → **Run workflow** | Clears `thumbnail:` from the post frontmatter and deletes the image from `assets/images/thumbs/`. Input: `post_slug` (e.g. `2026-04-24-inner-core-strength`) |
+
+To trigger `remove-thumbnail`: go to **Actions → Remove Drill Thumbnail → Run workflow** and enter the post slug.
+
+---
+
 ## Project Structure
 
 ```
-_posts/          # Video drill posts (auto-generated or manual)
-_layouts/        # default.html and post.html templates
-assets/images/   # Logo and media
-_config.yml      # Jekyll site configuration
-index.md         # Home page with navigation and latest posts
+_posts/                  # Video drill posts (auto-generated or manual)
+_layouts/                # default.html and post.html templates
+assets/images/           # Logo and media
+assets/images/thumbs/    # Auto-fetched Instagram thumbnails
+_config.yml              # Jekyll site configuration
+index.md                 # Home page with drill grid and filter bar
 .github/
-  workflows/     # new-drill.yml — automation pipeline
-  ISSUE_TEMPLATE/# new-drill.yml — issue form for contributors
+  workflows/             # new-drill.yml, remove-thumbnail.yml
+  ISSUE_TEMPLATE/        # new-drill.yml — issue form for contributors
 ```
 
 ---
