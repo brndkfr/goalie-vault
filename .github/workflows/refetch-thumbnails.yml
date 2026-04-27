@@ -57,7 +57,7 @@ jobs:
               "$URL" 2>/dev/null || true
 
             # Detect downloaded file
-            THUMB=$(ls assets/images/thumbs/${VIDEO_ID}.* 2>/dev/null | head -1)
+            THUMB=$(ls assets/images/thumbs/${VIDEO_ID}.* 2>/dev/null | head -1 || true)
             if [ -n "$THUMB" ]; then
               EXT="${THUMB##*.}"
               THUMB_PATH="/assets/images/thumbs/${VIDEO_ID}.${EXT}"
