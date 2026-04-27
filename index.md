@@ -7,9 +7,7 @@ title: "Goalie Vault"
 
   <!-- Hero -->
   <div class="vault-hero">
-    <img class="vault-hero__logo" src="{{ site.baseurl }}/assets/images/logo.jpg" alt="Goalie Vault">
     <h1 class="vault-hero__title">Goalie Vault</h1>
-    <p class="vault-hero__sub">by brndkfr</p>
   </div>
 
   <!-- Filter bar -->
