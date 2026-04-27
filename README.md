@@ -102,3 +102,18 @@ index.md         # Home page with navigation and latest posts
 - [ ] Quizzes collection (`_quizzes/`)
 - [ ] Category filter pages (`/warmup`, `/coordination`, etc.)
 - [ ] Search functionality
+
+---
+
+## License
+
+This repository uses a dual license:
+
+| What | License |
+|---|---|
+| **Code** — layouts, workflows, config, templates | [MIT](LICENSE) |
+| **Content** — posts, coaching notes, descriptions | [CC BY 4.0](LICENSE-CONTENT) |
+
+Content may be shared or adapted for any purpose, including commercially, as long as **credit is given to Bernd Kiefer (brndkfr)** with a link to the source.
+
+> Embedded videos remain the property of their respective creators and are subject to the terms of their hosting platforms (Instagram, YouTube, etc.).
