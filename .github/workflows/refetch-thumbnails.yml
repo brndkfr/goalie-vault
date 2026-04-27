@@ -13,7 +13,8 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Random delay (0–4 hours)
+      - name: Random delay (0–4 hours, skipped for manual runs)
+        if: github.event_name != 'workflow_dispatch'
         run: |
           DELAY=$((RANDOM % 14400))
           echo "Sleeping ${DELAY}s before fetching..."
