@@ -1,0 +1,16 @@
+# Environment / secrets
+.env
+.env.*
+
+# Jekyll build output
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
