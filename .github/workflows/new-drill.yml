@@ -48,7 +48,7 @@ jobs:
           # Extract Video ID (Instagram or YouTube)
           if [[ "$URL" == *"instagram.com"* ]]; then
             PLATFORM="instagram"
-            VIDEO_ID=$(echo "$URL" | grep -oE '(/p/|/reels/)[^/]+' | cut -d'/' -f3)
+            VIDEO_ID=$(echo "$URL" | grep -oE '(/p/|/reels/|/reel/)[^/?]+' | awk -F'/' '{print $NF}')
           else
             PLATFORM="youtube"
             VIDEO_ID=$(echo "$URL" | sed -n 's/.*v=\([^&]*\).*/\1/p')
@@ -60,26 +60,65 @@ jobs:
           SAFE_TITLE=$(echo "$TITLE" | tr -cd '[:alnum:] ' | tr ' ' '-' | tr '[:upper:]' '[:lower:]')
           FILENAME="_posts/${DATE}-${SAFE_TITLE}.md"
 
-          # Create the Markdown file with Frontmatter
+          # Determine thumbnail
+          if [[ "$PLATFORM" == "youtube" ]]; then
+            THUMBNAIL="https://img.youtube.com/vi/${VIDEO_ID}/hqdefault.jpg"
+          else
+            THUMBNAIL=""
+          fi
+
+          # Pass variables to subsequent steps
+          echo "PLATFORM=$PLATFORM"         >> "$GITHUB_ENV"
+          echo "VIDEO_ID=$VIDEO_ID"         >> "$GITHUB_ENV"
+          echo "URL=$URL"                   >> "$GITHUB_ENV"
+          echo "FILENAME=$FILENAME"         >> "$GITHUB_ENV"
+          echo "TITLE=$TITLE"               >> "$GITHUB_ENV"
+          echo "AUTHOR=$AUTHOR"             >> "$GITHUB_ENV"
+          echo "HANDLE=$HANDLE"             >> "$GITHUB_ENV"
+          echo "CATEGORY=$CATEGORY"         >> "$GITHUB_ENV"
+          echo "NOTES=$NOTES"               >> "$GITHUB_ENV"
+          echo "THUMBNAIL=$THUMBNAIL"       >> "$GITHUB_ENV"
+
+      - name: Fetch Instagram Thumbnail
+        if: env.PLATFORM == 'instagram'
+        continue-on-error: true
+        shell: bash
+        run: |
+          mkdir -p assets/images/thumbs
+          pip install -q yt-dlp
+          yt-dlp --write-thumbnail --skip-download \
+            -o "assets/images/thumbs/%(id)s" \
+            "${{ env.URL }}" 2>/dev/null || true
+
+          # Detect downloaded file (jpg or webp)
+          THUMB=$(ls assets/images/thumbs/${{ env.VIDEO_ID }}.* 2>/dev/null | head -1)
+          if [ -n "$THUMB" ]; then
+            EXT="${THUMB##*.}"
+            echo "THUMBNAIL=/assets/images/thumbs/${{ env.VIDEO_ID }}.${EXT}" >> "$GITHUB_ENV"
+          fi
+
+      - name: Write Post File
+        shell: bash
+        run: |
           {
             echo "---"
             echo "layout: post"
-            echo "title: \"$TITLE\""
-            echo "author: \"$AUTHOR\""
-            echo "handle: \"$HANDLE\""
-            echo "category: [$CATEGORY]"
-            echo "platform: \"$PLATFORM\""
-            echo "video_id: \"$VIDEO_ID\""
-            echo "thumbnail: \"\""
-            echo "description: \"$NOTES\""
+            echo "title: \"${{ env.TITLE }}\""
+            echo "author: \"${{ env.AUTHOR }}\""
+            echo "handle: \"${{ env.HANDLE }}\""
+            echo "category: [${{ env.CATEGORY }}]"
+            echo "platform: \"${{ env.PLATFORM }}\""
+            echo "video_id: \"${{ env.VIDEO_ID }}\""
+            echo "thumbnail: \"${{ env.THUMBNAIL }}\""
+            echo "description: \"${{ env.NOTES }}\""
             echo "---"
-          } > $FILENAME
+          } > "${{ env.FILENAME }}"
 
       - name: Commit and Push Changes
         run: |
           git config --global user.name "GoalieVault-Bot"
           git config --global user.email "actions@github.com"
-          git add _posts/*.md
+          git add _posts/ assets/images/thumbs/
           git commit -m "Automated: New Drill - ${{ github.event.issue.title }}"
           git push
 
