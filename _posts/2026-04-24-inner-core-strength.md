@@ -3,7 +3,7 @@ layout: post
 title: "Inner Core Strength"
 author: "Jonas Anshelm"
 handle: "janshelm"
-platform: "instagram"  # or "youtube"
+platform: "youtube"  # or "instagram"
 category: [warmup, strength]
 video_id: "DXfP8HDD_dU"  # The ID from the URL
 description: "Focus on keeping your chest up and weight centered. Do 3 sets of 10 reps."
