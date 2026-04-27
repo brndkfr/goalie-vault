@@ -27,14 +27,14 @@ jobs:
         shell: bash
         run: |
           # Extract data from the parser output
-          TITLE="${{ fromJson(steps.parse.outputs.data).title.text }}"
-          AUTHOR="${{ fromJson(steps.parse.outputs.data).author.text }}"
-          HANDLE="${{ fromJson(steps.parse.outputs.data).handle.text }}"
-          URL="${{ fromJson(steps.parse.outputs.data).url.text }}"
-          NOTES="${{ fromJson(steps.parse.outputs.data).notes.text }}"
+          TITLE="${{ fromJson(steps.parse.outputs.data).drill-title.text }}"
+          AUTHOR="${{ fromJson(steps.parse.outputs.data).author-name.text }}"
+          HANDLE="${{ fromJson(steps.parse.outputs.data).social-media-handle.text }}"
+          URL="${{ fromJson(steps.parse.outputs.data).video-link.text }}"
+          NOTES="${{ fromJson(steps.parse.outputs.data).coaching-notes.text }}"
           
           # Process Checkboxes: Extract marked labels and separate with commas
-          RAW_CAT="${{ fromJson(steps.parse.outputs.data).category.raw }}"
+          RAW_CAT="${{ fromJson(steps.parse.outputs.data).categories.raw }}"
           CATEGORY=$(echo "$RAW_CAT" | grep "\[x\]" | sed 's/- \[x\] //' | xargs | sed 's/ /, /g')
 
           # Validation: Exit if URL is empty
