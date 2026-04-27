@@ -28,7 +28,7 @@ title: "Goalie Vault"
     <div class="drill-card" data-categories="{{ post.category | join: ',' | downcase }}">
       <a class="drill-card__link" href="{{ site.baseurl }}{{ post.url }}">
 
-        {% if post.thumbnail %}
+        {% if post.thumbnail and post.thumbnail != "" %}
           <img class="drill-card__thumb"
                src="{{ site.baseurl }}{{ post.thumbnail }}"
                alt="{{ post.title }}"
