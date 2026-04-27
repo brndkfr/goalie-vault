@@ -1,0 +1,55 @@
+name: Remove Drill Thumbnail
+on:
+  workflow_dispatch:
+    inputs:
+      post_slug:
+        description: "Post slug (e.g. 2026-04-24-inner-core-strength)"
+        required: true
+
+jobs:
+  remove-thumbnail:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Clear thumbnail from post frontmatter
+        shell: bash
+        run: |
+          SLUG="${{ github.event.inputs.post_slug }}"
+          FILE=$(ls _posts/${SLUG}.md 2>/dev/null | head -1)
+
+          if [ -z "$FILE" ]; then
+            echo "Error: No post found matching slug '${SLUG}'"
+            exit 1
+          fi
+
+          echo "Found post: $FILE"
+
+          # Extract current video_id to find matching image
+          VIDEO_ID=$(grep '^video_id:' "$FILE" | sed 's/video_id: *"\(.*\)"/\1/')
+
+          # Clear the thumbnail field in frontmatter
+          sed -i 's|^thumbnail:.*|thumbnail: ""|' "$FILE"
+          echo "Cleared thumbnail in $FILE"
+
+          # Delete the image file if it exists
+          if [ -n "$VIDEO_ID" ]; then
+            for IMG in assets/images/thumbs/${VIDEO_ID}.*; do
+              if [ -f "$IMG" ]; then
+                rm "$IMG"
+                echo "Deleted $IMG"
+              fi
+            done
+          fi
+
+      - name: Commit and Push
+        run: |
+          git config --global user.name "GoalieVault-Bot"
+          git config --global user.email "actions@github.com"
+          git add _posts/ assets/images/thumbs/
+          git diff --cached --quiet && echo "Nothing to commit" && exit 0
+          git commit -m "chore: remove thumbnail for ${{ github.event.inputs.post_slug }}"
+          git push
