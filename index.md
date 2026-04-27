@@ -16,6 +16,7 @@ title: "Goalie Vault"
     <button class="filter-btn" data-filter="warmup">Warmup</button>
     <button class="filter-btn" data-filter="coordination">Coordination</button>
     <button class="filter-btn" data-filter="strength">Strength</button>
+    <button class="filter-btn" data-filter="stretching">Stretching</button>
     <button class="filter-btn" data-filter="goal-technical">Goal Technical</button>
     <button class="filter-btn" data-filter="reaction">Reaction</button>
     <button class="filter-btn" data-filter="movement">Movement</button>
