@@ -32,15 +32,19 @@ jobs:
           STILL_MISSING=()
 
           for POST in _posts/*.md; do
+            # Skip the template file
+            [[ "$POST" == *"post.template" ]] && continue
+
             # Only process Instagram posts with empty thumbnail
-            PLATFORM=$(grep '^platform:' "$POST" | sed 's/platform: *"\(.*\)"/\1/')
-            THUMBNAIL=$(grep '^thumbnail:' "$POST" | sed 's/thumbnail: *"\(.*\)"/\1/')
+            # Use grep -m1 with || true to avoid pipefail exit on no match
+            PLATFORM=$(grep -m1 '^platform:' "$POST" | sed 's/platform: *"\([^"]*\)".*/\1/') || true
+            THUMBNAIL=$(grep -m1 '^thumbnail:' "$POST" | sed 's/thumbnail: *"\([^"]*\)".*/\1/') || true
 
             if [[ "$PLATFORM" != "instagram" ]] || [[ -n "$THUMBNAIL" ]]; then
               continue
             fi
 
-            VIDEO_ID=$(grep '^video_id:' "$POST" | sed 's/video_id: *"\(.*\)"/\1/')
+            VIDEO_ID=$(grep -m1 '^video_id:' "$POST" | sed 's/video_id: *"\([^"]*\)".*/\1/') || true
             SLUG=$(basename "$POST" .md)
 
             echo "→ Attempting thumbnail fetch for: $SLUG (video_id: $VIDEO_ID)"
