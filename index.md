@@ -30,13 +30,20 @@ title: "Goalie Vault"
     <div class="drill-card" data-categories="{{ post.category | join: ',' | downcase }}">
       <a class="drill-card__link" href="{{ site.baseurl }}{{ post.url }}">
 
-        {% if post.platform == "youtube" %}
+        {% if post.thumbnail %}
+          <img class="drill-card__thumb"
+               src="{{ site.baseurl }}{{ post.thumbnail }}"
+               alt="{{ post.title }}"
+               loading="lazy">
+        {% elsif post.platform == "youtube" %}
           <img class="drill-card__thumb"
                src="https://img.youtube.com/vi/{{ post.video_id }}/mqdefault.jpg"
                alt="{{ post.title }}"
                loading="lazy">
         {% else %}
-          <div class="drill-card__thumb drill-card__thumb--ig">📸</div>
+          <div class="drill-card__thumb drill-card__thumb--ig">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </div>
         {% endif %}
 
         <div class="drill-card__body">
