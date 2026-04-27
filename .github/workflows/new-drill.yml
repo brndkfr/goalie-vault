@@ -96,7 +96,18 @@ jobs:
           if [ -n "$THUMB" ]; then
             EXT="${THUMB##*.}"
             echo "THUMBNAIL=/assets/images/thumbs/${{ env.VIDEO_ID }}.${EXT}" >> "$GITHUB_ENV"
+            echo "THUMB_FETCHED=true" >> "$GITHUB_ENV"
+          else
+            echo "THUMB_FETCHED=false" >> "$GITHUB_ENV"
           fi
+
+      - name: Warn if thumbnail fetch failed
+        if: env.PLATFORM == 'instagram' && env.THUMB_FETCHED == 'false'
+        run: |
+          gh issue comment ${{ github.event.issue.number }} \
+            --body "⚠️ **Thumbnail not fetched** — \`yt-dlp\` could not retrieve a thumbnail for this Instagram post (Instagram may have blocked the request). The drill was created with the SVG placeholder instead. To add a thumbnail manually, upload an image to \`assets/images/thumbs/\` and set \`thumbnail: \"/assets/images/thumbs/YOUR_FILE\"\` in the post frontmatter."
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Write Post File
         shell: bash
