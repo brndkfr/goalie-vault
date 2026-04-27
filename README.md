@@ -87,6 +87,7 @@ The site will be available at `http://localhost:4000/goalie-vault`.
 |---|---|---|
 | `new-drill.yml` | Issue labeled `new-drill` | Parses the issue form, fetches a thumbnail (YouTube CDN URL or `yt-dlp` for Instagram), creates `_posts/*.md`, commits, and closes the issue |
 | `remove-thumbnail.yml` | Manual — Actions tab → **Run workflow** | Clears `thumbnail:` from the post frontmatter and deletes the image from `assets/images/thumbs/`. Input: `post_slug` (e.g. `2026-04-24-inner-core-strength`) |
+| `refetch-thumbnails.yml` | Manual or weekly (Mon 03:00 UTC) | Scans all Instagram posts with empty `thumbnail:`, retries `yt-dlp` for each, patches post files and commits. Results shown in the Actions run summary. |
 
 To trigger `remove-thumbnail`: go to **Actions → Remove Drill Thumbnail → Run workflow** and enter the post slug.
 

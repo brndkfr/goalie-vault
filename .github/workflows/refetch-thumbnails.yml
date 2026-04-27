@@ -1,0 +1,97 @@
+name: Refetch Missing Thumbnails
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 3 * * 1'  # Every Monday at 03:00 UTC
+
+jobs:
+  refetch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install yt-dlp
+        run: pip install -q yt-dlp
+
+      - name: Refetch missing thumbnails
+        shell: bash
+        run: |
+          mkdir -p assets/images/thumbs
+
+          FIXED=()
+          STILL_MISSING=()
+
+          for POST in _posts/*.md; do
+            # Only process Instagram posts with empty thumbnail
+            PLATFORM=$(grep '^platform:' "$POST" | sed 's/platform: *"\(.*\)"/\1/')
+            THUMBNAIL=$(grep '^thumbnail:' "$POST" | sed 's/thumbnail: *"\(.*\)"/\1/')
+
+            if [[ "$PLATFORM" != "instagram" ]] || [[ -n "$THUMBNAIL" ]]; then
+              continue
+            fi
+
+            VIDEO_ID=$(grep '^video_id:' "$POST" | sed 's/video_id: *"\(.*\)"/\1/')
+            SLUG=$(basename "$POST" .md)
+
+            echo "→ Attempting thumbnail fetch for: $SLUG (video_id: $VIDEO_ID)"
+
+            # Build Instagram URL from video_id
+            URL="https://www.instagram.com/reel/${VIDEO_ID}/"
+
+            yt-dlp --write-thumbnail --skip-download \
+              -o "assets/images/thumbs/%(id)s" \
+              "$URL" 2>/dev/null || true
+
+            # Detect downloaded file
+            THUMB=$(ls assets/images/thumbs/${VIDEO_ID}.* 2>/dev/null | head -1)
+            if [ -n "$THUMB" ]; then
+              EXT="${THUMB##*.}"
+              THUMB_PATH="/assets/images/thumbs/${VIDEO_ID}.${EXT}"
+              # Patch thumbnail field in post file
+              sed -i "s|^thumbnail: *\"\"$|thumbnail: \"${THUMB_PATH}\"|" "$POST"
+              FIXED+=("✅ $SLUG → $THUMB_PATH")
+              echo "  Fixed: $THUMB_PATH"
+            else
+              STILL_MISSING+=("❌ $SLUG")
+              echo "  Still missing"
+            fi
+          done
+
+          # Write job summary
+          echo "## Refetch Missing Thumbnails" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+
+          if [ ${#FIXED[@]} -eq 0 ] && [ ${#STILL_MISSING[@]} -eq 0 ]; then
+            echo "ℹ️ No Instagram posts with missing thumbnails found." >> "$GITHUB_STEP_SUMMARY"
+          else
+            if [ ${#FIXED[@]} -gt 0 ]; then
+              echo "### Fixed (${#FIXED[@]})" >> "$GITHUB_STEP_SUMMARY"
+              for ITEM in "${FIXED[@]}"; do
+                echo "- $ITEM" >> "$GITHUB_STEP_SUMMARY"
+              done
+              echo "" >> "$GITHUB_STEP_SUMMARY"
+            fi
+            if [ ${#STILL_MISSING[@]} -gt 0 ]; then
+              echo "### Still Missing (${#STILL_MISSING[@]})" >> "$GITHUB_STEP_SUMMARY"
+              for ITEM in "${STILL_MISSING[@]}"; do
+                echo "- $ITEM" >> "$GITHUB_STEP_SUMMARY"
+              done
+            fi
+          fi
+
+      - name: Commit and push if anything changed
+        shell: bash
+        run: |
+          git config --global user.name "GoalieVault-Bot"
+          git config --global user.email "actions@github.com"
+          git add _posts/ assets/images/thumbs/
+          if git diff --cached --quiet; then
+            echo "Nothing to commit — no new thumbnails found."
+          else
+            COUNT=$(git diff --cached --name-only | grep 'assets/images/thumbs/' | wc -l)
+            git commit -m "chore: refetch ${COUNT} missing Instagram thumbnail(s)"
+            git push
+          fi
