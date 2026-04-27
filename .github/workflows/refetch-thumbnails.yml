@@ -13,6 +13,12 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Random delay (0–4 hours)
+        run: |
+          DELAY=$((RANDOM % 14400))
+          echo "Sleeping ${DELAY}s before fetching..."
+          sleep $DELAY
+
       - name: Install yt-dlp
         run: pip install -q yt-dlp
 
