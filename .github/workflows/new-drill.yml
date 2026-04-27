@@ -24,17 +24,19 @@ jobs:
           body: ${{ github.event.issue.body }}
 
       - name: Build Markdown Post
+        env:
+          PARSE_DATA: ${{ steps.parse.outputs.data }}
         shell: bash
         run: |
-          # Extract data from the parser output
-          TITLE="${{ fromJson(steps.parse.outputs.data).drill-title.text }}"
-          AUTHOR="${{ fromJson(steps.parse.outputs.data).author-name.text }}"
-          HANDLE="${{ fromJson(steps.parse.outputs.data).social-media-handle.text }}"
-          URL="${{ fromJson(steps.parse.outputs.data).video-link.text }}"
-          NOTES="${{ fromJson(steps.parse.outputs.data).coaching-notes.text }}"
-          
+          # Extract data using jq to safely handle hyphenated keys
+          TITLE=$(echo "$PARSE_DATA" | jq -r '.["drill-title"].text')
+          AUTHOR=$(echo "$PARSE_DATA" | jq -r '.["author-name"].text')
+          HANDLE=$(echo "$PARSE_DATA" | jq -r '.["social-media-handle"].text')
+          URL=$(echo "$PARSE_DATA" | jq -r '.["video-link"].text')
+          NOTES=$(echo "$PARSE_DATA" | jq -r '.["coaching-notes"].text')
+
           # Process Checkboxes: Extract marked labels and separate with commas
-          RAW_CAT="${{ fromJson(steps.parse.outputs.data).categories.raw }}"
+          RAW_CAT=$(echo "$PARSE_DATA" | jq -r '.categories.raw')
           CATEGORY=$(echo "$RAW_CAT" | grep "\[x\]" | sed 's/- \[x\] //' | xargs | sed 's/ /, /g')
 
           # Validation: Exit if URL is empty
