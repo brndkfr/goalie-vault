@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Descriptive Title"
+title: "Descriptive Title"  # Use the issue title (minus the [Drill]: prefix) when submitting via GitHub
 author: "Author here"
 handle: "brndkfr"
 platform: "instagram"  # or "youtube"

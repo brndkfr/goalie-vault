@@ -28,8 +28,8 @@ jobs:
           PARSE_DATA: ${{ steps.parse.outputs.data }}
         shell: bash
         run: |
-          # Extract data using jq to safely handle hyphenated keys
-          TITLE=$(echo "$PARSE_DATA" | jq -r '.["drill-title"].text')
+          # Derive title from issue title (strip '[Drill]: ' prefix)
+          TITLE=$(echo "${{ github.event.issue.title }}" | sed 's/^\[Drill\]: *//')
           AUTHOR=$(echo "$PARSE_DATA" | jq -r '.["author-name"].text')
           HANDLE=$(echo "$PARSE_DATA" | jq -r '.["social-media-handle"].text')
           # Use links[0].src for a clean URL without angle brackets
@@ -78,7 +78,7 @@ jobs:
           echo "THUMBNAIL=$THUMBNAIL"       >> "$GITHUB_ENV"
           # Heredoc format for fields that may contain punctuation or spaces
           { echo 'TITLE<<EOF_TITLE'; echo "$TITLE"; echo 'EOF_TITLE'; } >> "$GITHUB_ENV"
-          { echo 'NOTES<<EOF_NOTES'; echo "$NOTES"; echo 'EOF_NOTES'; } >> "$GITHUB_ENV"
+          { echo 'NOTES<<EOF_NOTES';  echo "$NOTES";  echo 'EOF_NOTES';  } >> "$GITHUB_ENV"
 
       - name: Fetch Instagram Thumbnail
         if: env.PLATFORM == 'instagram'

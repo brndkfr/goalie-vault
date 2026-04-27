@@ -7,14 +7,7 @@ body:
     attributes:
       value: |
         ### Thanks for contributing! 🧤
-        Select multiple categories if the drill covers different areas.
-  - type: input
-    id: title
-    attributes:
-      label: "Drill Title:"
-      placeholder: "e.g., Medicine Ball Core Stability"
-    validations:
-      required: true
+        Enter the drill name as the issue title above. Select multiple categories if the drill covers different areas.
   - type: input
     id: author
     attributes:
