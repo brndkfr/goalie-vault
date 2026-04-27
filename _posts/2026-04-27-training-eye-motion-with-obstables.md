@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Training Eye Motion with Obstables"
+title: "Training Eye Motion with Obstacles"
 author: "Vaud Unihockey CRP | SPE"
 handle: "vdu_crp.spe"
 category: [warmup, coordination, reaction]
