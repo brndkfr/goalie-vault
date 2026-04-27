@@ -7,5 +7,5 @@ category: [stretching]
 platform: "instagram"
 video_id: "CpQNjccofpu"
 thumbnail: ""
-description: "*No response*"
+description: ""
 ---

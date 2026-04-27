@@ -35,7 +35,9 @@ jobs:
           # Use links[0].src for a clean URL without angle brackets
           URL=$(echo "$PARSE_DATA" | jq -r '.["video-link"].links[0].src')
           NOTES=$(echo "$PARSE_DATA" | jq -r 'if (.["coaching-notes"].list | length) > 0 then [.["coaching-notes"].list[].text] | join(" | ") else .["coaching-notes"].text end')
-
+          # Strip GitHub's '*No response*' placeholder for empty fields
+          NOTES=$(echo "$NOTES" | sed 's/^\*No response\*$//')           # Strip GitHub's '*No response*' placeholder for empty fields
+          NOTES=$(echo "$NOTES" | sed 's/^\*No response\*$//')
           # Process Checkboxes: use the structured list array instead of raw text
           CATEGORY=$(echo "$PARSE_DATA" | jq -r '.categories.list[] | select(.checked == true) | .text' | paste -sd ',' - | sed 's/,/, /g')
 
