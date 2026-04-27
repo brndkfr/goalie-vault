@@ -1,60 +1,66 @@
 ---
 layout: default
 ---
-<article class="post-container" style="max-width: 600px; margin: 0 auto; padding: 15px;">
-  
-  <h1 style="text-align: center;">{{ page.title }}</h1>
-  
-  <div style="text-align: center; margin-bottom: 25px;">
-    <span style="color: #888;">By {{ page.author }}</span>
-    {% if page.handle %}
-      <br>
-      <a href="https://{{ page.platform }}.com/{% if page.platform == 'youtube' %}@{% endif %}{{ page.handle }}" 
-         target="_blank" style="color: #00d4ff; text-decoration: none; font-weight: bold;">
-         @{{ page.handle }}
-      </a>
-    {% endif %}
-  </div>
-  
-  <div class="video-wrapper" style="margin-bottom: 25px; border-radius: 12px; overflow: hidden; background: #fff; min-height: 500px; border: 1px solid #eee;">
-    {% if page.platform == "instagram" %}
-      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/{{ page.video_id }}/" data-instgrm-version="14" style="width: 100%; border:0; margin:0;"></blockquote>
-      <script async src="https://www.instagram.com/embed.js"></script>
-    {% elsif page.platform == "youtube" %}
-      <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-        <iframe src="https://www.youtube.com/embed/{{ page.video_id }}" 
-                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
-                frameborder="0" allowfullscreen></iframe>
-      </div>
-    {% endif %}
-  </div>
+<div class="post-container">
 
-  {% if page.description %}
-  <div style="background: #f9f9f9; padding: 20px; border-left: 5px solid #00d4ff; border-radius: 8px; margin-bottom: 30px;">
-    {{ page.description }}
+  <header class="post-header">
+    {% if page.category %}
+    <div class="post-header__tags">
+      {% for cat in page.category %}
+        <span class="drill-card__tag">{{ cat }}</span>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <h1 class="post-header__title">{{ page.title }}</h1>
+
+    <p class="post-header__meta">
+      By {{ page.author }}
+      {% if page.handle %}
+        &mdash;
+        <a class="post-header__handle"
+           href="https://{{ page.platform }}.com/{% if page.platform == 'youtube' %}@{% endif %}{{ page.handle }}"
+           target="_blank">@{{ page.handle }}</a>
+      {% endif %}
+    </p>
+  </header>
+
+  {% if page.platform == "youtube" %}
+  <div class="video-wrapper video-wrapper--youtube">
+    <iframe src="https://www.youtube.com/embed/{{ page.video_id }}"
+            allowfullscreen
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+  </div>
+  {% elsif page.platform == "instagram" %}
+  <div class="video-wrapper video-wrapper--instagram">
+    <blockquote class="instagram-media"
+      data-instgrm-permalink="https://www.instagram.com/p/{{ page.video_id }}/"
+      data-instgrm-version="14"></blockquote>
+    <script async src="https://www.instagram.com/embed.js"></script>
   </div>
   {% endif %}
 
-  <div class="main-content">{{ content }}</div>
+  {% if page.description %}
+  <div class="post-description">{{ page.description }}</div>
+  {% endif %}
 
-  <div style="margin-top: 50px; text-align: center;">
-    <a href="{{ site.baseurl }}/" style="display: inline-block; background: #333; color: white; padding: 12px 30px; border-radius: 30px; text-decoration: none;">← Zurück</a>
+  {% if content != "" %}
+  <div class="post-content">{{ content }}</div>
+  {% endif %}
+
+  <a href="{{ site.baseurl }}/" class="back-btn">&#8592; Back</a>
+
+  <div class="post-disclaimer">
+    Video &copy; respective creator &mdash; Coaching notes &copy; Bernd Kiefer,
+    licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>.
   </div>
 
-  <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; font-size: 0.75rem; color: #aaa; text-align: center;">
-    Video © respective creator. Coaching notes © Bernd Kiefer, licensed under
-    <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" style="color: #aaa;">CC BY 4.0</a>.
-  </div>
-</article>
+</div>
 
 <script>
-  // Spezieller Firefox Android Fix: 
-  // Falls Instagram nicht lädt, erzwinge nach 2 Sekunden einen Re-Scan
-  window.addEventListener('load', function() {
-    setTimeout(function() {
-      if (window.instgrm) {
-        window.instgrm.Embeds.process();
-      }
+  window.addEventListener('load', function () {
+    setTimeout(function () {
+      if (window.instgrm) window.instgrm.Embeds.process();
     }, 2000);
   });
 </script>
