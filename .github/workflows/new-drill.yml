@@ -67,17 +67,18 @@ jobs:
             THUMBNAIL=""
           fi
 
-          # Pass variables to subsequent steps
+          # Pass variables to subsequent steps (use heredoc for values that may contain special chars)
           echo "PLATFORM=$PLATFORM"         >> "$GITHUB_ENV"
           echo "VIDEO_ID=$VIDEO_ID"         >> "$GITHUB_ENV"
           echo "URL=$URL"                   >> "$GITHUB_ENV"
           echo "FILENAME=$FILENAME"         >> "$GITHUB_ENV"
-          echo "TITLE=$TITLE"               >> "$GITHUB_ENV"
           echo "AUTHOR=$AUTHOR"             >> "$GITHUB_ENV"
           echo "HANDLE=$HANDLE"             >> "$GITHUB_ENV"
           echo "CATEGORY=$CATEGORY"         >> "$GITHUB_ENV"
-          echo "NOTES=$NOTES"               >> "$GITHUB_ENV"
           echo "THUMBNAIL=$THUMBNAIL"       >> "$GITHUB_ENV"
+          # Heredoc format for fields that may contain punctuation or spaces
+          { echo 'TITLE<<EOF_TITLE'; echo "$TITLE"; echo 'EOF_TITLE'; } >> "$GITHUB_ENV"
+          { echo 'NOTES<<EOF_NOTES'; echo "$NOTES"; echo 'EOF_NOTES'; } >> "$GITHUB_ENV"
 
       - name: Fetch Instagram Thumbnail
         if: env.PLATFORM == 'instagram'
