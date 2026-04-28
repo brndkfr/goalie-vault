@@ -10,14 +10,14 @@ thumbnail: "https://img.youtube.com/vi/uK5bgeZixIY/hqdefault.jpg"
 description: |
   Cossack Squats sind perfekt für Goalies, weil sie:
 
-  ### Seitliche Kraft:
-  Trainieren die Power für die lateralen Verschiebungen (Slides).
+  **Seitliche Kraft:**
+  - Trainieren die Power für die lateralen Verschiebungen (Slides).
 
-  ### Hüft-Mobilität:
-  Öffnen die Hüfte für extreme Positionen (z. B. Spagat oder tiefer Sitz).
+  **Hüft-Mobilität:**
+  - Öffnen die Hüfte für extreme Positionen (z. B. Spagat oder tiefer Sitz).
 
-  ### Stabilität:
-  Stärken die Sehnen in Knien und Knöcheln, um Verletzungen bei schnellen Richtungswechseln vorzubeugen.
+  **Stabilität:**
+  - Stärken die Sehnen in Knien und Knöcheln, um Verletzungen bei schnellen Richtungswechseln vorzubeugen.
 
   Sie machen Dich beweglicher und explosiver in der Querbewegung.
 ---
