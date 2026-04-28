@@ -19,6 +19,89 @@ for the score, then silently POSTs the result to Google Sheets via a hidden Goog
 
 ---
 
+## Design
+
+All quiz UI follows the existing vault design language: dark backgrounds, teal accent (`#00f2ff`), Inter font, `--radius: 12px` cards, uppercase badge labels.
+
+### Design tokens (reused from vault.css)
+
+| Token | Value | Usage |
+|---|---|---|
+| `--bg` | `#121212` | Page background |
+| `--surface` | `#1e1e1e` | Card / panel backgrounds |
+| `--surface-2` | `#2a2a2a` | Option button default bg |
+| `--accent` | `#00f2ff` | Selected state, progress bar, correct answer highlight |
+| `--accent-dim` | `#007a82` | Hover borders |
+| `--text` | `#e8e8e8` | Body text |
+| `--text-muted` | `#888` | Explanation text, secondary labels |
+| `--radius` | `12px` | All card corners |
+| `--font` | Inter | All text |
+
+### Quiz index card (`.quiz-card`)
+
+Same pattern as `.drill-card`: `--surface` background, `1px solid #2a2a2a` border, teal glow on hover (`box-shadow: 0 8px 24px rgba(0,242,255,0.1)`). Shows cover image (16:9), title, question count badge, short description.
+
+### Name splash screen (`.quiz-splash`)
+
+- Full-page centered overlay on `--bg`
+- Quiz title in large white bold text
+- Subtitle / description in `--text-muted`
+- Name `<input>` styled like the filter buttons: `--surface-2` bg, `1px solid #333` border, teal focus ring (`outline: 2px solid var(--accent)`)
+- "Start" button: filled teal (`--accent`), black text, `font-weight: 700`, same pill shape as `.filter-btn`
+
+### Progress bar (`.quiz-progress`)
+
+- Thin bar (4px) pinned to top of the question area
+- Background track: `--surface-2`
+- Fill: `var(--accent)` — width animates with CSS `transition: width 0.3s ease`
+- Question counter `"3 / 10"` in `--text-muted`, small, top-right
+
+### Option buttons (`.quiz-option`)
+
+| State | Background | Border | Text |
+|---|---|---|---|
+| Default | `--surface-2` | `1px solid #333` | `--text` |
+| Hover | `--surface-2` | `1px solid var(--accent-dim)` | `--text` |
+| Selected (before submit) | `--surface` | `2px solid var(--accent)` | white |
+| Correct (after submit) | `#0a2e2e` | `2px solid var(--accent)` | `--accent` |
+| Wrong (after submit) | `#2e0a0a` | `2px solid #c0392b` | `#ff6b6b` |
+| Correct (user didn't pick it) | `#0a2e2e` | `2px dashed var(--accent)` | `--accent` |
+
+Full-width buttons, `border-radius: var(--radius)`, `padding: 14px 18px`, `text-align: left`, `cursor: pointer`.
+
+### Inline explanation panel
+
+Appears below the options after the user answers (when `show_explanation_inline: true`). Styled as a left-bordered callout:
+- `border-left: 3px solid var(--accent)`
+- `background: #1a2a2a`
+- `padding: 12px 16px`
+- Text in `--text-muted`, font-size `0.9rem`
+- Fades in with `opacity 0.3s ease`
+
+### Results screen
+
+**Score header:** large centred percentage in white bold; sub-label `"X / Y correct"` in `--text-muted`.
+
+**Doughnut chart:** 280px × 280px centred; correct slice in `--accent`, incorrect in `#c0392b`; `cutout: 70%`; score percentage displayed in the hole as large white text (Canvas overlay or CSS absolute).
+
+**Per-question breakdown list:**
+- Each item is a `--surface` card with `border-radius: 8px`, `padding: 12px 16px`
+- Left border: `3px solid var(--accent)` for correct, `3px solid #c0392b` for wrong
+- ✅ / ❌ icon + question text in white
+- "Your answer" in `--text-muted`; correct answer in `--accent` (always shown)
+- Explanation below in `--text-muted`, `font-size: 0.85rem`, italic
+
+**Retake button:** same as Start button — filled teal, black text, pill shape.
+
+### Mobile
+
+- Option buttons stack full-width (already the case)
+- Chart shrinks to `220px` on screens < 480px
+- Splash and results screens use `padding: 24px 16px`
+- No horizontal scroll
+
+---
+
 ## Implementation Steps
 
 ### 1. Quiz YAML format
