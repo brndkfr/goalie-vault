@@ -1,0 +1,18 @@
+# Google Form endpoint for quiz result submissions.
+# Fill in the action URL and field entry IDs after creating a Google Form
+# with 4 short-answer fields: Name, Quiz Title, Score, Date.
+#
+# How to find these values:
+#   1. Create a Google Form at https://forms.google.com
+#   2. Add fields: Name / Quiz Title / Score / Date
+#   3. Link to a Google Sheet (Responses tab → spreadsheet icon)
+#   4. Open the live form preview, right-click → Inspect
+#   5. Find <form action="..."> for the URL
+#   6. Find each input's name="entry.XXXXXXX" for the field IDs
+
+google_form_action: ""   # e.g. https://docs.google.com/forms/d/e/XXXXX/formResponse
+fields:
+  name:       ""         # e.g. entry.000000001
+  quiz_title: ""         # e.g. entry.000000002
+  score:      ""         # e.g. entry.000000003
+  date:       ""         # e.g. entry.000000004
