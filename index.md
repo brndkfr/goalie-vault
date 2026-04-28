@@ -30,8 +30,13 @@ title: "Goalie Vault"
       <a class="drill-card__link" href="{{ site.baseurl }}{{ post.url }}">
 
         {% if post.thumbnail and post.thumbnail != "" and post.thumbnail != "skip" %}
+          {% if post.thumbnail contains "://" %}
+            {% assign thumb_src = post.thumbnail %}
+          {% else %}
+            {% capture thumb_src %}{{ site.baseurl }}{{ post.thumbnail }}{% endcapture %}
+          {% endif %}
           <img class="drill-card__thumb"
-               src="{{ site.baseurl }}{{ post.thumbnail }}"
+               src="{{ thumb_src }}"
                alt="{{ post.title }}"
                loading="lazy">
         {% elsif post.platform == "youtube" %}
