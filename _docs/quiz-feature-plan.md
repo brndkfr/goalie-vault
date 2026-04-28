@@ -32,6 +32,7 @@ layout: quiz
 title: "Goalie Rules Quiz"
 description: "Test your knowledge of floorball goalie rules."
 cover_image: ""   # optional, path to image
+show_explanation_inline: true   # if true, show explanation after each question before moving on; default false
 questions:
   - type: single          # single | multi | truefalse
     text: "Can the goalie play the ball with their hand?"
@@ -40,10 +41,12 @@ questions:
       - "Yes, but only inside the crease"
       - "No, never"
     answer: 1             # 0-indexed; array for multi e.g. [0, 2]
+    explanation: "The goalie may use their hand to catch or deflect the ball, but only within the crease. Outside the crease, normal field rules apply."  # optional
 
   - type: truefalse
     text: "The goalie may leave the crease to play the ball."
     answer: true
+    explanation: "The goalie is allowed to leave the crease, but loses goalie privileges outside it."
 
   - type: multi
     text: "Which of the following apply to the goalie position?"
@@ -53,6 +56,7 @@ questions:
       - "Is allowed to throw the ball"
       - "Cannot play past the centre line"
     answer: [0, 3]
+    explanation: "Goalies must wear a helmet and cannot cross the centre line. They cannot score goals or throw the ball."
 ---
 ```
 
@@ -77,8 +81,14 @@ Extends `default.html`. Structure:
 3. **Results screen** — shown after last question:
    - Doughnut chart: correct (teal `#00f2ff`) vs incorrect (dark red `#c0392b`)
    - Score as `X / Y` and percentage
-   - Per-question breakdown (✅ / ❌ with correct answer shown for wrong ones)
+   - Per-question breakdown:
+     - ✅ / ❌ indicator
+     - What the user answered
+     - The correct answer (always shown, highlighted in teal)
+     - Explanation text below in a subtle style (grey, slightly smaller) — if `explanation` is set on the question
    - "Retake" button → resets to name splash
+
+If `show_explanation_inline: true` in the quiz front matter, the explanation is also shown **immediately after the user answers each question** (before the Next button becomes active), reinforcing learning in the moment.
 
 Inject quiz data from Jekyll into JS:
 ```html
