@@ -26,6 +26,10 @@
 
   <header class="vault-header">
     <a class="vault-header__logo" href="{{ site.baseurl }}/">⬡ Goalie Vault</a>
+    <nav class="vault-nav">
+      <a href="{{ site.baseurl }}/" {% if page.url == '/' %}class="active"{% endif %}>Drills</a>
+      <a href="{{ site.baseurl }}/quizzes" {% if page.url contains 'quiz' %}class="active"{% endif %}>Quizzes</a>
+    </nav>
   </header>
 
   <main>{{ content }}</main>
