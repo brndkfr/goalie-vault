@@ -28,9 +28,9 @@
           <p class="quiz-splash__desc">{{ page.description }}</p>
         {% endif %}
         <p class="quiz-splash__meta">{{ page.questions.size }} questions</p>
-        <label class="quiz-splash__label" for="quiz-name">Your name</label>
+        <label class="quiz-splash__label" for="quiz-name">Your name <span class="quiz-splash__optional">(optional)</span></label>
         <input id="quiz-name" class="quiz-input" type="text" placeholder="Enter your name…" autocomplete="off">
-        <button id="quiz-start" class="quiz-btn quiz-btn--primary" disabled>Start Quiz</button>
+        <button id="quiz-start" class="quiz-btn quiz-btn--primary">Start Quiz</button>
       </div>
     </div>
 

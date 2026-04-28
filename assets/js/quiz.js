@@ -17,11 +17,8 @@
   const nameInput  = $('quiz-name');
   const startBtn   = $('quiz-start');
 
-  nameInput.addEventListener('input', () => {
-    startBtn.disabled = nameInput.value.trim().length === 0;
-  });
   nameInput.addEventListener('keydown', e => {
-    if (e.key === 'Enter' && !startBtn.disabled) startQuiz();
+    if (e.key === 'Enter') startQuiz();
   });
   startBtn.addEventListener('click', startQuiz);
 
@@ -110,8 +107,9 @@
     // Reveal correct/wrong states
     markOptions(optionBtns, q);
 
-    // Show inline explanation
-    if (SHOW_INLINE && q.explanation) {
+    // Show inline explanation only when the answer is wrong
+    const answeredCorrectly = isCorrect(q, selected);
+    if (SHOW_INLINE && q.explanation && !answeredCorrectly) {
       const box = $('quiz-explanation');
       box.innerHTML = '<strong>💡 Explanation:</strong> ' + escapeHtml(q.explanation);
       box.style.display = 'block';
@@ -160,8 +158,9 @@
     // Reveal correct/wrong visual states
     markOptions(optionBtns, q);
 
-    // Show inline explanation
-    if (SHOW_INLINE && q.explanation) {
+    // Show inline explanation only when the answer is wrong
+    const answeredCorrectly = isCorrect(q, selected);
+    if (SHOW_INLINE && q.explanation && !answeredCorrectly) {
       const box = $('quiz-explanation');
       box.innerHTML = '<strong>💡 Explanation:</strong> ' + escapeHtml(q.explanation);
       box.style.display = 'block';

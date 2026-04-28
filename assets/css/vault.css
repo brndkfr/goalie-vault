@@ -451,6 +451,12 @@ a:hover { text-decoration: underline; }
 .quiz-splash__title { font-size: 2rem; font-weight: 900; color: #fff; }
 .quiz-splash__desc  { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
 .quiz-splash__meta  { color: var(--accent); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.quiz-splash__optional {
+  font-size: 0.8em;
+  opacity: 0.55;
+  font-weight: 400;
+}
+
 .quiz-splash__label { color: var(--text-muted); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; align-self: flex-start; margin-top: 8px; }
 
 /* Shared input */
