@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Cossack Squats"
-author: "*No response*"
+author: "Freeletics"
 handle: "freeletics"
 category: [strength, stretching]
 platform: "youtube"
