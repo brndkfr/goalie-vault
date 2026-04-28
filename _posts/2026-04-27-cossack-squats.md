@@ -9,15 +9,14 @@ video_id: "uK5bgeZixIY"
 thumbnail: "https://img.youtube.com/vi/uK5bgeZixIY/hqdefault.jpg"
 description: "Cossack Squats sind perfekt für Goalies, weil sie:
 
-​Seitliche Kraft:
+​### Seitliche Kraft:
 Trainieren die Power für die lateralen Verschiebungen (Slides).
 
-​Hüft-Mobilität:
+​### Hüft-Mobilität:
 Öffnen die Hüfte für extreme Positionen (z. B. Spagat oder tiefer Sitz).
 
-​Stabilität:
-
+​### Stabilität:
 Stärken die Sehnen in Knien und Knöcheln, um Verletzungen bei schnellen Richtungswechseln vorzubeugen.
 ​
-Sie machen dich beweglicher und explosiver in der Querbewegung."
+Sie machen Dich beweglicher und explosiver in der Querbewegung."
 ---
