@@ -41,7 +41,7 @@ layout: default
   {% endif %}
 
   {% if page.description %}
-  <div class="post-description">{{ page.description }}</div>
+  <div class="post-description">{{ page.description | markdownify }}</div>
   {% endif %}
 
   {% if content != "" %}
