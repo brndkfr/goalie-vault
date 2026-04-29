@@ -8,16 +8,38 @@ body:
       value: |
         ### Thanks for contributing! 🧤
         Enter the drill name as the issue title above. Select multiple categories if the drill covers different areas.
+  - type: dropdown
+    id: existing_handle
+    attributes:
+      label: "Existing Social Media Handles"
+      description: "Select if the author has contributed before. Author name will be auto-filled."
+      options:
+        - andreaskimwallin
+        - coray99
+        - elpio98
+        - flojt76
+        - floorballgoalie_1
+        - freeletics
+        - goaliesaara
+        - janshelm
+        - swissunihockey
+        - tomas_jurco22
+        - vdu_crp.spe
+        - New handle
+  - type: input
+    id: new_handle
+    attributes:
+      label: "New Social Media Handle"
+      description: "Only fill if 'New handle' is selected above."
+      placeholder: "newhandle"
   - type: input
     id: author
     attributes:
-      label: "Author Name:"
-      placeholder: "BUK"
-  - type: input
-    id: handle
-    attributes:
-      label: "Social Media Handle:"
-      placeholder: "buk"
+      label: "Author Name"
+      description: "Required if entering a new handle. Auto-filled or overridden for existing handles."
+      placeholder: "Author Name"
+    validations:
+      required: true
   - type: checkboxes
     id: category
     attributes:

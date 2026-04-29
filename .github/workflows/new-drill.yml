@@ -30,15 +30,49 @@ jobs:
         run: |
           # Derive title from issue title (strip '[Drill]: ' prefix)
           TITLE=$(echo "${{ github.event.issue.title }}" | sed 's/^\[Drill\]: *//')
+          EXISTING_HANDLE=$(echo "$PARSE_DATA" | jq -r '.["existing-social-media-handles"]')
+          NEW_HANDLE=$(echo "$PARSE_DATA" | jq -r '.["new-social-media-handle"].text')
           AUTHOR=$(echo "$PARSE_DATA" | jq -r '.["author-name"].text')
-          HANDLE=$(echo "$PARSE_DATA" | jq -r '.["social-media-handle"].text')
           # Use links[0].src for a clean URL without angle brackets
           URL=$(echo "$PARSE_DATA" | jq -r '.["video-link"].links[0].src')
           NOTES=$(echo "$PARSE_DATA" | jq -r 'if (.["coaching-notes"].list | length) > 0 then [.["coaching-notes"].list[].text] | join(" | ") else .["coaching-notes"].text end')
           # Strip GitHub's '*No response*' placeholder for all optional fields
+          EXISTING_HANDLE=$(echo "$EXISTING_HANDLE" | sed 's/^\*No response\*$//')
+          NEW_HANDLE=$(echo "$NEW_HANDLE" | sed 's/^\*No response\*$//')
           AUTHOR=$(echo "$AUTHOR" | sed 's/^\*No response\*$//')
-          HANDLE=$(echo "$HANDLE" | sed 's/^\*No response\*$//')
           NOTES=$(echo "$NOTES" | sed 's/^\*No response\*$//')
+          # Handle author and handle logic
+          if [ "$EXISTING_HANDLE" != "New handle" ]; then
+            HANDLE="$EXISTING_HANDLE"
+            FILE=$(grep -l "handle: \"$HANDLE\"" _posts/*.md 2>/dev/null || true)
+            if [ -n "$FILE" ]; then
+              AUTHOR=$(sed -n '/^---/,/^---/p' "$FILE" | grep "^author:" | sed 's/author: //' | tr -d '"' | xargs)
+              echo "Using existing author: $AUTHOR for handle $HANDLE"
+            else
+              gh issue comment ${{ github.event.issue.number }} --body "Selected handle '$HANDLE' not found. Please check."
+              exit 1
+            fi
+          else
+            HANDLE="$NEW_HANDLE"
+            if [ -n "$HANDLE" ]; then
+              FILE=$(grep -l "handle: \"$HANDLE\"" _posts/*.md 2>/dev/null || true)
+              if [ -n "$FILE" ]; then
+                AUTHOR=$(sed -n '/^---/,/^---/p' "$FILE" | grep "^author:" | sed 's/author: //' | tr -d '"' | xargs)
+                echo "Overriding with existing author: $AUTHOR for handle $HANDLE"
+              else
+                # Use provided AUTHOR
+                if [ -z "$AUTHOR" ]; then
+                  gh issue comment ${{ github.event.issue.number }} --body "No author provided for new handle."
+                  exit 1
+                fi
+              fi
+            else
+              gh issue comment ${{ github.event.issue.number }} --body "No handle provided."
+              exit 1
+            fi
+          fi
+          echo "FINAL_HANDLE=$HANDLE" >> $GITHUB_ENV
+          echo "WAS_NEW=$([ "$EXISTING_HANDLE" == "New handle" ] && echo true || echo false)" >> $GITHUB_ENV
           # Process Checkboxes: use the structured list array instead of raw text
           CATEGORY=$(echo "$PARSE_DATA" | jq -r '.categories.list[] | select(.checked == true) | .text' | paste -sd ',' - | sed 's/,/, /g')
 
@@ -142,4 +176,14 @@ jobs:
         run: gh issue close ${{ github.event.issue.number }} --comment "Success! The drill is now live in the Vault. ✅"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update Template if New Handle
+        if: env.WAS_NEW == 'true'
+        run: |
+          if ! grep -q "${{ env.FINAL_HANDLE }}" .github/ISSUE_TEMPLATE/new-drill.yml; then
+            sed -i "/New handle/a\        - ${{ env.FINAL_HANDLE }}" .github/ISSUE_TEMPLATE/new-drill.yml
+            git add .github/ISSUE_TEMPLATE/new-drill.yml
+            git commit -m "Update template with new handle ${{ env.FINAL_HANDLE }}"
+            git push
+          fi
           
