@@ -1,0 +1,235 @@
+---
+layout: default
+---
+<div class="post-container article-container">
+
+  <header class="post-header">
+    {% if page.tags %}
+    <div class="post-header__tags">
+      {% for tag in page.tags %}<span class="drill-card__tag">{{ tag }}</span>{% endfor %}
+    </div>
+    {% endif %}
+    <div class="article-header-row">
+      <h1 class="post-header__title">{{ page.title }}</h1>
+      <div class="lang-switcher">
+        <button class="lang-btn" data-target="de">DE</button>
+        <button class="lang-btn" data-target="en">EN</button>
+      </div>
+    </div>
+    {% if page.description %}
+    <p class="post-header__meta">
+      <span data-lang="de">{{ page.description.de }}</span>
+      <span data-lang="en">{{ page.description.en }}</span>
+    </p>
+    {% endif %}
+  </header>
+
+  {% if page.intro %}
+  <div class="post-description">
+    <span data-lang="de">{{ page.intro.de }}</span>
+    <span data-lang="en">{{ page.intro.en }}</span>
+  </div>
+  {% endif %}
+
+  {% for phase in page.phases %}
+  <section class="program-phase">
+    <h2 class="program-phase__title">
+      <span data-lang="de">{{ phase.title.de }}</span>
+      <span data-lang="en">{{ phase.title.en }}</span>
+      <span class="drill-card__tag program-phase__duration">{{ phase.duration }}</span>
+    </h2>
+    {% if phase.focus %}
+    <p class="program-phase__focus">
+      <span data-lang="de">{{ phase.focus.de }}</span>
+      <span data-lang="en">{{ phase.focus.en }}</span>
+    </p>
+    {% endif %}
+
+    {% for ex in phase.exercises %}
+    {% assign dur_seconds = ex.duration | split: "s" | first | plus: 0 %}
+    <div class="program-exercise">
+      <div class="program-exercise__grid">
+        <div class="program-exercise__text">
+          <div class="program-exercise__header">
+            <span class="program-exercise__name">{{ ex.name }}</span>
+            <button class="timer-launch-btn"
+                    data-duration="{{ dur_seconds }}"
+                    data-name="{{ ex.name }}"
+                    aria-label="Start timer">&#9200; {{ ex.duration }}</button>
+            {% if ex.link %}
+            <a class="program-exercise__link" href="{{ site.baseurl }}{{ ex.link }}">View drill &rarr;</a>
+            {% endif %}
+          </div>
+          {% if ex.note %}
+          <p class="program-exercise__note">
+            <span data-lang="de">{{ ex.note.de }}</span>
+            <span data-lang="en">{{ ex.note.en }}</span>
+          </p>
+          {% endif %}
+          {% if ex.why %}
+          <p class="program-exercise__why">
+            <span data-lang="de"><strong>Warum:</strong> {{ ex.why.de }}</span>
+            <span data-lang="en"><strong>Why:</strong> {{ ex.why.en }}</span>
+          </p>
+          {% endif %}
+        </div>
+        {% if ex.video_id %}
+        <div class="program-exercise__video">
+          <iframe src="https://www.youtube.com/embed/{{ ex.video_id }}"
+                  allowfullscreen
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  loading="lazy"></iframe>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+
+    {% if phase.rest %}
+    <div class="program-rest">{{ phase.rest }}</div>
+    {% endif %}
+  </section>
+  {% endfor %}
+
+  {% if page.tips %}
+  <section class="program-phase program-tips">
+    <h2 class="program-phase__title">
+      <span data-lang="de">Physio-Tipps</span>
+      <span data-lang="en">Physio Tips</span>
+    </h2>
+    <ul class="program-tips__list">
+      {% for tip in page.tips %}
+      <li>
+        <span data-lang="de">{{ tip.de }}</span>
+        <span data-lang="en">{{ tip.en }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if content != "" %}<div class="post-content">{{ content }}</div>{% endif %}
+
+  <a href="{{ site.baseurl }}/programs" class="back-btn">&#8592; Back to Programs</a>
+
+  <div class="post-disclaimer">
+    Videos &copy; respective creators &mdash; Coaching notes &copy; Bernd Kiefer,
+    licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>.
+  </div>
+</div>
+
+<!-- Timer overlay -->
+<div class="timer-overlay" id="timerOverlay" hidden>
+  <button class="timer-close" id="timerClose" aria-label="Close timer">&times;</button>
+  <div class="timer-ex-name" id="timerExName"></div>
+  <div class="timer-display">
+    <svg class="timer-ring" viewBox="0 0 200 200" aria-hidden="true">
+      <circle class="timer-ring__bg"       cx="100" cy="100" r="88"/>
+      <circle class="timer-ring__progress" cx="100" cy="100" r="88" id="timerRingArc"/>
+    </svg>
+    <div class="timer-number" id="timerNumber">0</div>
+  </div>
+  <div class="timer-controls">
+    <button class="timer-ctrl-btn timer-ctrl-btn--primary"   id="timerToggle">Start</button>
+    <button class="timer-ctrl-btn timer-ctrl-btn--secondary" id="timerReset">Reset</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  /* ── Language toggle ── */
+  var saved = localStorage.getItem('vault-lang') || 'de';
+  function setLang(lang) {
+    document.querySelectorAll('[data-lang]').forEach(function (el) {
+      el.hidden = el.dataset.lang !== lang;
+    });
+    document.querySelectorAll('.lang-btn').forEach(function (btn) {
+      btn.classList.toggle('active', btn.dataset.target === lang);
+    });
+    localStorage.setItem('vault-lang', lang);
+  }
+  document.querySelectorAll('.lang-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () { setLang(btn.dataset.target); });
+  });
+  setLang(saved);
+
+  /* ── Timer ── */
+  var CIRC      = 2 * Math.PI * 88;
+  var overlay   = document.getElementById('timerOverlay');
+  var exName    = document.getElementById('timerExName');
+  var number    = document.getElementById('timerNumber');
+  var arc       = document.getElementById('timerRingArc');
+  var toggleBtn = document.getElementById('timerToggle');
+  var resetBtn  = document.getElementById('timerReset');
+  var closeBtn  = document.getElementById('timerClose');
+
+  var total = 0, remaining = 0, running = false, iv = null;
+
+  arc.style.strokeDasharray  = CIRC;
+  arc.style.strokeDashoffset = 0;
+
+  function render() {
+    number.textContent = remaining;
+    var progress = total > 0 ? (total - remaining) / total : 0;
+    arc.style.strokeDashoffset = CIRC * progress;
+  }
+
+  function openTimer(name, seconds) {
+    total = remaining = seconds;
+    running = false;
+    clearInterval(iv);
+    exName.textContent = name;
+    toggleBtn.textContent = 'Start';
+    arc.classList.remove('timer-ring__progress--done');
+    render();
+    overlay.hidden = false;
+  }
+
+  function toggle() {
+    if (remaining <= 0) return;
+    if (running) {
+      clearInterval(iv);
+      running = false;
+      toggleBtn.textContent = 'Resume';
+    } else {
+      running = true;
+      toggleBtn.textContent = 'Pause';
+      iv = setInterval(function () {
+        remaining--;
+        render();
+        if (remaining <= 0) {
+          clearInterval(iv);
+          running = false;
+          toggleBtn.textContent = 'Done!';
+          arc.classList.add('timer-ring__progress--done');
+          if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+        }
+      }, 1000);
+    }
+  }
+
+  function reset() {
+    clearInterval(iv);
+    running = false;
+    remaining = total;
+    toggleBtn.textContent = 'Start';
+    arc.classList.remove('timer-ring__progress--done');
+    render();
+  }
+
+  function closeTimer() {
+    clearInterval(iv);
+    running = false;
+    overlay.hidden = true;
+  }
+
+  toggleBtn.addEventListener('click', toggle);
+  resetBtn.addEventListener('click', reset);
+  closeBtn.addEventListener('click', closeTimer);
+
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.timer-launch-btn');
+    if (btn) openTimer(btn.dataset.name, parseInt(btn.dataset.duration, 10));
+  });
+})();
+</script>
