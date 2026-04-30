@@ -829,8 +829,8 @@ a:hover { text-decoration: underline; }
   padding: 32px 24px 56px;
   animation: overlayFadeIn 0.2s ease;
 }
-/* prevent animation re-trigger when [hidden] is toggled back */
-.timer-overlay[hidden] { animation: none; }
+/* hidden attribute must win over display:flex above */
+.timer-overlay[hidden] { display: none !important; animation: none; }
 
 /* celebration: green flash on the overlay background */
 @keyframes timerFlash {
