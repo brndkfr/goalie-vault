@@ -3,6 +3,12 @@ layout: default
 ---
 <div class="post-container article-container">
 
+  {% if page.hero_image %}
+  <div class="article-hero">
+    <img src="{{ site.baseurl }}{{ page.hero_image }}" alt="{{ page.title }}" class="article-hero__img">
+  </div>
+  {% endif %}
+
   <header class="post-header">
     {% if page.tags %}
     <div class="post-header__tags">
