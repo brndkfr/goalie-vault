@@ -13,11 +13,17 @@ description: "Structured training programs for floorball goalies."
   <div class="quiz-grid">
     {% for article in site.articles %}
     <a class="quiz-card" href="{{ site.baseurl }}{{ article.url }}">
+      {% if article.thumbnail %}
+      <div class="quiz-card__thumb">
+        <img src="{{ site.baseurl }}{{ article.thumbnail }}" alt="{{ article.title }}">
+      </div>
+      {% else %}
       <div class="quiz-card__thumb quiz-card__thumb--placeholder">
         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#00f2ff" stroke-width="1.5">
-          <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+          <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1 2-2h11"/>
         </svg>
       </div>
+      {% endif %}
       <div class="quiz-card__body">
         {% if article.phases %}<span class="quiz-card__count">{{ article.phases.size }} phases</span>{% endif %}
         <h2 class="quiz-card__title">{{ article.title }}</h2>

@@ -968,3 +968,25 @@ a:hover { text-decoration: underline; }
   background: rgba(0,242,255,0.15);
   border-color: var(--accent);
 }
+
+/* Article hero image */
+.article-hero {
+  width: 100%;
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.article-hero__img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  max-height: 320px;
+}
+
+/* Program card with real thumbnail */
+.quiz-card__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
