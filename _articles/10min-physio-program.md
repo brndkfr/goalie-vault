@@ -1,8 +1,8 @@
 ---
 layout: article
 title: "10-Minute Goalie Physio Program"
-thumbnail: /assets/images/articles/10min-physio-excercise.png
-hero_image: /assets/images/articles/10min-physio-excercise.png
+thumbnail: /assets/images/articles/10min-physio-excercise.webp
+hero_image: /assets/images/articles/10min-physio-excercise.webp
 description:
   de: "Strukturierter Physio-Flow für Floorball-Goalies. Qualität über Geschwindigkeit!"
   en: "Structured physio flow for floorball goalies. Quality over speed!"
