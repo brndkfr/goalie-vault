@@ -3,7 +3,7 @@ layout: post
 title: "Hand-Eye coordination - Pick a Color"
 author: "Saara"
 handle: "goaliesaara"
-category: []
+category: [warmup, coordination]
 platform: "instagram"
 video_id: "BlNZxNjDCNR"
 thumbnail: "/assets/images/thumbs/BlNZxNjDCNR.jpg"
