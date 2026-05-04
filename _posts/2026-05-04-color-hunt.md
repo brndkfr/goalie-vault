@@ -5,7 +5,7 @@ author: ""
 handle: ""
 category: [warmup, coordination, strength, reaction, movement]
 platform: "youtube"
-video_id: "null"
+video_id: "CU_5DANspdQ"
 thumbnail: "https://img.youtube.com/vi/null/hqdefault.jpg"
 description: "Der Torwart steht mit dem Rücken zu den farbigen Objekten und dreht sich um, wenn eine Farbe genannt wird. Das Ziel ist es, alle Objekte dieser Farbe so schnell wie möglich zu berühren. Damit die Übung nicht monoton wird und der Torwart sich die Positionen der farbigen Objekte nicht einprägt, empfiehlt es sich, die Objekte neu anzuordnen, nachdem alle Farben genannt wurden. Diese Übung eignet sich hervorragend für schnelle Entscheidungsfindung, räumliches Vorstellungsvermögen und Schnelligkeit.
 
