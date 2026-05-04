@@ -6,6 +6,6 @@ handle: "flojt76"
 category: [stretching]
 platform: "instagram"
 video_id: "CpQNjccofpu"
-thumbnail: ""
+thumbnail: "skip"
 description: ""
 ---
