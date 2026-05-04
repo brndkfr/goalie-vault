@@ -6,6 +6,6 @@ handle: "vdu_crp.spe"
 category: [warmup, coordination, strength, reaction, movement]
 platform: "instagram"
 video_id: "DUjRucmiAFy"
-thumbnail: ""
+thumbnail: "skip"
 description: "Nice warmup exercise."
 ---

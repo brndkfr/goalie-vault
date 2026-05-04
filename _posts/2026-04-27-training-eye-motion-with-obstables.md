@@ -6,6 +6,6 @@ handle: "vdu_crp.spe"
 category: [warmup, coordination, reaction]
 platform: "instagram"
 video_id: "DWGuKktiELx"
-thumbnail: ""
+thumbnail: "skip"
 description: "Training eye motion, reaction and coordination."
 ---
