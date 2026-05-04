@@ -13,14 +13,14 @@ title: "Goalie Vault"
   <!-- Filter bar -->
   <div class="filter-bar" id="filterBar">
     <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="warmup">Warmup</button>
-    <button class="filter-btn" data-filter="coordination">Coordination</button>
-    <button class="filter-btn" data-filter="strength">Strength</button>
-    <button class="filter-btn" data-filter="stretching">Stretching</button>
-    <button class="filter-btn" data-filter="goal-technical">Goal Technical</button>
-    <button class="filter-btn" data-filter="reaction">Reaction</button>
-    <button class="filter-btn" data-filter="movement">Movement</button>
-    <button class="filter-btn" data-filter="theory">Theory</button>
+    <a class="filter-btn" href="{{ site.baseurl }}/warmup/">Warmup</a>
+    <a class="filter-btn" href="{{ site.baseurl }}/coordination/">Coordination</a>
+    <a class="filter-btn" href="{{ site.baseurl }}/strength/">Strength</a>
+    <a class="filter-btn" href="{{ site.baseurl }}/stretching/">Stretching</a>
+    <a class="filter-btn" href="{{ site.baseurl }}/goal-technical/">Goal Technical</a>
+    <a class="filter-btn" href="{{ site.baseurl }}/reaction/">Reaction</a>
+    <a class="filter-btn" href="{{ site.baseurl }}/movement/">Movement</a>
+    <a class="filter-btn" href="{{ site.baseurl }}/theory/">Theory</a>
   </div>
 
   <!-- Drill grid -->
