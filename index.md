@@ -10,17 +10,17 @@ title: "Goalie Vault"
     <h1 class="vault-hero__title">Goalie Vault</h1>
   </div>
 
-  <!-- Filter bar -->
+  <!-- Filter bar (multi-select: toggle any combination) -->
   <div class="filter-bar" id="filterBar">
     <button class="filter-btn active" data-filter="all">All</button>
-    <a class="filter-btn" href="{{ site.baseurl }}/warmup/">Warmup</a>
-    <a class="filter-btn" href="{{ site.baseurl }}/coordination/">Coordination</a>
-    <a class="filter-btn" href="{{ site.baseurl }}/strength/">Strength</a>
-    <a class="filter-btn" href="{{ site.baseurl }}/stretching/">Stretching</a>
-    <a class="filter-btn" href="{{ site.baseurl }}/goal-technical/">Goal Technical</a>
-    <a class="filter-btn" href="{{ site.baseurl }}/reaction/">Reaction</a>
-    <a class="filter-btn" href="{{ site.baseurl }}/movement/">Movement</a>
-    <a class="filter-btn" href="{{ site.baseurl }}/theory/">Theory</a>
+    <button class="filter-btn" data-filter="warmup">Warmup</button>
+    <button class="filter-btn" data-filter="coordination">Coordination</button>
+    <button class="filter-btn" data-filter="strength">Strength</button>
+    <button class="filter-btn" data-filter="stretching">Stretching</button>
+    <button class="filter-btn" data-filter="goal-technical">Goal Technical</button>
+    <button class="filter-btn" data-filter="reaction">Reaction</button>
+    <button class="filter-btn" data-filter="movement">Movement</button>
+    <button class="filter-btn" data-filter="theory">Theory</button>
   </div>
 
   <!-- Drill grid -->
@@ -54,7 +54,7 @@ title: "Goalie Vault"
           {% if post.category %}
           <div class="drill-card__tags">
             {% for cat in post.category %}
-              <span class="drill-card__tag">{{ cat }}</span>
+              <a class="drill-card__tag" href="{{ site.baseurl }}/{{ cat }}/" onclick="event.stopPropagation();">{{ cat }}</a>
             {% endfor %}
           </div>
           {% endif %}
@@ -75,30 +75,51 @@ title: "Goalie Vault"
 
 <script>
   (function () {
-    var btns  = document.querySelectorAll('.filter-btn');
+    var allBtn = document.querySelector('.filter-btn[data-filter="all"]');
+    var catBtns = document.querySelectorAll('.filter-btn:not([data-filter="all"])');
     var cards = document.querySelectorAll('.drill-card');
     var none  = document.getElementById('noResults');
 
-    btns.forEach(function (btn) {
+    function getActiveFilters() {
+      var active = [];
+      catBtns.forEach(function (b) {
+        if (b.classList.contains('active')) active.push(b.dataset.filter);
+      });
+      return active;
+    }
+
+    function applyFilters() {
+      var active = getActiveFilters();
+      var showAll = active.length === 0;
+
+      // sync "All" button state
+      allBtn.classList.toggle('active', showAll);
+
+      var visible = 0;
+      cards.forEach(function (card) {
+        var cats = (card.dataset.categories || '').split(',');
+        if (showAll || active.some(function (f) { return cats.indexOf(f) !== -1; })) {
+          card.classList.remove('hidden');
+          visible++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+      none.classList.toggle('visible', visible === 0);
+    }
+
+    // "All" resets everything
+    allBtn.addEventListener('click', function () {
+      catBtns.forEach(function (b) { b.classList.remove('active'); });
+      applyFilters();
+    });
+
+    // Category buttons toggle on/off
+    catBtns.forEach(function (btn) {
       btn.addEventListener('click', function () {
-        var filter = btn.dataset.filter;
-
-        // toggle active btn
-        btns.forEach(function (b) { b.classList.remove('active'); });
-        btn.classList.add('active');
-
-        var visible = 0;
-        cards.forEach(function (card) {
-          var cats = card.dataset.categories || '';
-          if (filter === 'all' || cats.split(',').indexOf(filter) !== -1) {
-            card.classList.remove('hidden');
-            visible++;
-          } else {
-            card.classList.add('hidden');
-          }
-        });
-
-        none.classList.toggle('visible', visible === 0);
+        btn.classList.toggle('active');
+        allBtn.classList.remove('active');
+        applyFilters();
       });
     });
   })();
