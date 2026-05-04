@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Color Hunt"
-author: ""
-handle: ""
+author: "97 FLOORBALL GOALIE TRAINING"
+handle: "97floorballgoalietraining"
 category: [warmup, coordination, strength, reaction, movement]
 platform: "instagram"
 video_id: "CU_5DANspdQ"
