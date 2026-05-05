@@ -1,0 +1,12 @@
+---
+layout: post
+title: "Single Leg Hop - Einbeiniger Sprung vorwärts"
+author: "Swiss Unihockey"
+handle: "@swissunihockey"
+category: [coordination, strength, movement]
+platform: "youtube"
+video_id: "cJg9zqRotxU"
+thumbnail: "https://img.youtube.com/vi/cJg9zqRotxU/hqdefault.jpg"
+description: "Leistungsdiagnostik - PISTE-Selektion U13 / U15 Frauen und Männer
+Performance assessment - PISTE selection: U13 / U15 girls and boys"
+---
