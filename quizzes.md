@@ -13,8 +13,10 @@ description: "Test your floorball goalie knowledge with these quizzes."
   <div class="quiz-grid">
     {% for quiz in site.quizzes %}
     <a class="quiz-card" href="{{ site.baseurl }}{{ quiz.url }}">
+      {% assign quiz_title = quiz.title.en | default: quiz.title %}
+      {% assign quiz_desc  = quiz.description.en | default: quiz.description %}
       {% if quiz.cover_image and quiz.cover_image != "" %}
-        <img class="quiz-card__thumb" src="{{ quiz.cover_image }}" alt="{{ quiz.title }}" loading="lazy">
+        <img class="quiz-card__thumb" src="{{ quiz.cover_image }}" alt="{{ quiz_title }}" loading="lazy">
       {% else %}
         <div class="quiz-card__thumb quiz-card__thumb--placeholder">
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#00f2ff" stroke-width="1.5">
@@ -24,9 +26,9 @@ description: "Test your floorball goalie knowledge with these quizzes."
       {% endif %}
       <div class="quiz-card__body">
         <span class="quiz-card__count">{{ quiz.questions.size }} questions</span>
-        <h2 class="quiz-card__title">{{ quiz.title }}</h2>
-        {% if quiz.description %}
-          <p class="quiz-card__desc">{{ quiz.description }}</p>
+        <h2 class="quiz-card__title">{{ quiz_title }}</h2>
+        {% if quiz_desc %}
+          <p class="quiz-card__desc">{{ quiz_desc }}</p>
         {% endif %}
       </div>
     </a>

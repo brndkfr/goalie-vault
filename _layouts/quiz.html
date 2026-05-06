@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>{{ page.title }} | {{ site.title }}</title>
+  {%- assign page_title = page.title.en | default: page.title -%}
+  <title>{{ page_title }} | {{ site.title }}</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23121212'/><polygon points='50,10 85,30 85,70 50,90 15,70 15,30' fill='none' stroke='%2300f2ff' stroke-width='8'/><text x='50' y='67' font-size='42' font-family='sans-serif' font-weight='bold' fill='%2300f2ff' text-anchor='middle'>G</text></svg>">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/vault.css">
@@ -23,14 +24,40 @@
     <!-- Splash screen -->
     <div id="quiz-splash" class="quiz-splash">
       <div class="quiz-splash__inner">
-        <h1 class="quiz-splash__title">{{ page.title }}</h1>
+        <div class="quiz-splash__header-row">
+          <h1 class="quiz-splash__title">
+            {%- if page.title.de or page.title.en -%}
+              <span data-lang="de">{{ page.title.de }}</span><span data-lang="en">{{ page.title.en }}</span>
+            {%- else -%}
+              {{ page.title }}
+            {%- endif -%}
+          </h1>
+          {% if page.title.de and page.title.en %}
+          <div class="lang-switcher">
+            <button class="lang-btn" data-target="de">DE</button>
+            <button class="lang-btn" data-target="en">EN</button>
+          </div>
+          {% endif %}
+        </div>
         {% if page.description %}
-          <p class="quiz-splash__desc">{{ page.description }}</p>
+        <p class="quiz-splash__desc">
+          {%- if page.description.de or page.description.en -%}
+            <span data-lang="de">{{ page.description.de }}</span><span data-lang="en">{{ page.description.en }}</span>
+          {%- else -%}
+            {{ page.description }}
+          {%- endif -%}
+        </p>
         {% endif %}
-        <p class="quiz-splash__meta">{{ page.questions.size }} questions</p>
-        <label class="quiz-splash__label" for="quiz-name">Your name <span class="quiz-splash__optional">(optional)</span></label>
-        <input id="quiz-name" class="quiz-input" type="text" placeholder="Enter your name…" autocomplete="off">
-        <button id="quiz-start" class="quiz-btn quiz-btn--primary">Start Quiz</button>
+        <p class="quiz-splash__meta">
+          <span data-lang="de">{{ page.questions.size }} Fragen</span><span data-lang="en">{{ page.questions.size }} questions</span>
+        </p>
+        <label class="quiz-splash__label" for="quiz-name">
+          <span data-lang="de">Dein Name <span class="quiz-splash__optional">(optional)</span></span><span data-lang="en">Your name <span class="quiz-splash__optional">(optional)</span></span>
+        </label>
+        <input id="quiz-name" class="quiz-input" type="text" autocomplete="off">
+        <button id="quiz-start" class="quiz-btn quiz-btn--primary">
+          <span data-lang="de">Quiz starten</span><span data-lang="en">Start Quiz</span>
+        </button>
       </div>
     </div>
 
@@ -44,7 +71,7 @@
         <h2 id="quiz-q-text" class="quiz-q-text"></h2>
         <div id="quiz-options" class="quiz-options"></div>
         <div id="quiz-explanation" class="quiz-explanation" style="display:none"></div>
-        <button id="quiz-next" class="quiz-btn quiz-btn--primary" disabled>Next</button>
+        <button id="quiz-next" class="quiz-btn quiz-btn--primary" disabled></button>
       </div>
     </div>
 
@@ -58,7 +85,9 @@
         <p id="quiz-score-text" class="quiz-score-text"></p>
       </div>
       <div id="quiz-breakdown" class="quiz-breakdown"></div>
-      <button id="quiz-retake" class="quiz-btn quiz-btn--primary">Retake Quiz</button>
+      <button id="quiz-retake" class="quiz-btn quiz-btn--primary">
+        <span data-lang="de">Quiz wiederholen</span><span data-lang="en">Retake Quiz</span>
+      </button>
     </div>
   </main>
 
@@ -66,6 +95,8 @@
   <script>
     const QUIZ_DATA     = {{ page.questions | jsonify }};
     const QUIZ_TITLE    = {{ page.title | jsonify }};
+    const QUIZ_LANGS    = {{ page.languages | default: "en" | jsonify }};
+    const DEFAULT_LANG  = {{ page.default_language | default: "de" | jsonify }};
     const SHOW_INLINE   = {{ page.show_explanation_inline | default: false | jsonify }};
     {% if site.data.quiz_config %}
     const QUIZ_CONFIG = {
@@ -78,6 +109,29 @@
     const BASE_URL = "{{ site.baseurl }}";
   </script>
   <script src="{{ site.baseurl }}/assets/js/quiz.js"></script>
+
+  <!-- Shared language toggle (mirrors _layouts/article.html) -->
+  <script>
+  (function () {
+    var saved = localStorage.getItem('vault-lang') || (typeof DEFAULT_LANG !== 'undefined' ? DEFAULT_LANG : 'de');
+    window.applyLang = function (lang) {
+      lang = lang || localStorage.getItem('vault-lang') || saved;
+      document.querySelectorAll('[data-lang]').forEach(function (el) {
+        el.hidden = el.dataset.lang !== lang;
+      });
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.classList.toggle('active', btn.dataset.target === lang);
+      });
+      localStorage.setItem('vault-lang', lang);
+      document.dispatchEvent(new CustomEvent('langchange', { detail: lang }));
+    };
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest('.lang-btn');
+      if (btn) window.applyLang(btn.dataset.target);
+    });
+    window.applyLang(saved);
+  })();
+  </script>
 
 </body>
 </html>
