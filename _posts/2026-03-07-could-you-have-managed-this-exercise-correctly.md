@@ -1,0 +1,12 @@
+---
+layout: post
+title: "Could you have managed this exercise correctly?"
+author: "SuS Stadtlohn 1920 Fußballjugend"
+handle: "susstadtlohn.fussball_jugend"
+category: [floorball, training]
+platform: "instagram"
+video_id: "DVmUNmEDCkK"
+thumbnail: "/assets/images/thumbs/DVmUNmEDCkK.jpg"
+description: "Could you have managed this exercise correctly?"
+auto_generated: true
+---

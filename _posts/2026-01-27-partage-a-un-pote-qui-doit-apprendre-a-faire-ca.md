@@ -1,0 +1,12 @@
+---
+layout: post
+title: "Partage à un pote qui doit apprendre à faire ça"
+author: "Matt_jgl"
+handle: "matthieu_jgl"
+category: [coordination]
+platform: "instagram"
+video_id: "DUBgWiGDKne"
+thumbnail: "/assets/images/thumbs/DUBgWiGDKne.jpg"
+description: "Partage à un pote qui doit apprendre à faire ça #juggling #jonglage #tuto"
+auto_generated: true
+---

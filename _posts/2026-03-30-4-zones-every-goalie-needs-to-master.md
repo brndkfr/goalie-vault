@@ -1,0 +1,12 @@
+---
+layout: post
+title: "4 zones every goalie needs to master 🥅"
+author: "WFGA"
+handle: "worldfloorballgoalieacademy"
+category: [training]
+platform: "instagram"
+video_id: "DWhZmx6DX5d"
+thumbnail: "/assets/images/thumbs/DWhZmx6DX5d.jpg"
+description: "4 zones every goalie needs to master 🥅\n\n1️⃣ Read the corner \n2️⃣ Protect the front\n3️⃣ Track & intercept\n4️⃣ Move with the ball\n\nCatch your dream! 🔥 #catchyourdream"
+auto_generated: true
+---

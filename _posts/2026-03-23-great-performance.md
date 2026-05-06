@@ -1,0 +1,12 @@
+---
+layout: post
+title: "Great performance!"
+author: "Stefan Flöjt"
+handle: "flojt76"
+category: [training]
+platform: "instagram"
+video_id: "DWNf59JDFJw"
+thumbnail: "/assets/images/thumbs/DWNf59JDFJw.jpg"
+description: "Great performance! Notice the right hand 🌟 #floorball #innebandy #goalie"
+auto_generated: true
+---
