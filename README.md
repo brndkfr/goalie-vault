@@ -97,12 +97,15 @@ To trigger `remove-thumbnail`: go to **Actions → Remove Drill Thumbnail → Ru
 
 ```
 _posts/                  # Video drill posts (auto-generated or manual)
+_drafts/                 # Soft-deleted posts (excluded from build)
 _quizzes/                # Interactive quiz definitions (YAML front matter)
 _layouts/                # default.html, post.html, quiz.html templates
 _data/
   quiz_config.yml        # Google Sheets submission config (optional)
 assets/images/           # Logo and media
 assets/images/thumbs/    # Auto-fetched Instagram thumbnails
+scripts/                 # Local curation pipeline (see Curation Tooling)
+  curate/                # Static-served vanilla-JS UIs + manifests
 assets/js/
   quiz.js                # Quiz engine (state, scoring, Chart.js)
   api.js                 # GoalieAPI static REST fetcher
@@ -155,6 +158,43 @@ Include it on any page with `<script src="{{ site.baseurl }}/assets/js/api.js"><
 
 ---
 
+## Curation Tooling
+
+The `scripts/` folder contains a local pipeline for bulk-importing Instagram
+posts and editing existing drills. Everything runs against the static files
+in the repo — no backend, no database. Browser UIs are single HTML files
+served over `python -m http.server` and persist work-in-progress to
+`localStorage`; you export a JSON file and a Python script applies it to
+disk.
+
+**Instagram triage** — pick which Instagram links become posts.
+
+```bash
+python scripts/fetch_instagram_thumbs.py     # yt-dlp -> assets/images/thumbs/ + scripts/curate/instagram/*.json
+python scripts/build_curate_manifest.py      # -> scripts/curate/manifest.json
+python scripts/auto_categorize.py            # heuristic suggestions
+# open http://localhost:8765/scripts/curate/  -> keep / maybe / discard, edit categories, Export
+python scripts/apply_discards.py             # remove discarded thumbs+metadata
+python scripts/generate_posts.py             # write _posts/*.md for kept items
+```
+
+**Post curator** — edit or soft-delete existing `_posts/*.md`.
+
+```bash
+python scripts/build_posts_manifest.py       # -> scripts/curate/posts_manifest.json
+# open http://localhost:8765/scripts/curate/posts.html
+#   - edit title/author/handle/description, toggle multi-select category chips
+#   - mark posts for deletion, then Export
+python scripts/apply_posts_curation.py --dry-run   # preview
+python scripts/apply_posts_curation.py             # rewrite front-matter / move deletes to _drafts/
+```
+
+The curator reads the canonical category list from `index.md` so the chips
+stay in sync with the homepage filter bar. Categories present in posts but
+not on the homepage are shown as italic "extra" chips.
+
+---
+
 ## Quizzes
 
 Interactive quizzes live at [`/quizzes`](https://brndkfr.github.io/goalie-vault/quizzes). Each quiz is a Markdown file in `_quizzes/` with a YAML questions block.
@@ -171,9 +211,10 @@ The quiz engine (`assets/js/quiz.js`) handles state, scoring, and a Chart.js dou
 
 - [x] Quizzes collection (`_quizzes/`) with interactive engine
 - [x] Static REST API (`/api/v1/`)
+- [x] Live search on the drill grid
+- [x] Local curation tooling for Instagram triage and post editing
 - [ ] Articles collection (`_articles/`)
 - [ ] Category filter pages (`/warmup`, `/coordination`, etc.)
-- [ ] Search functionality
 
 ---
 
