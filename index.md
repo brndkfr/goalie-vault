@@ -23,10 +23,25 @@ title: "Goalie Vault"
     <button class="filter-btn" data-filter="theory">Theory</button>
   </div>
 
+  <!-- Search bar -->
+  <div class="search-bar">
+    <input type="search"
+           id="drillSearch"
+           class="search-input"
+           placeholder="Search drills by title, author, or tag…"
+           autocomplete="off"
+           aria-label="Search drills">
+    <button type="button" id="drillSearchClear" class="search-clear" aria-label="Clear search" hidden>&times;</button>
+  </div>
+
   <!-- Drill grid -->
   <div class="drill-grid" id="drillGrid">
     {% for post in site.posts %}
-    <div class="drill-card" data-categories="{{ post.category | join: ',' | downcase }}">
+    <div class="drill-card"
+         data-categories="{{ post.category | join: ',' | downcase }}"
+         data-title="{{ post.title | downcase | escape }}"
+         data-author="{{ post.author | downcase | escape }}"
+         data-handle="{{ post.handle | downcase | escape }}">
       <a class="drill-card__link" href="{{ site.baseurl }}{{ post.url }}">
 
         {% if post.thumbnail and post.thumbnail != "" and post.thumbnail != "skip" %}
@@ -79,6 +94,9 @@ title: "Goalie Vault"
     var catBtns = document.querySelectorAll('.filter-btn:not([data-filter="all"])');
     var cards = document.querySelectorAll('.drill-card');
     var none  = document.getElementById('noResults');
+    var search = document.getElementById('drillSearch');
+    var searchClear = document.getElementById('drillSearchClear');
+    var searchTerm = '';
 
     function getActiveFilters() {
       var active = [];
@@ -86,6 +104,15 @@ title: "Goalie Vault"
         if (b.classList.contains('active')) active.push(b.dataset.filter);
       });
       return active;
+    }
+
+    function cardMatchesSearch(card, term) {
+      if (!term) return true;
+      var hay = (card.dataset.title || '') + ' ' +
+                (card.dataset.author || '') + ' ' +
+                (card.dataset.handle || '') + ' ' +
+                (card.dataset.categories || '');
+      return hay.indexOf(term) !== -1;
     }
 
     function applyFilters() {
@@ -98,7 +125,9 @@ title: "Goalie Vault"
       var visible = 0;
       cards.forEach(function (card) {
         var cats = (card.dataset.categories || '').split(',');
-        if (showAll || active.some(function (f) { return cats.indexOf(f) !== -1; })) {
+        var catOk = showAll || active.some(function (f) { return cats.indexOf(f) !== -1; });
+        var searchOk = cardMatchesSearch(card, searchTerm);
+        if (catOk && searchOk) {
           card.classList.remove('hidden');
           visible++;
         } else {
@@ -122,5 +151,27 @@ title: "Goalie Vault"
         applyFilters();
       });
     });
+
+    // Search input (debounced)
+    var searchTimer = null;
+    function onSearchInput() {
+      searchTerm = search.value.trim().toLowerCase();
+      searchClear.hidden = searchTerm.length === 0;
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(applyFilters, 120);
+    }
+    if (search) {
+      search.addEventListener('input', onSearchInput);
+      search.addEventListener('search', onSearchInput);
+    }
+    if (searchClear) {
+      searchClear.addEventListener('click', function () {
+        search.value = '';
+        searchTerm = '';
+        searchClear.hidden = true;
+        applyFilters();
+        search.focus();
+      });
+    }
   })();
 </script>
