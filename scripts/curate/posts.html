@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Post Curator</title>
+<style>
+  :root {
+    --bg: #111;
+    --fg: #eee;
+    --muted: #888;
+    --card: #1d1d1d;
+    --border: #333;
+    --edit: #f1c40f;
+    --delete: #e74c3c;
+    --auto: #9b59b6;
+    --accent: #3498db;
+    --ok: #2ecc71;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+    font-size: 14px;
+  }
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: #181818;
+    border-bottom: 1px solid var(--border);
+    padding: 10px 16px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 14px;
+  }
+  header h1 { font-size: 16px; margin: 0 8px 0 0; font-weight: 600; }
+  .counts { display: flex; gap: 6px; flex-wrap: wrap; }
+  .count {
+    padding: 3px 8px;
+    border-radius: 10px;
+    background: #222;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    user-select: none;
+    font-size: 12px;
+  }
+  .count.active { outline: 2px solid var(--accent); }
+  .count.edit { color: var(--edit); }
+  .count.delete { color: var(--delete); }
+  .count.auto { color: var(--auto); }
+  header input[type="search"],
+  header select,
+  header button {
+    background: #222;
+    color: var(--fg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 4px 8px;
+    font: inherit;
+  }
+  header button { cursor: pointer; padding: 4px 10px; }
+  header button:hover { background: #2a2a2a; }
+  header button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  header button.primary:hover { background: #2880c4; }
+  .cat-filter {
+    display: flex; flex-wrap: wrap; gap: 4px;
+    max-width: 100%;
+  }
+  .cat-filter button {
+    padding: 2px 8px; font-size: 12px;
+    background: #222; color: var(--muted);
+    border: 1px solid var(--border); border-radius: 10px;
+    cursor: pointer;
+  }
+  .cat-filter button.on { background: var(--accent); color: #fff; border-color: var(--accent); }
+  main {
+    padding: 16px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+    gap: 14px;
+  }
+  .card {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: border-color .12s;
+  }
+  .card.edited   { border-color: var(--edit); }
+  .card.todelete { border-color: var(--delete); opacity: .65; }
+  .card-top {
+    display: flex; gap: 10px; padding: 10px;
+  }
+  .card-top img, .card-top .noimg {
+    width: 130px; height: 130px;
+    object-fit: cover; flex-shrink: 0;
+    background: #000;
+    border-radius: 4px;
+  }
+  .card-top .noimg {
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted); font-size: 11px; text-align: center;
+  }
+  .card-meta { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+  .meta-row { display: flex; gap: 6px; flex-wrap: wrap; font-size: 11px; color: var(--muted); }
+  .badge {
+    padding: 1px 6px; border-radius: 8px; background: #222; border: 1px solid var(--border);
+  }
+  .badge.platform-instagram { color: #e1306c; }
+  .badge.platform-youtube   { color: #ff4444; }
+  .badge.auto { color: var(--auto); }
+  .filename { font-family: ui-monospace, Consolas, monospace; font-size: 11px; color: var(--muted); word-break: break-all; }
+  .field { display: flex; flex-direction: column; gap: 2px; padding: 2px 10px; }
+  .field label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  .field input, .field textarea {
+    background: #161616; color: var(--fg);
+    border: 1px solid var(--border); border-radius: 3px;
+    padding: 4px 6px; font: inherit; width: 100%;
+    resize: vertical;
+  }
+  .field input:focus, .field textarea:focus { outline: 1px solid var(--accent); border-color: var(--accent); }
+  .field input.dirty, .field textarea.dirty { border-color: var(--edit); }
+  .field textarea { min-height: 50px; font-size: 13px; }
+  .cat-chips { display: flex; flex-wrap: wrap; gap: 4px; padding: 4px 10px; }
+  .cat-chips .chip {
+    padding: 2px 8px; font-size: 12px;
+    background: #222; color: var(--muted);
+    border: 1px solid var(--border); border-radius: 10px;
+    cursor: pointer; user-select: none;
+  }
+  .cat-chips .chip.on { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .cat-chips .chip.extra { font-style: italic; }
+  .cat-chips .chip.extra.on { background: #6c5b8a; border-color: #6c5b8a; }
+  .actions {
+    display: flex; gap: 6px; padding: 8px 10px 10px;
+    justify-content: flex-end; flex-wrap: wrap;
+  }
+  .actions button {
+    background: #222; color: var(--fg);
+    border: 1px solid var(--border); border-radius: 3px;
+    padding: 4px 10px; cursor: pointer; font: inherit;
+  }
+  .actions button:hover { background: #2a2a2a; }
+  .actions button.del { color: var(--delete); }
+  .actions button.del.active { background: var(--delete); color: #fff; border-color: var(--delete); }
+  .actions button.reset { color: var(--muted); }
+  #empty { padding: 40px; text-align: center; color: var(--muted); }
+</style>
+</head>
+<body>
+<header>
+  <h1>Post Curator</h1>
+  <div class="counts" id="counts"></div>
+  <input type="search" id="search" placeholder="search title/author/handle/desc" style="min-width:220px">
+  <select id="platform">
+    <option value="">all platforms</option>
+    <option value="instagram">instagram</option>
+    <option value="youtube">youtube</option>
+    <option value="">other</option>
+  </select>
+  <select id="sort">
+    <option value="date-desc">newest first</option>
+    <option value="date-asc">oldest first</option>
+    <option value="title">title A-Z</option>
+    <option value="filename">filename</option>
+  </select>
+  <button id="exportBtn" class="primary">Export</button>
+  <input type="file" id="importInput" accept="application/json" style="display:none">
+  <button id="importBtn">Import</button>
+  <button id="resetAllBtn">Reset all</button>
+  <div class="cat-filter" id="catFilter" style="flex-basis:100%"></div>
+</header>
+<main id="grid"></main>
+<div id="empty" hidden>No posts match.</div>
+
+<script>
+const STORAGE_KEY = "postCurate.v1";
+const EDITABLE = ["title", "author", "handle", "description", "category"];
+
+const state = {
+  manifest: null,
+  edits: {},          // filename -> { status?, fields? }
+  filterCats: new Set(),
+  filterPlatform: "",
+  filterStatus: "",   // "", "edit", "delete", "auto", "manual"
+  search: "",
+  sort: "date-desc",
+};
+
+function load() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) state.edits = JSON.parse(raw) || {};
+  } catch (e) { console.warn("load failed", e); }
+}
+function save() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state.edits));
+}
+
+function fieldValue(item, key) {
+  const ed = state.edits[item.filename];
+  if (ed && ed.fields && key in ed.fields) return ed.fields[key];
+  return item[key];
+}
+function isEdited(item) {
+  const ed = state.edits[item.filename];
+  if (!ed) return false;
+  if (ed.status === "delete") return false;
+  if (!ed.fields) return false;
+  return EDITABLE.some(k => k in ed.fields);
+}
+function isDeleted(item) {
+  return state.edits[item.filename]?.status === "delete";
+}
+
+function setField(filename, key, value) {
+  const orig = state.manifest.items.find(i => i.filename === filename);
+  if (!orig) return;
+  const ed = state.edits[filename] || {};
+  ed.fields = ed.fields || {};
+  // If value matches original, drop the override
+  const same = key === "category"
+    ? JSON.stringify(value) === JSON.stringify(orig.category || [])
+    : (value || "") === (orig[key] || "");
+  if (same) {
+    delete ed.fields[key];
+    if (Object.keys(ed.fields).length === 0) delete ed.fields;
+  } else {
+    ed.fields[key] = value;
+  }
+  if (!ed.fields && !ed.status) {
+    delete state.edits[filename];
+  } else {
+    state.edits[filename] = ed;
+  }
+  save();
+}
+function toggleDelete(filename) {
+  const ed = state.edits[filename] || {};
+  if (ed.status === "delete") {
+    delete ed.status;
+  } else {
+    ed.status = "delete";
+  }
+  if (!ed.status && !ed.fields) {
+    delete state.edits[filename];
+  } else {
+    state.edits[filename] = ed;
+  }
+  save();
+}
+function resetItem(filename) {
+  delete state.edits[filename];
+  save();
+}
+
+function matches(item) {
+  if (state.filterPlatform && item.platform !== state.filterPlatform) return false;
+  if (state.filterStatus === "edit" && !isEdited(item)) return false;
+  if (state.filterStatus === "delete" && !isDeleted(item)) return false;
+  if (state.filterStatus === "auto" && !item.auto_generated) return false;
+  if (state.filterStatus === "manual" && item.auto_generated) return false;
+  if (state.filterCats.size) {
+    const cats = new Set(fieldValue(item, "category") || []);
+    for (const c of state.filterCats) if (!cats.has(c)) return false;
+  }
+  if (state.search) {
+    const q = state.search.toLowerCase();
+    const hay = [
+      fieldValue(item, "title"),
+      fieldValue(item, "author"),
+      fieldValue(item, "handle"),
+      fieldValue(item, "description"),
+      item.filename,
+    ].join(" ").toLowerCase();
+    if (!hay.includes(q)) return false;
+  }
+  return true;
+}
+
+function sortItems(items) {
+  const arr = items.slice();
+  switch (state.sort) {
+    case "date-asc":  arr.sort((a,b)=> a.date.localeCompare(b.date)); break;
+    case "title":     arr.sort((a,b)=> (fieldValue(a,"title")||"").localeCompare(fieldValue(b,"title")||"")); break;
+    case "filename":  arr.sort((a,b)=> a.filename.localeCompare(b.filename)); break;
+    default:          arr.sort((a,b)=> b.date.localeCompare(a.date));
+  }
+  return arr;
+}
+
+function renderCounts() {
+  const m = state.manifest;
+  const total = m.items.length;
+  const edited = m.items.filter(isEdited).length;
+  const deleted = m.items.filter(isDeleted).length;
+  const auto = m.items.filter(i => i.auto_generated).length;
+  const manual = total - auto;
+  const el = document.getElementById("counts");
+  const groups = [
+    { key: "",       label: `all ${total}`,            cls: "" },
+    { key: "edit",   label: `edited ${edited}`,        cls: "edit" },
+    { key: "delete", label: `to delete ${deleted}`,    cls: "delete" },
+    { key: "auto",   label: `auto ${auto}`,            cls: "auto" },
+    { key: "manual", label: `manual ${manual}`,        cls: "" },
+  ];
+  el.innerHTML = "";
+  for (const g of groups) {
+    const b = document.createElement("span");
+    b.className = "count " + g.cls + (state.filterStatus === g.key ? " active" : "");
+    b.textContent = g.label;
+    b.onclick = () => { state.filterStatus = state.filterStatus === g.key ? "" : g.key; render(); };
+    el.appendChild(b);
+  }
+}
+
+function renderCatFilter() {
+  const el = document.getElementById("catFilter");
+  el.innerHTML = "";
+  const all = [
+    ...state.manifest.categories,
+    ...(state.manifest.extra_categories || []),
+  ];
+  for (const cat of all) {
+    const b = document.createElement("button");
+    b.textContent = cat;
+    if (state.filterCats.has(cat)) b.classList.add("on");
+    if (!state.manifest.categories.includes(cat)) b.title = "not in homepage filter";
+    b.onclick = () => {
+      if (state.filterCats.has(cat)) state.filterCats.delete(cat);
+      else state.filterCats.add(cat);
+      render();
+    };
+    el.appendChild(b);
+  }
+}
+
+function makeCard(item) {
+  const card = document.createElement("article");
+  card.className = "card";
+  if (isDeleted(item)) card.classList.add("todelete");
+  else if (isEdited(item)) card.classList.add("edited");
+
+  const top = document.createElement("div");
+  top.className = "card-top";
+  if (item.thumb_url) {
+    const img = document.createElement("img");
+    img.loading = "lazy";
+    img.src = item.thumb_url;
+    img.onerror = () => { img.replaceWith(Object.assign(document.createElement("div"), { className:"noimg", textContent:"no image" })); };
+    top.appendChild(img);
+  } else {
+    const ph = document.createElement("div");
+    ph.className = "noimg"; ph.textContent = "no image";
+    top.appendChild(ph);
+  }
+  const meta = document.createElement("div");
+  meta.className = "card-meta";
+  const row = document.createElement("div");
+  row.className = "meta-row";
+  if (item.platform) {
+    const b = document.createElement("span");
+    b.className = "badge platform-" + item.platform;
+    b.textContent = item.platform;
+    row.appendChild(b);
+  }
+  if (item.auto_generated) {
+    const b = document.createElement("span");
+    b.className = "badge auto";
+    b.textContent = "auto";
+    row.appendChild(b);
+  }
+  if (item.video_id) {
+    const b = document.createElement("span");
+    b.className = "badge";
+    b.textContent = item.video_id;
+    row.appendChild(b);
+  }
+  meta.appendChild(row);
+  const fn = document.createElement("div");
+  fn.className = "filename";
+  fn.textContent = item.filename;
+  meta.appendChild(fn);
+  top.appendChild(meta);
+  card.appendChild(top);
+
+  // editable scalar fields
+  const fields = [
+    { key: "title", label: "title", tag: "input" },
+    { key: "author", label: "author", tag: "input" },
+    { key: "handle", label: "handle", tag: "input" },
+    { key: "description", label: "description", tag: "textarea" },
+  ];
+  for (const f of fields) {
+    const wrap = document.createElement("div");
+    wrap.className = "field";
+    const lbl = document.createElement("label"); lbl.textContent = f.label;
+    const inp = document.createElement(f.tag);
+    inp.value = fieldValue(item, f.key) ?? "";
+    const orig = item[f.key] ?? "";
+    if (inp.value !== orig) inp.classList.add("dirty");
+    inp.addEventListener("input", () => {
+      setField(item.filename, f.key, inp.value);
+      const dirty = inp.value !== orig;
+      inp.classList.toggle("dirty", dirty);
+      updateCardClasses(card, item);
+      renderCounts();
+    });
+    wrap.append(lbl, inp);
+    card.appendChild(wrap);
+  }
+
+  // category chips
+  const catLbl = document.createElement("label");
+  catLbl.style.padding = "0 10px"; catLbl.style.fontSize = "10px";
+  catLbl.style.color = "var(--muted)"; catLbl.style.textTransform = "uppercase";
+  catLbl.textContent = "categories";
+  card.appendChild(catLbl);
+  const chips = document.createElement("div");
+  chips.className = "cat-chips";
+  const allCats = [
+    ...state.manifest.categories,
+    ...(state.manifest.extra_categories || []),
+  ];
+  // Include any odd-one-offs from this item not in either list
+  for (const c of (item.category || [])) {
+    if (!allCats.includes(c)) allCats.push(c);
+  }
+  const current = new Set(fieldValue(item, "category") || []);
+  for (const cat of allCats) {
+    const chip = document.createElement("span");
+    chip.className = "chip";
+    if (!state.manifest.categories.includes(cat)) chip.classList.add("extra");
+    if (current.has(cat)) chip.classList.add("on");
+    chip.textContent = cat;
+    chip.onclick = () => {
+      if (current.has(cat)) current.delete(cat); else current.add(cat);
+      chip.classList.toggle("on");
+      const ordered = allCats.filter(c => current.has(c));
+      setField(item.filename, "category", ordered);
+      updateCardClasses(card, item);
+      renderCounts();
+    };
+    chips.appendChild(chip);
+  }
+  card.appendChild(chips);
+
+  // actions
+  const act = document.createElement("div"); act.className = "actions";
+  const reset = document.createElement("button");
+  reset.className = "reset"; reset.textContent = "Reset";
+  reset.onclick = () => { resetItem(item.filename); render(); };
+  const del = document.createElement("button");
+  del.className = "del"; del.textContent = isDeleted(item) ? "Undelete" : "Delete";
+  if (isDeleted(item)) del.classList.add("active");
+  del.onclick = () => { toggleDelete(item.filename); render(); };
+  act.append(reset, del);
+  card.appendChild(act);
+
+  return card;
+}
+function updateCardClasses(card, item) {
+  card.classList.toggle("todelete", isDeleted(item));
+  card.classList.toggle("edited", !isDeleted(item) && isEdited(item));
+}
+
+function render() {
+  renderCounts();
+  renderCatFilter();
+  const grid = document.getElementById("grid");
+  grid.innerHTML = "";
+  const items = sortItems(state.manifest.items.filter(matches));
+  for (const it of items) grid.appendChild(makeCard(it));
+  document.getElementById("empty").hidden = items.length > 0;
+}
+
+function exportEdits() {
+  const blob = new Blob([JSON.stringify(state.edits, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = "posts_curation.json";
+  document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
+}
+function importEdits(file) {
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const d = JSON.parse(reader.result);
+      const edits = d && typeof d === "object" && "edits" in d ? d.edits : d;
+      state.edits = edits || {};
+      save(); render();
+    } catch (e) { alert("Import failed: " + e); }
+  };
+  reader.readAsText(file);
+}
+
+(async function init() {
+  load();
+  const res = await fetch("posts_manifest.json", { cache: "no-store" });
+  state.manifest = await res.json();
+
+  document.getElementById("search").addEventListener("input", e => {
+    state.search = e.target.value.trim(); render();
+  });
+  document.getElementById("platform").addEventListener("change", e => {
+    state.filterPlatform = e.target.value; render();
+  });
+  document.getElementById("sort").addEventListener("change", e => {
+    state.sort = e.target.value; render();
+  });
+  document.getElementById("exportBtn").onclick = exportEdits;
+  document.getElementById("importBtn").onclick = () => document.getElementById("importInput").click();
+  document.getElementById("importInput").onchange = e => {
+    const f = e.target.files?.[0]; if (f) importEdits(f);
+    e.target.value = "";
+  };
+  document.getElementById("resetAllBtn").onclick = () => {
+    if (confirm("Discard ALL local edits? This only clears the browser state; files on disk are untouched.")) {
+      state.edits = {}; save(); render();
+    }
+  };
+  render();
+})();
+</script>
+</body>
+</html>
