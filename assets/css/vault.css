@@ -117,6 +117,42 @@ a:hover { text-decoration: underline; }
   text-decoration: none;
 }
 
+/* ── Search bar ── */
+.search-bar {
+  position: relative;
+  max-width: 520px;
+  margin: 0 auto 18px;
+}
+.search-input {
+  width: 100%;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid #333;
+  border-radius: 30px;
+  padding: 10px 38px 10px 18px;
+  font-size: 0.95rem;
+  font-family: var(--font);
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+.search-input::placeholder { color: var(--text-muted); }
+.search-input:focus { border-color: var(--accent); }
+.search-input::-webkit-search-cancel-button { display: none; }
+.search-clear {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  color: var(--text-muted);
+  border: none;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 6px;
+}
+.search-clear:hover { color: var(--text); }
+
 /* ── Drill grid ── */
 .drill-grid {
   display: grid;
