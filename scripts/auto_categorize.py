@@ -1,6 +1,6 @@
 """Auto-suggest categories for Instagram posts based on title + description.
 
-Reads _data/instagram/*.json, scores each post against keyword sets, and
+Reads scripts/curate/instagram/*.json, scores each post against keyword sets, and
 writes scripts/curate/curation_suggestions.json in the same shape the
 curator UI imports: { <id>: { category: "..." } }.
 
@@ -19,7 +19,7 @@ from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-META_DIR = ROOT / "_data" / "instagram"
+META_DIR = ROOT / "scripts" / "curate" / "instagram"
 OUT = ROOT / "scripts" / "curate" / "curation_suggestions.json"
 
 # Keyword bank. Order matters only for tie-breaking (later category wins).

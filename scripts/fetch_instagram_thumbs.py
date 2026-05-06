@@ -2,7 +2,7 @@
 
 For each unique Instagram post ID found in the doc:
   * Download the thumbnail to assets/images/thumbs/<id>.<ext>
-  * Save metadata JSON to _data/instagram/<id>.json
+  * Save metadata JSON to scripts/curate/instagram/<id>.json
 
 Both files act as resume state: an ID is skipped if its JSON already exists.
 The markdown is then rewritten so each link group is replaced by an inline
@@ -27,7 +27,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DOC = ROOT / "scripts" / "curate" / "instagram_links.md"
 THUMB_DIR = ROOT / "assets" / "images" / "thumbs"
-META_DIR = ROOT / "_data" / "instagram"
+META_DIR = ROOT / "scripts" / "curate" / "instagram"
 THUMB_REL = "/assets/images/thumbs"
 
 LINK_RE = re.compile(r"^https://www\.instagram\.com/p/([A-Za-z0-9_-]+)/?\s*$")
