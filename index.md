@@ -10,28 +10,32 @@ title: "Goalie Vault"
     <h1 class="vault-hero__title">Goalie Vault</h1>
   </div>
 
-  <!-- Filter bar (multi-select: toggle any combination) -->
-  <div class="filter-bar" id="filterBar">
-    <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="warmup">Warmup</button>
-    <button class="filter-btn" data-filter="coordination">Coordination</button>
-    <button class="filter-btn" data-filter="strength">Strength</button>
-    <button class="filter-btn" data-filter="stretching">Stretching</button>
-    <button class="filter-btn" data-filter="goal-technical">Goal Technical</button>
-    <button class="filter-btn" data-filter="reaction">Reaction</button>
-    <button class="filter-btn" data-filter="movement">Movement</button>
-    <button class="filter-btn" data-filter="theory">Theory</button>
-  </div>
+  <!-- Filter & search toolbar -->
+  <div class="vault-toolbar" markdown="0">
+    <div class="filter-bar" id="filterBar">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="warmup">Warmup</button>
+      <button class="filter-btn" data-filter="coordination">Coordination</button>
+      <button class="filter-btn" data-filter="strength">Strength</button>
+      <button class="filter-btn" data-filter="stretching">Stretching</button>
+      <button class="filter-btn" data-filter="goal-technical">Goal Technical</button>
+      <button class="filter-btn" data-filter="reaction">Reaction</button>
+      <button class="filter-btn" data-filter="movement">Movement</button>
+      <button class="filter-btn" data-filter="theory">Theory</button>
+    </div>
 
-  <!-- Search bar -->
-  <div class="search-bar">
-    <input type="search"
-           id="drillSearch"
-           class="search-input"
-           placeholder="Search drills by title, author, or tag…"
-           autocomplete="off"
-           aria-label="Search drills">
-    <button type="button" id="drillSearchClear" class="search-clear" aria-label="Clear search" hidden>&times;</button>
+    <div class="search-bar">
+      <span class="search-icon" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </span>
+      <input type="search"
+             id="drillSearch"
+             class="search-input"
+             placeholder="Search drills…"
+             autocomplete="off"
+             aria-label="Search drills">
+      <button type="button" id="drillSearchClear" class="search-clear" aria-label="Clear search" hidden>&times;</button>
+    </div>
   </div>
 
   <!-- Drill grid -->
