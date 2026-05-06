@@ -717,6 +717,15 @@ input.search-input::-webkit-search-cancel-button { display: none; }
   color: var(--accent);
 }
 
+/* Quiz splash header row — title + lang switcher side-by-side */
+.quiz-splash__header-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
 /* ── Phase section ── */
 .program-phase {
   margin-top: 40px;
