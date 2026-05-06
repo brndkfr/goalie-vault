@@ -1,0 +1,12 @@
+---
+layout: post
+title: "Filmed the safer version with cones instead of balls)"
+author: "Julia Chubarova"
+handle: "playwithjuly"
+category: [coordination]
+platform: "instagram"
+video_id: "DSKHqkwCD5v"
+thumbnail: "/assets/images/thumbs/DSKHqkwCD5v.jpg"
+description: "Filmed the safer version with cones instead of balls)"
+auto_generated: true
+---
