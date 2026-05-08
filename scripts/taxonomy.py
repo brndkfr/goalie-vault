@@ -255,7 +255,12 @@ API_JSON_TEMPLATE = """\
 layout: none
 permalink: /api/v1/categories/{name}.json
 ---
-{{% assign filtered = site.posts | where_exp: "p", "p.category == '{name}' or p.tags contains '{name}'" %}}[\
+{{% assign filtered = "" | split: "" %}}\
+{{% for post in site.posts %}}\
+{{% if post.category == '{name}' or post.tags contains '{name}' %}}\
+{{% assign filtered = filtered | push: post %}}\
+{{% endif %}}\
+{{% endfor %}}[\
 {{% for post in filtered %}}\
 {{"title":{{{{ post.title | jsonify }}}},\
 "author":{{{{ post.author | jsonify }}}},\
