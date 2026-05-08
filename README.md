@@ -124,6 +124,7 @@ See [_docs/legal-and-compliance-plan.md](_docs/legal-and-compliance-plan.md)
 _posts/                  # Video drill posts (auto-generated or manual)
 _drafts/                 # Soft-deleted posts (excluded from build)
 _quizzes/                # Interactive quiz definitions (YAML front matter)
+_articles/               # Multi-phase training programs (rendered at /programs)
 _layouts/                # default.html, post.html, quiz.html, category.html templates
 _data/
   quiz_config.yml        # Google Sheets submission config (optional)
@@ -151,6 +152,7 @@ api/v1/
     stretching.json
 _config.yml              # Jekyll site configuration
 index.md                 # Home page with drill grid and filter bar
+programs.md              # Programs index (lists `_articles/`)
 quizzes.md               # Quiz index page
 .github/
   workflows/             # new-drill.yml, remove-thumbnail.yml, refetch-thumbnails.yml
@@ -240,7 +242,7 @@ The quiz engine (`assets/js/quiz.js`) handles state, scoring, and a Chart.js dou
 - [x] Live search on the drill grid
 - [x] Local curation tooling for Instagram triage and post editing
 - [x] On-demand Instagram thumbnail URL cache (`_data/thumbnails.json`)
-- [ ] Articles collection (`_articles/`)
+- [x] Programs / articles collection (`_articles/` rendered at [`/programs`](https://brndkfr.github.io/goalie-vault/programs/))
 - [ ] Phase-4 cleanup: drop local `assets/images/thumbs/*.jpg` once URL cache is fully populated
 
 ---
