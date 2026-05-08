@@ -8,6 +8,6 @@ tags: [strength, warmup]
 platform: "instagram"
 video_id: "BVHLNF_B3ck"
 thumbnail: "/assets/images/thumbs/BVHLNF_B3ck.jpg"
-description: "Goalie warmup #rlz #rlzost #floorball #innebandy #unihockey #florbal #floorball #salibandy #goalie #save"
+description: "Goalie warmup"
 auto_generated: true
 ---

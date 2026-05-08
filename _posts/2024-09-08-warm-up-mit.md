@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Warm up mit 🇨🇭"
+title: "Warm up"
 author: "Målvaktsfokus"
 handle: "pontusboman"
 category: warmup
@@ -8,6 +8,6 @@ tags: []
 platform: "instagram"
 video_id: "C_qbfgEoaPn"
 thumbnail: "/assets/images/thumbs/C_qbfgEoaPn.jpg"
-description: "Warm up mit @ladina.toendury @m_micheline 🇨🇭"
+description: "Warm up"
 auto_generated: true
 ---

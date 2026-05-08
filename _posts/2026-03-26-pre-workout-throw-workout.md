@@ -8,6 +8,6 @@ tags: []
 platform: "instagram"
 video_id: "DWW9KvmDS55"
 thumbnail: "/assets/images/thumbs/DWW9KvmDS55.jpg"
-description: "Pre-workout throw workout. #floorball #floorballdrills #innebandy #throw"
+description: "Pre-workout throw workout."
 auto_generated: true
 ---

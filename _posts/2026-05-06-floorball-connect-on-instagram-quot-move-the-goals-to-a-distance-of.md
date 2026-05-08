@@ -1,13 +1,13 @@
 ---
 layout: post
-title: "Floorball Connect on Instagram: &quot;Move the goals to a distance of"
-author: ""
-handle: ""
+title: "Long-distance passing and shooting drill"
+author: "Floorball Connect"
+handle: "floorballconnect"
 category: technique
 tags: []
 platform: "instagram"
 video_id: "DUoAnEPjJ2I"
 thumbnail: "/assets/images/thumbs/DUoAnEPjJ2I.jpg"
-description: "347 likes, 2 comments - floorballconnect on February 11, 2026: &quot;Move the goals to a distance of around 20 meters.\n\nThis is a passing and shooting drill with a high cadence, ideal for the last training before a game to keep intensity and scoring confidence high.\n\nEasy to introduce competitive challenges between both groups.\n\n#floorball #floorballdrill #floorballcoach #floorballplayer #floorballgoalie&quot;."
+description: "Move the goals to a distance of around 20 meters. This is a passing and shooting drill with a high cadence, ideal for the last training before a game to keep intensity and scoring confidence high. Easy to introduce competitive challenges between both groups."
 auto_generated: true
 ---

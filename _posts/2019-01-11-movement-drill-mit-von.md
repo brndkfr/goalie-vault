@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Movement-Drill mit von"
+title: "Goalie Movement Drill"
 author: "Floorball Goalietraining"
 handle: "floorballgoalietraining"
 category: movement
@@ -8,6 +8,6 @@ tags: []
 platform: "instagram"
 video_id: "BsfYxRPDwe-"
 thumbnail: "/assets/images/thumbs/BsfYxRPDwe-.jpg"
-description: "Movement-Drill mit @mariobardill von @u21_alligator_malans \n#unihockey #floorball #goalkeeper #movement #fgt #train #zonefloorball #goalietraining #keepworking💪🏻 Video by @aldopeng"
+description: "Movement drill for goalies."
 auto_generated: true
 ---
