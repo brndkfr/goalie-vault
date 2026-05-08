@@ -13,26 +13,25 @@ title: "Goalie Vault"
   <!-- Filter & search toolbar -->
   <div class="vault-toolbar" markdown="0">
     <div class="filter-bar" id="filterBar">
-      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn filter-btn--all active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="technique">Technique</button>
+      <button class="filter-btn" data-filter="coordination">Coordination</button>
+      <button class="filter-btn" data-filter="movement">Movement</button>
+      <button class="filter-btn" data-filter="reaction">Reaction</button>
+      <button class="filter-btn" data-filter="strength">Strength</button>
+      <button class="filter-btn" data-filter="stretching">Stretching</button>
+      <button class="filter-btn" data-filter="mobility">Mobility</button>
+      <button class="filter-btn" data-filter="warmup">Warmup</button>
+      <button class="filter-btn" data-filter="theory">Theory</button>
+      <button type="button" class="filter-btn filter-btn--more" id="moreFiltersBtn" aria-expanded="false" aria-controls="moreFiltersPanel">
+        <span class="more-label">More</span><span class="more-count" id="moreCount" hidden></span><span class="more-caret" aria-hidden="true">▾</span>
+      </button>
+    </div>
 
-      <details class="filter-group" open>
-        <summary class="filter-group__label">Skill</summary>
-        <div class="filter-group__buttons">
-          <button class="filter-btn" data-filter="technique">Technique</button>
-          <button class="filter-btn" data-filter="coordination">Coordination</button>
-          <button class="filter-btn" data-filter="movement">Movement</button>
-          <button class="filter-btn" data-filter="reaction">Reaction</button>
-          <button class="filter-btn" data-filter="strength">Strength</button>
-          <button class="filter-btn" data-filter="stretching">Stretching</button>
-          <button class="filter-btn" data-filter="mobility">Mobility</button>
-          <button class="filter-btn" data-filter="warmup">Warmup</button>
-          <button class="filter-btn" data-filter="theory">Theory</button>
-        </div>
-      </details>
-
-      <details class="filter-group">
-        <summary class="filter-group__label">Sub-skill</summary>
-        <div class="filter-group__buttons">
+    <div class="filter-panel" id="moreFiltersPanel" hidden>
+      <div class="filter-panel__group">
+        <div class="filter-panel__label">Sub-skill</div>
+        <div class="filter-panel__buttons">
           <button class="filter-btn" data-filter="hand-eye">Hand-Eye</button>
           <button class="filter-btn" data-filter="juggling">Juggling</button>
           <button class="filter-btn" data-filter="vision">Vision</button>
@@ -41,20 +40,18 @@ title: "Goalie Vault"
           <button class="filter-btn" data-filter="rebound-control">Rebound Control</button>
           <button class="filter-btn" data-filter="mental">Mental</button>
         </div>
-      </details>
-
-      <details class="filter-group">
-        <summary class="filter-group__label">Context</summary>
-        <div class="filter-group__buttons">
+      </div>
+      <div class="filter-panel__group">
+        <div class="filter-panel__label">Context</div>
+        <div class="filter-panel__buttons">
           <button class="filter-btn" data-filter="game-situation">Game Situation</button>
           <button class="filter-btn" data-filter="match-prep">Match Prep</button>
           <button class="filter-btn" data-filter="injury-recovery">Injury Recovery</button>
         </div>
-      </details>
-
-      <details class="filter-group">
-        <summary class="filter-group__label">Equipment</summary>
-        <div class="filter-group__buttons">
+      </div>
+      <div class="filter-panel__group">
+        <div class="filter-panel__label">Equipment</div>
+        <div class="filter-panel__buttons">
           <button class="filter-btn" data-filter="medicine-ball">Medicine Ball</button>
           <button class="filter-btn" data-filter="tennis-ball">Tennis Ball</button>
           <button class="filter-btn" data-filter="band">Band</button>
@@ -62,7 +59,7 @@ title: "Goalie Vault"
           <button class="filter-btn" data-filter="fitlight">Reaction Lights</button>
           <button class="filter-btn" data-filter="brock-string">Brock String</button>
         </div>
-      </details>
+      </div>
     </div>
 
     <div class="search-bar">
@@ -77,6 +74,13 @@ title: "Goalie Vault"
              aria-label="Search drills">
       <button type="button" id="drillSearchClear" class="search-clear" aria-label="Clear search" hidden>&times;</button>
     </div>
+  </div>
+
+  <!-- Active filter chips -->
+  <div class="active-filters" id="activeFilters" hidden>
+    <span class="active-filters__label">Active:</span>
+    <div class="active-filters__chips" id="activeFiltersChips"></div>
+    <button type="button" class="active-filters__clear" id="activeFiltersClear">Clear all</button>
   </div>
 
   <!-- Drill grid -->
@@ -138,12 +142,29 @@ title: "Goalie Vault"
 <script>
   (function () {
     var allBtn = document.querySelector('.filter-btn[data-filter="all"]');
-    var catBtns = document.querySelectorAll('.filter-btn:not([data-filter="all"])');
+    var moreBtn = document.getElementById('moreFiltersBtn');
+    var morePanel = document.getElementById('moreFiltersPanel');
+    var moreCount = document.getElementById('moreCount');
+    var catBtns = document.querySelectorAll('.filter-btn[data-filter]:not([data-filter="all"])');
     var cards = document.querySelectorAll('.drill-card');
     var none  = document.getElementById('noResults');
     var search = document.getElementById('drillSearch');
     var searchClear = document.getElementById('drillSearchClear');
+    var activeBar = document.getElementById('activeFilters');
+    var activeChips = document.getElementById('activeFiltersChips');
+    var activeClear = document.getElementById('activeFiltersClear');
     var searchTerm = '';
+
+    // Build a quick lookup: filter slug -> button label (for chip text).
+    var labelOf = {};
+    catBtns.forEach(function (b) {
+      labelOf[b.dataset.filter] = b.textContent.trim();
+    });
+    // Filters in the "More" panel (so we can show a count badge).
+    var moreFilters = {};
+    morePanel.querySelectorAll('.filter-btn[data-filter]').forEach(function (b) {
+      moreFilters[b.dataset.filter] = true;
+    });
 
     function getActiveFilters() {
       var active = [];
@@ -162,17 +183,51 @@ title: "Goalie Vault"
       return hay.indexOf(term) !== -1;
     }
 
+    function renderActiveChips(active) {
+      activeChips.innerHTML = '';
+      if (active.length === 0) {
+        activeBar.hidden = true;
+        return;
+      }
+      activeBar.hidden = false;
+      active.forEach(function (slug) {
+        var chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'active-chip';
+        chip.dataset.filter = slug;
+        chip.innerHTML = '<span>' + (labelOf[slug] || slug) + '</span><span class="active-chip__x" aria-hidden="true">×</span>';
+        chip.setAttribute('aria-label', 'Remove filter ' + (labelOf[slug] || slug));
+        chip.addEventListener('click', function () {
+          var btn = document.querySelector('.filter-btn[data-filter="' + slug + '"]');
+          if (btn) btn.classList.remove('active');
+          applyFilters();
+        });
+        activeChips.appendChild(chip);
+      });
+    }
+
+    function updateMoreCount(active) {
+      var n = 0;
+      active.forEach(function (f) { if (moreFilters[f]) n++; });
+      if (n > 0) {
+        moreCount.textContent = n;
+        moreCount.hidden = false;
+      } else {
+        moreCount.hidden = true;
+      }
+    }
+
     function applyFilters() {
       var active = getActiveFilters();
       var showAll = active.length === 0;
 
-      // sync "All" button state
       allBtn.classList.toggle('active', showAll);
+      renderActiveChips(active);
+      updateMoreCount(active);
 
       var visible = 0;
       cards.forEach(function (card) {
         var cats = (card.dataset.categories || '').split(',').map(function (s) { return s.trim(); });
-        // AND across facets: a post must match every active filter.
         var catOk = showAll || active.every(function (f) { return cats.indexOf(f) !== -1; });
         var searchOk = cardMatchesSearch(card, searchTerm);
         if (catOk && searchOk) {
@@ -199,6 +254,26 @@ title: "Goalie Vault"
         applyFilters();
       });
     });
+
+    // Active-chip "Clear all"
+    activeClear.addEventListener('click', function () {
+      catBtns.forEach(function (b) { b.classList.remove('active'); });
+      applyFilters();
+    });
+
+    // More-filters toggle (panel) + remember in localStorage
+    function setMoreOpen(open) {
+      morePanel.hidden = !open;
+      moreBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      moreBtn.classList.toggle('is-open', open);
+      try { localStorage.setItem('vault.moreOpen', open ? '1' : '0'); } catch (e) {}
+    }
+    moreBtn.addEventListener('click', function () {
+      setMoreOpen(morePanel.hidden);
+    });
+    try {
+      if (localStorage.getItem('vault.moreOpen') === '1') setMoreOpen(true);
+    } catch (e) {}
 
     // Search input (debounced)
     var searchTimer = null;
