@@ -3,7 +3,7 @@
 **Status:** Draft – engineering analysis only, not legal advice. Confirm
 substantive points with a German/Swiss media lawyer before relying on them.
 
-**Last updated:** 2026-05-08 (revised after thumbnail-cache refactor)
+**Last updated:** 2026-05-08 (refresh script tuned: cap 6/run, 8-20s delay, 2-day rate-limit cooldown, cron every 3h)
 
 ---
 
@@ -51,15 +51,17 @@ does **not** create a license.
 
 1. **Scraping ToS** — Meta ToS §3.1 prohibits automated access. Risk is
    contractual (account ban, possible C&D), not copyright. Mitigation:
-   no IG account is used; polite scraping (random delays, batches
-   capped at 30/day, abort on repeated rate-limits).
+   no IG account is used; polite scraping (random 8-20s per-request
+   delay, 30-90s inter-batch, capped at 6/run, abort after 3 consecutive
+   rate-limits, 2-day cooldown for rate-limited entries).
 2. **Hot-link blocking** — Instagram may serve 403 to non-IG referrers.
    Mitigated by `referrerpolicy="no-referrer"` and graceful placeholder
    fallback.
 3. **Phase 4 cleanup pending** — ~310 JPEGs still live under
    [assets/images/thumbs/](../assets/images/thumbs/). Plan: delete after
-   ~2 weeks of successful cron runs confirm CDN URLs are stable in
-   production (see Action #3 below).
+   the cron has refreshed enough URLs that >=95% of IG posts have an
+   `ok` entry in [_data/thumbnails.json](../_data/thumbnails.json)
+   (currently ~12 of 209 — ETA several weeks at the new 3h cadence).
 
 **Conclusion:** §1.2 has moved from **High** to **Low/transitional** risk.
 
@@ -151,16 +153,21 @@ Replaces the previous "stop fetching, use placeholder" approach with an
 on-demand CDN URL cache:
 
 - **URL cache**: [_data/thumbnails.json](../_data/thumbnails.json) maps
-  `video_id → {url, fetched, status, attempts}`. Single source of truth
-  for the layouts.
+  `video_id → {url, fetched, expires, status, attempts}`. Single source of
+  truth for the layouts. `expires` is parsed from the `oe=<hex>` Unix
+  timestamp embedded in the signed CDN URL.
 - **Refresh job**: [scripts/refresh_thumb_urls.py](../scripts/refresh_thumb_urls.py)
-  picks oldest entries (URLs older than 6 days), shuffles them, calls
-  `yt-dlp --skip-download --dump-json` per ID, sleeps 3–8 s between
-  requests and 30–90 s between batches. Aborts cleanly on 3 consecutive
-  rate-limit responses.
+  picks at most 6 IDs per run — prioritizing entries whose `expires` is
+  within the safety window (3 days) or whose `fetched` is older than
+  6 days. Skips entries marked `rate_limit` if the last attempt is within
+  2 days (cooldown). Calls `yt-dlp --skip-download --dump-json` per ID,
+  sleeps 8-20 s between requests and 30-90 s between batches. Aborts
+  cleanly after 3 consecutive rate-limits. Backs off entries after 5
+  failed attempts.
 - **Schedule**: [.github/workflows/refresh-thumbs.yml](../.github/workflows/refresh-thumbs.yml)
-  runs daily at 06:17 UTC (`workflow_dispatch` for manual runs). Opens
-  a PR against `main` with the JSON diff for human review.
+  runs every 3 hours (8×/day, ~48 URLs/day max). `workflow_dispatch` for
+  manual runs. Opens an auto-merging PR (`gh pr merge --squash --auto`)
+  against `main` with the JSON diff.
 - **Layouts**: [index.md](../index.md), [_layouts/category.html](../_layouts/category.html)
   read `site.data.thumbnails[post.video_id].url`. Fallback chain on miss:
   legacy local thumb → YouTube path → generic IG placeholder. Expired URLs
