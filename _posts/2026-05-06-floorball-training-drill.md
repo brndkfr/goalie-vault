@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Floorball training drill"
-author: ""
-handle: ""
+title: "Basic Stick Control"
+author: "Lucie Řezáčová"
+handle: "l.rezacova12"
 category: technique
 tags: []
 platform: "instagram"
