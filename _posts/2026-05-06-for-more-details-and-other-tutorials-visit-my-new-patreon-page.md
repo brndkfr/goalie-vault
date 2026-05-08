@@ -10,4 +10,6 @@ video_id: "DJEXa5DN57v"
 thumbnail: "/assets/images/thumbs/DJEXa5DN57v.jpg"
 description: "28K likes, 166 comments - liamjwilson423 on April 30, 2025: &quot;For more details and other tutorials, visit my new Patreon page. Link in bio. Have fun!&quot."
 auto_generated: true
+redirect_from:
+  - /2026/05/06/liam-wilson-on-instagram-quot-for-more-details-and-other-tutorials/
 ---

@@ -10,4 +10,6 @@ video_id: "DXJe-CsoGwD"
 thumbnail: "/assets/images/thumbs/DXJe-CsoGwD.jpg"
 description: "105 likes, 1 comments - progoalieacademy.sk on April 14, 2026: &quot;Working on better reactions and hand-eye coordination &;&\n\nMak&;me na lep&;&;ch reakci&;ch a koordinacii oko-ruka..\nwww.progoalieacademy.sk.\n&quot."
 auto_generated: true
+redirect_from:
+  - /2026/05/06/progoalieacademy-sk-on-instagram-quot-working-on-better-reactions/
 ---
