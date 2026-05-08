@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Goalie Vault">
+  <rect width="100" height="100" rx="16" fill="#121212"/>
+  <polygon points="50,10 85,30 85,70 50,90 15,70 15,30"
+           fill="none" stroke="#00f2ff" stroke-width="6" stroke-linejoin="round"/>
+  <g fill="none" stroke="#00f2ff" stroke-linecap="round" stroke-linejoin="round">
+    <!-- helmet shell -->
+    <path d="M30,32 Q30,24 50,24 Q70,24 70,32 L70,60 Q70,68 50,68 Q30,68 30,60 Z" stroke-width="3.5"/>
+    <!-- forehead bar -->
+    <line x1="32" y1="44" x2="68" y2="44" stroke-width="2.5"/>
+    <!-- cage bars -->
+    <line x1="40" y1="44" x2="40" y2="66" stroke-width="2"/>
+    <line x1="50" y1="44" x2="50" y2="68" stroke-width="2"/>
+    <line x1="60" y1="44" x2="60" y2="66" stroke-width="2"/>
+  </g>
+</svg>
