@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Saara &;&; on Instagram: &quot;Controlling rebounds."
+title: "Controlling rebounds"
 author: "Saara"
 handle: "goaliesaara"
 category: technique

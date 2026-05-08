@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "OFF-SEASON = FIX YOUR BODY"
+title: "Off-Season = Fix Your Body"
 author: "HockeyFitnessCoach"
 handle: "hockeyfitnesscoach"
 category: strength

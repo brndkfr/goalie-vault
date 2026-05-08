@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "FloorballFrenzy | Floorball Content on Instagram: &quot;Defenders"
+title: "Why defenders in floorball are underrated"
 author: "FloorballFrenzy | Floorball Content"
 handle: "floorballfrenzy"
 category: technique

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "FloorballFrenzy | Floorball Content on Instagram: &quot;Stop"
+title: "Stop panicking when the attacker runs at you"
 author: "FloorballFrenzy | Floorball Content"
 handle: "floorballfrenzy"
 category: technique

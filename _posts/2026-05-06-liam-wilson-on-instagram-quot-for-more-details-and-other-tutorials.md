@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Liam Wilson on Instagram: &quot;For more details and other tutorials"
+title: "For more details and other tutorials, visit my new Patreon page"
 author: "Liam Wilson"
 handle: "liamjwilson423"
 category: technique

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Goalie Movement Drill"
+title: "Lateral movement drill with two goalies"
 author: "Floorball Goalietraining"
 handle: "floorballgoalietraining"
 category: movement

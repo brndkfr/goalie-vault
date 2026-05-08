@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "MOVILIDAD DE CADERA – HOCKEY PATINES"
+title: "Movilidad De Cadera – Hockey Patines"
 author: "Kike de Casa | Preparador Físico Hockey Online"
 handle: "kike_dcs_"
 category: strength

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "SPEED WINS GAMES"
+title: "Speed Wins Games"
 author: "A.Mesut Temel"
 handle: "coach_mesut"
 category: technique
