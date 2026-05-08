@@ -243,6 +243,7 @@ The quiz engine (`assets/js/quiz.js`) handles state, scoring, and a Chart.js dou
 - [x] Local curation tooling for Instagram triage and post editing
 - [x] On-demand Instagram thumbnail URL cache (`_data/thumbnails.json`)
 - [x] Programs / articles collection (`_articles/` rendered at [`/programs`](https://brndkfr.github.io/goalie-vault/programs/))
+- [ ] Wire API `thumbnail` field to use `_data/thumbnails.json` (Instagram CDN URL) instead of legacy `post.thumbnail`
 - [ ] Phase-4 cleanup: drop local `assets/images/thumbs/*.jpg` once URL cache is fully populated
 
 ---
