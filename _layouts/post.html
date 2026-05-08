@@ -27,17 +27,45 @@ layout: default
   </header>
 
   {% if page.platform == "youtube" %}
-  <div class="video-wrapper video-wrapper--youtube">
-    <iframe src="https://www.youtube.com/embed/{{ page.video_id }}"
-            allowfullscreen
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+  {% assign embed_thumb = "https://img.youtube.com/vi/" | append: page.video_id | append: "/hqdefault.jpg" %}
+  <div class="embed-slot embed-slot--youtube"
+       data-platform="youtube"
+       data-video-id="{{ page.video_id }}">
+    <img class="embed-slot__thumb" src="{{ embed_thumb }}" alt="{{ page.title | escape }}" loading="lazy">
+    <div class="embed-slot__overlay">
+      <button type="button" class="embed-slot__btn" aria-label="Load YouTube video">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+        <span>Load video</span>
+      </button>
+      <p class="embed-slot__notice">Loading sends your IP and may set cookies via Google.</p>
+    </div>
   </div>
   {% elsif page.platform == "instagram" %}
-  <div class="video-wrapper video-wrapper--instagram">
-    <blockquote class="instagram-media"
-      data-instgrm-permalink="https://www.instagram.com/p/{{ page.video_id }}/"
-      data-instgrm-version="14"></blockquote>
-    <script async src="https://www.instagram.com/embed.js"></script>
+  {% assign thumb_data = site.data.thumbnails[page.video_id] %}
+  {% if thumb_data and thumb_data.url and thumb_data.status != "not_found" %}
+    {% assign embed_thumb = thumb_data.url %}
+  {% elsif page.thumbnail and page.thumbnail != "" %}
+    {% if page.thumbnail contains "://" %}{% assign embed_thumb = page.thumbnail %}
+    {% else %}{% capture embed_thumb %}{{ site.baseurl }}{{ page.thumbnail }}{% endcapture %}{% endif %}
+  {% else %}
+    {% assign embed_thumb = "" %}
+  {% endif %}
+  <div class="embed-slot embed-slot--instagram"
+       data-platform="instagram"
+       data-video-id="{{ page.video_id }}">
+    {% if embed_thumb != "" %}
+    <img class="embed-slot__thumb" src="{{ embed_thumb }}" alt="{{ page.title | escape }}"
+         loading="lazy" referrerpolicy="no-referrer">
+    {% else %}
+    <div class="embed-slot__thumb embed-slot__thumb--placeholder"></div>
+    {% endif %}
+    <div class="embed-slot__overlay">
+      <button type="button" class="embed-slot__btn" aria-label="Load Instagram video">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+        <span>Load video</span>
+      </button>
+      <p class="embed-slot__notice">Loading sends your IP and may set cookies via Meta (Instagram).</p>
+    </div>
   </div>
   {% endif %}
 
@@ -57,11 +85,3 @@ layout: default
   </div>
 
 </div>
-
-<script>
-  window.addEventListener('load', function () {
-    setTimeout(function () {
-      if (window.instgrm) window.instgrm.Embeds.process();
-    }, 2000);
-  });
-</script>

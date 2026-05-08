@@ -38,8 +38,12 @@
   <footer class="vault-footer">
     &copy; {{ "now" | date: "%Y" }} Goalie Vault by brndkfr &middot;
     Code: <a href="{{ site.baseurl }}/LICENSE" target="_blank">MIT</a> &middot;
-    Content: <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>
+    Content: <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a> &middot;
+    <a href="#" data-consent-revoke>Privacy choices</a>
   </footer>
+
+  {% include consent-banner.html %}
+  <script src="{{ site.baseurl }}/assets/js/consent.js" defer></script>
 
   <script>
     // Placeholder used when an Instagram CDN thumbnail URL has expired
