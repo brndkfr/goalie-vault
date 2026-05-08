@@ -8,6 +8,6 @@ tags: []
 platform: "instagram"
 video_id: "BiWolFggycu"
 thumbnail: "/assets/images/thumbs/BiWolFggycu.jpg"
-description: "Here's a fun strength training excercise to try with a friend! 😀💪 Not a very graceful performance from me and @piipu77 but hey, it was our first time 😂"
+description: "Here's a fun strength training excercise to try with a friend! Not a very graceful performance from me and but hey, it was our first time"
 auto_generated: true
 ---

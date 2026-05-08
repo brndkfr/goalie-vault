@@ -8,6 +8,6 @@ tags: []
 platform: "instagram"
 video_id: "BlKw5hYnObZ"
 thumbnail: "/assets/images/thumbs/BlKw5hYnObZ.jpg"
-description: "Faster, faster, faster! 💨💨💨💨 😂😂\nHey guys, have a great weekend! ✌😎"
+description: "Faster, faster, faster!\nHey guys, have a great weekend!"
 auto_generated: true
 ---

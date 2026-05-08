@@ -8,6 +8,6 @@ tags: []
 platform: "instagram"
 video_id: "DWbTIczDfwk"
 thumbnail: "/assets/images/thumbs/DWbTIczDfwk.jpg"
-description: "It's all about having fun #floorball #floorballgoalie #innebandy #goalielife"
+description: "It's all about having fun"
 auto_generated: true
 ---

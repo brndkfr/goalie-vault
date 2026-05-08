@@ -8,6 +8,6 @@ tags: []
 platform: "instagram"
 video_id: "DU072HTiNmH"
 thumbnail: "/assets/images/thumbs/DU072HTiNmH.jpg"
-description: "Måndag och innebandy! Grabbarna grus i målet körde lite extra fys✌️💪"
+description: "Måndag och innebandy! Grabbarna grus i målet körde lite extra fys"
 auto_generated: true
 ---

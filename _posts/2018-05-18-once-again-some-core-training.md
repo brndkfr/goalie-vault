@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Once again some core training 💪."
+title: "Core Training with Medicine Ball"
 author: "Saara 🇫🇮"
 handle: "goaliesaara"
 category: strength
@@ -8,6 +8,6 @@ tags: [medicine-ball]
 platform: "instagram"
 video_id: "Bi7fJtzgC43"
 thumbnail: "/assets/images/thumbs/Bi7fJtzgC43.jpg"
-description: "Once again some core training 💪. I like that medicine ball. You can do a lot of different excercises with it 👍💯"
+description: "Core Training with Medicine Ball"
 auto_generated: true
 ---

@@ -8,6 +8,6 @@ tags: []
 platform: "instagram"
 video_id: "DWNf59JDFJw"
 thumbnail: "/assets/images/thumbs/DWNf59JDFJw.jpg"
-description: "Great performance! Notice the right hand 🌟 #floorball #innebandy #goalie"
+description: "Great performance! Notice the right hand"
 auto_generated: true
 ---

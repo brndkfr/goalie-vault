@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Rotation Hop 1  - Einbeiniger Sprung mit Rotation"
+title: "Rotation Hop 1 - Einbeiniger Sprung mit Rotation"
 author: "Swiss Unihockey"
 handle: "swissunihockey"
 category: coordination

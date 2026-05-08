@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Grossartige Skills von vom !"
+title: "Advanced Warmup"
 author: "UNIHOC Switzerland"
 handle: "unihocswitzerland"
 category: coordination

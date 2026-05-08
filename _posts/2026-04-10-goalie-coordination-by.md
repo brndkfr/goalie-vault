@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Goalie coordination by ШКОЛА ХОККЕЙНЫХ ВРАТАРЕЙ | КАЗАНЬ 🔴"
+title: "Goalie coordination by ШКОЛА ХОККЕЙНЫХ ВРАТАРЕЙ | КАЗАНЬ"
 author: "ШКОЛА ХОККЕЙНЫХ ВРАТАРЕЙ | КАЗАНЬ 🔴"
 handle: "tendy_skills"
 category: coordination

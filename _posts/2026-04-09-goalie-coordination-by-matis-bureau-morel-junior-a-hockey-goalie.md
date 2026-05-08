@@ -8,6 +8,6 @@ tags: []
 platform: "instagram"
 video_id: "DW6x4LwkQQx"
 thumbnail: "/assets/images/thumbs/DW6x4LwkQQx.jpg"
-description: "⬆️⬆️\n\nFollow @nedgehockey for more content!"
+description: "Follow for more content!"
 auto_generated: true
 ---
