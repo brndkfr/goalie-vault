@@ -27,7 +27,7 @@ import subprocess
 import sys
 import time
 from collections import Counter
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -45,6 +45,9 @@ UA_POOL = [
 
 PLATFORM_RE = re.compile(r"^platform:\s*[\"']?([a-zA-Z0-9_-]+)", re.M)
 VIDEO_RE = re.compile(r"^video_id:\s*[\"']?([A-Za-z0-9_-]+)", re.M)
+# `oe=` is a Unix timestamp encoded as hex in the Instagram CDN URL
+# signature; it tells us when the URL stops being accepted by the CDN.
+OE_RE = re.compile(r"[?&]oe=([0-9A-Fa-f]+)")
 
 
 def load_data() -> dict:
@@ -62,6 +65,20 @@ def save_data(data: dict) -> None:
         json.dumps(data, indent=2, sort_keys=True, ensure_ascii=False) + "\n",
         encoding="utf-8",
     )
+
+
+def parse_url_expiry(url: str) -> str | None:
+    """Return ISO date for the `oe=` expiry parameter, or None if not parseable."""
+    if not url:
+        return None
+    m = OE_RE.search(url)
+    if not m:
+        return None
+    try:
+        ts = int(m.group(1), 16)
+        return datetime.fromtimestamp(ts, tz=timezone.utc).date().isoformat()
+    except (ValueError, OverflowError, OSError):
+        return None
 
 
 def scan_posts() -> set[str]:
@@ -83,29 +100,68 @@ def scan_posts() -> set[str]:
     return ids
 
 
-def pick_work(data: dict, valid_ids: set[str], min_age_days: int, cap: int) -> list[str]:
-    cutoff = date.today() - timedelta(days=min_age_days)
+def pick_work(
+    data: dict,
+    valid_ids: set[str],
+    min_age_days: int,
+    safety_days: int,
+    max_attempts: int,
+    cap: int,
+) -> list[str]:
+    """Return up to `cap` video_ids that need refreshing.
+
+    Selection rules:
+      * Skip ``not_found``.
+      * Skip entries that already failed ``max_attempts`` times in a row
+        without ever turning ``ok`` (perma-broken).
+      * Always include entries with no URL or non-ok status.
+      * Otherwise refresh when EITHER:
+          - The URL's own ``expires`` is within ``safety_days``, OR
+          - We last fetched it more than ``min_age_days`` ago (catch-all
+            for entries we never managed to parse an expiry from).
+    Sort: nearest-expiry / oldest-fetched first.
+    """
+    today = date.today()
+    expiry_horizon = today + timedelta(days=safety_days)
+    age_cutoff = today - timedelta(days=min_age_days)
     pool: list[tuple[str, str]] = []  # (sort-key, video_id)
     for vid in valid_ids:
         entry = data.get(vid, {})
         status = entry.get("status", "pending")
         if status == "not_found":
             continue
+        attempts = int(entry.get("attempts", 0) or 0)
+        # Perma-broken: many attempts, never reached ok.
+        if status in ("error", "rate_limit") and attempts >= max_attempts:
+            # Skip unless the last attempt is older than min_age_days
+            # (so we still retry once a week even after giving up).
+            try:
+                f_date = datetime.strptime(entry.get("fetched") or "2000-01-01", "%Y-%m-%d").date()
+            except ValueError:
+                f_date = date(2000, 1, 1)
+            if f_date >= age_cutoff:
+                continue
         url = entry.get("url")
-        fetched = entry.get("fetched")
         if not url or status in ("stale", "pending", "rate_limit", "error"):
             sort_key = "0000-00-00"
         else:
+            expires = entry.get("expires") or parse_url_expiry(url)
             try:
-                f_date = datetime.strptime(fetched, "%Y-%m-%d").date()
-            except (TypeError, ValueError):
+                f_date = datetime.strptime(entry.get("fetched") or "2000-01-01", "%Y-%m-%d").date()
+            except ValueError:
                 f_date = date(2000, 1, 1)
-            if f_date >= cutoff:
+            try:
+                e_date = datetime.strptime(expires or "9999-12-31", "%Y-%m-%d").date() if expires else None
+            except ValueError:
+                e_date = None
+            expiring_soon = e_date is not None and e_date <= expiry_horizon
+            too_old = f_date < age_cutoff
+            if not (expiring_soon or too_old):
                 continue
-            sort_key = fetched
+            # Sort by expiry (sooner first); fall back to fetched date.
+            sort_key = (expires or "9999-12-31") + "|" + (entry.get("fetched") or "0000-00-00")
         pool.append((sort_key, vid))
 
-    # Oldest first, then random within same date for fairness.
     pool.sort(key=lambda p: (p[0], random.random()))
     return [vid for _, vid in pool[:cap]]
 
@@ -170,7 +226,19 @@ def main() -> int:
         "--min-age-days",
         type=int,
         default=6,
-        help="Skip entries fresher than this many days",
+        help="Refresh URLs not fetched in this many days (catch-all)",
+    )
+    parser.add_argument(
+        "--safety-days",
+        type=int,
+        default=3,
+        help="Refresh URLs whose CDN expiry is within this many days",
+    )
+    parser.add_argument(
+        "--max-attempts",
+        type=int,
+        default=5,
+        help="After this many consecutive failures, back off for min-age-days",
     )
     parser.add_argument("--dry-run", action="store_true", help="Don't call yt-dlp")
     args = parser.parse_args()
@@ -183,12 +251,39 @@ def main() -> int:
     for orphan in orphans:
         data.pop(orphan, None)
 
-    pre_state = summarize_state(data)
-    print(f"Scan: {len(valid_ids)} IG posts found, {len(data)} cache entries.")
-    print(f"      orphans dropped: {len(orphans)}")
-    print(f"      cache state: " + ", ".join(f"{k}={v}" for k, v in sorted(pre_state.items())))
+    # Backfill `expires` for any entry that has a URL but no parsed expiry yet
+    # (e.g. seeded entries from before this field existed).
+    backfilled = 0
+    for entry in data.values():
+        if entry.get("url") and not entry.get("expires"):
+            exp = parse_url_expiry(entry["url"])
+            if exp:
+                entry["expires"] = exp
+                backfilled += 1
 
-    work = pick_work(data, valid_ids, args.min_age_days, args.max)
+    pre_state = summarize_state(data)
+    today = date.today()
+    soon = today + timedelta(days=args.safety_days)
+    expiring_soon = sum(
+        1
+        for e in data.values()
+        if e.get("expires")
+        and e["expires"] <= soon.isoformat()
+        and e.get("status") == "ok"
+    )
+    print(f"Scan: {len(valid_ids)} IG posts found, {len(data)} cache entries.")
+    print(f"      orphans dropped: {len(orphans)}, expires backfilled: {backfilled}")
+    print(f"      cache state: " + ", ".join(f"{k}={v}" for k, v in sorted(pre_state.items())))
+    print(f"      expiring within {args.safety_days} days: {expiring_soon}")
+
+    work = pick_work(
+        data,
+        valid_ids,
+        args.min_age_days,
+        args.safety_days,
+        args.max_attempts,
+        args.max,
+    )
     if not work:
         print("Nothing to refresh (all entries fresher than min-age-days).")
         save_data(data)
@@ -207,13 +302,16 @@ def main() -> int:
         for vid in work:
             entry = data.get(vid, {})
             print(f"  would fetch {vid} (status={entry.get('status', 'pending')}, fetched={entry.get('fetched', 'never')})")
+        # Persist orphan-drop + backfill even on dry-run so CI doesn't redo it.
+        save_data(data)
         write_step_summary([
             "## Refresh thumbnails (dry run)",
             f"- Would refresh **{len(work)}** of {len(valid_ids)} posts.",
+            f"- Orphans dropped: **{len(orphans)}**, expires backfilled: **{backfilled}**.",
         ])
         return 0
 
-    today = date.today().isoformat()
+    today_iso = today.isoformat()
     consecutive_rl = 0
     run_counts: Counter = Counter()
     aborted = False
@@ -236,14 +334,19 @@ def main() -> int:
             entry["attempts"] = int(entry.get("attempts", 0)) + 1
             run_counts[status] += 1
             if status == "ok":
-                entry["url"] = (info or {}).get("thumbnail")
-                entry["status"] = "ok" if entry["url"] else "error"
-                entry["fetched"] = today
+                new_url = (info or {}).get("thumbnail")
+                entry["url"] = new_url
+                entry["status"] = "ok" if new_url else "error"
+                entry["fetched"] = today_iso
+                entry["expires"] = parse_url_expiry(new_url) if new_url else None
+                # Reset attempts on success so backoff doesn't trigger forever.
+                entry["attempts"] = 0
                 consecutive_rl = 0
-                print(f"  ok   {vid} ({dt:.1f}s)")
+                exp_str = entry["expires"] or "unknown"
+                print(f"  ok   {vid} ({dt:.1f}s) expires={exp_str}")
             elif status == "not_found":
                 entry["status"] = "not_found"
-                entry["fetched"] = today
+                entry["fetched"] = today_iso
                 consecutive_rl = 0
                 print(f"  404  {vid} ({dt:.1f}s)")
             elif status == "rate_limit":
