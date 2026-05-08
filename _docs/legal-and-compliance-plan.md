@@ -3,7 +3,7 @@
 **Status:** Draft – engineering analysis only, not legal advice. Confirm
 substantive points with a German/Swiss media lawyer before relying on them.
 
-**Last updated:** 2026-05-08
+**Last updated:** 2026-05-08 (revised after thumbnail-cache refactor)
 
 ---
 
@@ -19,17 +19,49 @@ substantive points with a German/Swiss media lawyer before relying on them.
 - Editorial curation (which we do) is closer to *publication* than *passive
   linking* (CJEU *Renckhoff*, *YouTube/Cyando* 2021), increasing risk.
 
-### 1.2 Locally stored thumbnails (BIGGEST EXPOSURE)
+### 1.2 Locally stored thumbnails (RESOLVED via on-demand CDN URLs)
 
-Instagram thumbnails are committed under [assets/images/thumbs/](../assets/images/thumbs/).
-This is **reproduction + distribution + making available**, all exclusive
-rights of the copyright holder (UrhG §16/§19a, EU InfoSoc art. 2). Attribution
+**Original concern (pre-2026-05-08):** Instagram thumbnails were committed
+to [assets/images/thumbs/](../assets/images/thumbs/). That constituted
+**reproduction + distribution + making available** — all exclusive rights
+of the copyright holder (UrhG §16/§19a, EU InfoSoc art. 2). Attribution
 does **not** create a license.
 
-| Source | Risk | Why |
+**Current architecture (2026-05-08):**
+
+- Thumbnails are no longer copied; the bytes never touch our server.
+- A daily GitHub Action ([refresh-thumbs.yml](../.github/workflows/refresh-thumbs.yml))
+  scrapes the public Instagram post page via `yt-dlp` (no login, no
+  cookies), extracts the **signed CDN URL**, and stores it in
+  [_data/thumbnails.json](../_data/thumbnails.json).
+- Layouts ([index.md](../index.md), [_layouts/category.html](../_layouts/category.html))
+  emit `<img src="https://*.cdninstagram.com/..." referrerpolicy="no-referrer">`.
+  The visitor's browser fetches bytes directly from Meta's CDN — same
+  legal model as the YouTube hot-link below.
+- Expired URLs trigger an `onerror` handler that swaps in a generic
+  placeholder, so no broken-image icons are shown.
+
+| Source | Risk now | Why |
 |---|---|---|
 | YouTube hot-link via `img.youtube.com` | Low | Served from YouTube CDN |
-| Instagram thumbs in repo | **High** | Reproduced and served from our domain |
+| Instagram CDN URL via `_data/thumbnails.json` | Low | Served from Meta CDN; no local copy |
+| Legacy `assets/images/thumbs/` JPEGs (still in repo) | **Medium**, transitional | Phase 4 removal pending |
+
+**Residual risks:**
+
+1. **Scraping ToS** — Meta ToS §3.1 prohibits automated access. Risk is
+   contractual (account ban, possible C&D), not copyright. Mitigation:
+   no IG account is used; polite scraping (random delays, batches
+   capped at 30/day, abort on repeated rate-limits).
+2. **Hot-link blocking** — Instagram may serve 403 to non-IG referrers.
+   Mitigated by `referrerpolicy="no-referrer"` and graceful placeholder
+   fallback.
+3. **Phase 4 cleanup pending** — ~310 JPEGs still live under
+   [assets/images/thumbs/](../assets/images/thumbs/). Plan: delete after
+   ~2 weeks of successful cron runs confirm CDN URLs are stable in
+   production (see Action #3 below).
+
+**Conclusion:** §1.2 has moved from **High** to **Low/transitional** risk.
 
 ### 1.3 GDPR / personal data
 
@@ -87,8 +119,8 @@ keyboard nav / ARIA become required.
 | # | Action | Owner | Status |
 |---|---|---|---|
 | 1 | Two-click / Shariff embed pattern in [_layouts/post.html](../_layouts/post.html) | dev | TODO |
-| 2 | Stop committing new Instagram thumbnails; default to gradient placeholder in [scripts/generate_posts.py](../scripts/generate_posts.py) | dev | TODO |
-| 3 | Plan migration of existing IG thumbs (delete from repo or replace with oEmbed-on-demand) | dev | TODO |
+| 2 | Stop committing new Instagram thumbnails; use on-demand CDN URLs from [_data/thumbnails.json](../_data/thumbnails.json) | dev | **DONE** (2026-05-08) |
+| 3 | Delete legacy JPEGs from [assets/images/thumbs/](../assets/images/thumbs/) once cron-refreshed URLs are confirmed stable in production | dev | TODO (Phase 4) |
 | 4 | `/impressum/` page — operator name, contact, accountable address | content | TODO |
 | 5 | `/privacy/` page — Datenschutzerklärung covering data collected, basis, retention, recipients (Meta, Google), rights, contact | content | TODO |
 | 6 | DSA contact point in footer (`abuse@…` or similar) + documented takedown procedure | content | TODO |
@@ -113,15 +145,31 @@ loads the embed only after a user click.
   per session via `sessionStorage` (no persistent cookie needed).
 - Reference pattern: heise's "Shariff" buttons, embetty.
 
-### 3.2 Thumbnails (priority 2 + 3)
+### 3.2 Thumbnails (priority 2 + 3) — IMPLEMENTED
 
-- New posts: stop fetching IG thumbs in [scripts/generate_posts.py](../scripts/generate_posts.py)
-  and [scripts/fetch_instagram_thumbs.py](../scripts/fetch_instagram_thumbs.py).
-- Existing posts: bulk-update front matter `thumbnail` to `skip` (already
-  supported in layouts) and remove the JPEGs from
-  [assets/images/thumbs/](../assets/images/thumbs/) in a follow-up commit.
-- Optional: keep YouTube hot-linking via `img.youtube.com/vi/<id>/hqdefault.jpg`
-  (already in use for `platform: youtube` posts).
+Replaces the previous "stop fetching, use placeholder" approach with an
+on-demand CDN URL cache:
+
+- **URL cache**: [_data/thumbnails.json](../_data/thumbnails.json) maps
+  `video_id → {url, fetched, status, attempts}`. Single source of truth
+  for the layouts.
+- **Refresh job**: [scripts/refresh_thumb_urls.py](../scripts/refresh_thumb_urls.py)
+  picks oldest entries (URLs older than 6 days), shuffles them, calls
+  `yt-dlp --skip-download --dump-json` per ID, sleeps 3–8 s between
+  requests and 30–90 s between batches. Aborts cleanly on 3 consecutive
+  rate-limit responses.
+- **Schedule**: [.github/workflows/refresh-thumbs.yml](../.github/workflows/refresh-thumbs.yml)
+  runs daily at 06:17 UTC (`workflow_dispatch` for manual runs). Opens
+  a PR against `main` with the JSON diff for human review.
+- **Layouts**: [index.md](../index.md), [_layouts/category.html](../_layouts/category.html)
+  read `site.data.thumbnails[post.video_id].url`. Fallback chain on miss:
+  legacy local thumb → YouTube path → generic IG placeholder. Expired URLs
+  swap to placeholder via `onerror` (script in [_layouts/default.html](../_layouts/default.html)).
+- **Phase 4 (pending)**: delete `assets/images/thumbs/` and drop the
+  `thumbnail:` front-matter field once the cache is proven stable.
+
+YouTube hot-linking via `img.youtube.com/vi/<id>/mqdefault.jpg` remains
+unchanged (already legal-equivalent).
 
 ### 3.3 Privacy policy content checklist
 
