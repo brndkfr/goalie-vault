@@ -17,6 +17,7 @@ layout: default
 
   <!-- Drill grid (filtered by primary category OR tag) -->
   {% assign filtered = "" | split: "" %}{% for post in site.posts %}{% if post.category == page.category_filter or post.tags contains page.category_filter %}{% assign filtered = filtered | push: post %}{% endif %}{% endfor %}
+  {% assign filtered = filtered | sort: 'date' | reverse %}
 
   <div class="drill-grid">
     {% for post in filtered %}
