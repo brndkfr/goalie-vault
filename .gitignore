@@ -18,4 +18,5 @@ node_modules/
 __pycache__/
 *.pyc
 ig.html
+scripts/.fetch.log
 
