@@ -8,6 +8,6 @@ tags: [warmup]
 platform: "instagram"
 video_id: "-JOvLQTP8o"
 thumbnail: "/assets/images/thumbs/-JOvLQTP8o.jpg"
-description: "Advanded Warmup"
+description: "Advanced Warmup"
 auto_generated: true
 ---

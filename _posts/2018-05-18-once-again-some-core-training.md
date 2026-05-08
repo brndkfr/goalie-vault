@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Core Training with Medicine Ball"
-author: "Saara 🇫🇮"
+author: "Saara"
 handle: "goaliesaara"
 category: strength
 tags: [medicine-ball]
