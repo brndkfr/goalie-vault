@@ -500,6 +500,129 @@ input.search-input::-webkit-search-cancel-button { display: none; }
   border: 0 !important;
 }
 
+/* ── Embed consent placeholder (two-click loading) ── */
+.embed-slot {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #000;
+  margin-bottom: 24px;
+  border: 1px solid #2a2a2a;
+}
+.embed-slot--youtube {
+  padding-bottom: 56.25%;
+  height: 0;
+}
+.embed-slot--instagram {
+  min-height: 480px;
+}
+.embed-slot__thumb {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.55);
+}
+.embed-slot__thumb--placeholder {
+  background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+}
+.embed-slot__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 24px;
+  text-align: center;
+  z-index: 1;
+}
+.embed-slot__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--accent, #00f2ff);
+  color: #000;
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 22px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.4);
+  transition: transform .12s ease;
+}
+.embed-slot__btn:hover { transform: scale(1.04); }
+.embed-slot__btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.embed-slot__notice {
+  margin: 0;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.85);
+  max-width: 36ch;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+}
+
+/* ── Site-wide consent banner ── */
+.consent-banner {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 9999;
+  background: #0d0d0d;
+  border-top: 1px solid #2a2a2a;
+  box-shadow: 0 -8px 24px rgba(0,0,0,0.5);
+  padding: 16px;
+}
+.consent-banner[hidden] { display: none; }
+.consent-banner__inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  justify-content: space-between;
+}
+.consent-banner__text {
+  margin: 0;
+  flex: 1 1 320px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #ddd;
+}
+.consent-banner__actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.consent-banner__btn {
+  font: inherit;
+  font-weight: 700;
+  border: 1px solid #444;
+  background: #1a1a1a;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  min-width: 180px;
+}
+.consent-banner__btn:hover { background: #232323; }
+.consent-banner__btn:focus-visible { outline: 2px solid var(--accent, #00f2ff); outline-offset: 2px; }
+/* Equal visual weight per GDPR — same size, same contrast, no nudging. */
+.consent-banner__btn--primary,
+.consent-banner__btn--secondary {
+  background: #1a1a1a;
+  color: #fff;
+}
+
+[data-consent-revoke] {
+  color: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 /* ── Description box ── */
 .post-description {
   background: var(--surface);

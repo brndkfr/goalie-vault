@@ -120,7 +120,7 @@ keyboard nav / ARIA become required.
 
 | # | Action | Owner | Status |
 |---|---|---|---|
-| 1 | Two-click / Shariff embed pattern in [_layouts/post.html](../_layouts/post.html) | dev | TODO |
+| 1 | Two-click / Shariff embed pattern in [_layouts/post.html](../_layouts/post.html) | dev | **DONE** |
 | 2 | Stop committing new Instagram thumbnails; use on-demand CDN URLs from [_data/thumbnails.json](../_data/thumbnails.json) | dev | **DONE** (2026-05-08) |
 | 3 | Delete legacy JPEGs from [assets/images/thumbs/](../assets/images/thumbs/) once cron-refreshed URLs are confirmed stable in production | dev | TODO (Phase 4) |
 | 4 | `/impressum/` page — operator name, contact, accountable address | content | TODO |
@@ -133,19 +133,25 @@ keyboard nav / ARIA become required.
 
 ## 3. Implementation notes
 
-### 3.1 Two-click embeds (priority 1)
+### 3.1 Two-click embeds (priority 1) — IMPLEMENTED
 
-Replace the inline Instagram `blockquote` and YouTube `iframe` in
-[_layouts/post.html](../_layouts/post.html) with a placeholder element that
-loads the embed only after a user click.
+Hybrid pattern: site-wide consent banner + per-embed placeholder fallback.
 
-- Placeholder: existing `drill-card__thumb--ig` gradient (Instagram) or the
-  YouTube hot-link thumbnail (YouTube — still LSO neutral).
-- A "Load video (sends data to Instagram/YouTube)" button replaces the
-  embed until clicked.
-- Once clicked, inject the embed script and let it run; remember the choice
-  per session via `sessionStorage` (no persistent cookie needed).
-- Reference pattern: heise's "Shariff" buttons, embetty.
+- **Banner**: [_includes/consent-banner.html](../_includes/consent-banner.html)
+  is shown on first visit. Two equally-prominent buttons (no nudge) set
+  `localStorage['vault-consent']` to `allow` or `deny`. Mentions both
+  Instagram and YouTube and points to the footer revoke link.
+- **Placeholders**: [_layouts/post.html](../_layouts/post.html) emits a
+  `<div class="embed-slot" data-platform=... data-video-id=...>` with the
+  YouTube hot-link thumbnail or the cached Instagram CDN URL behind a
+  "Load video" button. Until clicked or globally allowed, no request hits
+  Meta or Google.
+- **Activation**: [assets/js/consent.js](../assets/js/consent.js) auto-
+  activates all slots when global flag is `allow`; otherwise per-slot
+  click activates one without changing the global flag. YouTube uses
+  `youtube-nocookie.com`. Instagram `embed.js` is injected once per page.
+- **Revocation**: footer "Privacy choices" link clears the flag and
+  re-shows the banner.
 
 ### 3.2 Thumbnails (priority 2 + 3) — IMPLEMENTED
 
