@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Goalie Strength on Instagram: &quot;Glove hand program coming soon."
+title: "Glove hand program coming soon"
 author: "Goalie Strength"
 handle: "goaliestrength"
 category: coordination

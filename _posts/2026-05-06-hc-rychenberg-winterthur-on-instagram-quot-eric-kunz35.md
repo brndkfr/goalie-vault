@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "HC Rychenberg Winterthur on Instagram: &quot;&;eric_kunz35"
+title: "eric_kunz35 Pre-Game-Ritual"
 author: "HC Rychenberg Winterthur"
 handle: "hcrychenberg"
 category: coordination

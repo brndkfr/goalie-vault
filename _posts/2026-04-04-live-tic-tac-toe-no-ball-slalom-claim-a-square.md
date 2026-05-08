@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LIVE TIC TAC TOE (NO BALL) | SLALOM → CLAIM A SQUARE"
+title: "Live Tic Tac Toe (No Ball) | Slalom → Claim a Square"
 author: "GameOnDrills"
 handle: "gameondrills"
 category: warmup

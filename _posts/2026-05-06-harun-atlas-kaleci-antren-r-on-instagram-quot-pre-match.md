@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Harun ATLAS | Kaleci Antren&;r&; on Instagram: &quot;Pre-Match &"
+title: "Pre-match warm-up routine"
 author: "Harun ATLAS | Kaleci Antrenör"
 handle: "atlas.goalkeeper.coach"
 category: coordination

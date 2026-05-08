@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "REAKČNÍ MÍČEK ZA ZÁDY"
+title: "Reakční Míček Za Zády"
 author: "97 FLOORBALL GOALIE TRAINING"
 handle: "97floorballgoalietraining"
 category: coordination

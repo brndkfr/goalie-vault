@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Mattias S&;derlund on Instagram: &quot;T&;vlingss&;songen f&;r &"
+title: "Match-day warm-up song for the playoffs"
 author: "Mattias Söderlund"
 handle: "passionforgoalies"
 category: technique

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Floorball Connect on Instagram: &quot;Floorball decision-making isn&"
+title: "Floorball decision-making isnt magic"
 author: "Floorball Connect"
 handle: "floorballconnect"
 category: technique

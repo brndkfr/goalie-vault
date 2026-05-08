@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Between-the-Posts.com on Instagram: &quot;You want to train rebound"
+title: "You want to train rebound control and juggling at the same time"
 author: "Between-the-Posts.com"
 handle: "between_the_posts_com"
 category: coordination
