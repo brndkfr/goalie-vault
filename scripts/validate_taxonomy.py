@@ -4,6 +4,8 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
+import yaml
+
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from taxonomy import ALL_NAMES, POSTS, parse_front_matter, parse_list  # noqa: E402
 
@@ -13,6 +15,16 @@ def main() -> int:
     ok = 0
     for p in sorted(POSTS.glob("*.md")):
         text = p.read_text(encoding="utf-8")
+        # Strict YAML check matches what Jekyll (Psych) will do at build time.
+        if text.startswith("---"):
+            parts = text.split("---", 2)
+            if len(parts) >= 3:
+                try:
+                    yaml.safe_load(parts[1])
+                except yaml.YAMLError as e:
+                    msg = str(e).splitlines()[0]
+                    errors.append(f"{p.name}: invalid YAML front matter ({msg})")
+                    continue
         fm, _, _ = parse_front_matter(text)
         if not fm:
             errors.append(f"{p.name}: no front matter")
