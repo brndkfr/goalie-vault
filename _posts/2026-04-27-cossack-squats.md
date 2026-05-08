@@ -8,7 +8,7 @@ tags: [stretching]
 platform: "youtube"
 video_id: "uK5bgeZixIY"
 thumbnail: "https://img.youtube.com/vi/uK5bgeZixIY/hqdefault.jpg"
-description: ""
+description: |
   Cossack Squats sind perfekt für Goalies, weil sie:
 
   **Seitliche Kraft:** Trainieren die Power für die lateralen Verschiebungen (Slides).
