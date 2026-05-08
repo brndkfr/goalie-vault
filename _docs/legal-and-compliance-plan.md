@@ -123,10 +123,10 @@ keyboard nav / ARIA become required.
 | 1 | Two-click / Shariff embed pattern in [_layouts/post.html](../_layouts/post.html) | dev | **DONE** |
 | 2 | Stop committing new Instagram thumbnails; use on-demand CDN URLs from [_data/thumbnails.json](../_data/thumbnails.json) | dev | **DONE** (2026-05-08) |
 | 3 | Delete legacy JPEGs from [assets/images/thumbs/](../assets/images/thumbs/) once cron-refreshed URLs are confirmed stable in production | dev | TODO (Phase 4) |
-| 4 | `/impressum/` page — operator name, contact, accountable address | content | TODO |
-| 5 | `/privacy/` page — Datenschutzerklärung covering data collected, basis, retention, recipients (Meta, Google), rights, contact | content | TODO |
-| 6 | DSA contact point in footer (`abuse@…` or similar) + documented takedown procedure | content | TODO |
-| 7 | Footer link "Report content / Remove my video" with `mailto:` template | dev | TODO |
+| 4 | `/impressum/` page — operator name, contact, accountable address | content | **N/A** (operated from CH; no Swiss equivalent of TMG §5 for non-commercial sites) |
+| 5 | `/privacy/` page — covers data flows, embed consent, rights, contact | content | **DONE** |
+| 6 | DSA contact point in footer + documented takedown procedure | content | **N/A** (CH operator, DSA not applicable) |
+| 7 | Footer link "Report content / Remove my video" with `mailto:` template | dev | **DONE** (covered by Privacy page §9 + footer link) |
 | 8 | Write LIA for processing names/handles; keep on file | content | TODO |
 | 9 | Add `robots.txt` directive blocking AI scrapers if desired | dev | OPTIONAL |
 | 10 | Trademark search for "Goalie Vault" | content | OPTIONAL |
