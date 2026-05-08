@@ -16,7 +16,7 @@ layout: default
   </div>
 
   <!-- Drill grid (filtered by primary category OR tag) -->
-  {% assign filtered = site.posts | where_exp: "p", "p.category == page.category_filter or p.tags contains page.category_filter" %}
+  {% assign filtered = "" | split: "" %}{% for post in site.posts %}{% if post.category == page.category_filter or post.tags contains page.category_filter %}{% assign filtered = filtered | push: post %}{% endif %}{% endfor %}
 
   <div class="drill-grid">
     {% for post in filtered %}
