@@ -94,7 +94,15 @@ title: "Goalie Vault"
          data-handle="{{ post.handle | downcase | escape }}">
       <a class="drill-card__link" href="{{ site.baseurl }}{{ post.url }}">
 
-        {% if post.thumbnail and post.thumbnail != "" and post.thumbnail != "skip" %}
+        {% assign thumb_data = site.data.thumbnails[post.video_id] %}
+        {% if thumb_data and thumb_data.url and thumb_data.status != "not_found" %}
+          <img class="drill-card__thumb"
+               src="{{ thumb_data.url }}"
+               alt="{{ post.title }}"
+               loading="lazy"
+               referrerpolicy="no-referrer"
+               onerror="this.parentNode.replaceChild(window.__vaultIgPlaceholder.cloneNode(true), this);">
+        {% elsif post.thumbnail and post.thumbnail != "" and post.thumbnail != "skip" %}
           {% if post.thumbnail contains "://" %}
             {% assign thumb_src = post.thumbnail %}
           {% else %}
