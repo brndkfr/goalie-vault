@@ -3,7 +3,8 @@ layout: post
 title: "Level up your training with Saliblock!"
 author: "Lucie Řezáčová | Floorball player"
 handle: "l.rezacova12"
-category: [floorball, training]
+category: technique
+tags: []
 platform: "instagram"
 video_id: "DU_hgaFDbeN"
 thumbnail: "/assets/images/thumbs/DU_hgaFDbeN.jpg"

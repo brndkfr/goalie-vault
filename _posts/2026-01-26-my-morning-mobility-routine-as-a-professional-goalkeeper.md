@@ -3,7 +3,8 @@ layout: post
 title: "My Morning Mobility Routine as a Professional Goalkeeper"
 author: "GoalkeeperPerformance"
 handle: "goalkeeperperformance"
-category: [stretching]
+category: mobility
+tags: [injury-recovery, stretching]
 platform: "instagram"
 video_id: "DT-wzwtEtAd"
 thumbnail: "/assets/images/thumbs/DT-wzwtEtAd.jpg"

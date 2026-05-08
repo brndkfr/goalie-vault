@@ -1,0 +1,49 @@
+name: Build & Verify
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.2"
+          bundler-cache: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate taxonomy (Python)
+        run: |
+          python scripts/validate_taxonomy.py
+          python scripts/check_site.py
+
+      - name: Build site
+        env:
+          JEKYLL_ENV: production
+        run: bundle exec jekyll build --strict_front_matter --trace
+
+      - name: Install html-proofer
+        run: gem install html-proofer
+
+      - name: Run html-proofer (internal links + images, no external)
+        run: |
+          htmlproofer ./_site \
+            --disable-external \
+            --allow-hash-href \
+            --no-enforce-https \
+            --ignore-empty-alt \
+            --ignore-urls "/^https?:\/\/www\.instagram\.com/,/^https?:\/\/www\.youtube\.com/,/^https?:\/\/youtu\.be/" \
+            --swap-urls "^/goalie-vault:"

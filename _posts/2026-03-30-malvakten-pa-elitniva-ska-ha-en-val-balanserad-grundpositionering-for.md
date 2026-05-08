@@ -3,7 +3,8 @@ layout: post
 title: "Målvakten på elitnivå ska ha en väl balanserad grundpositionering för"
 author: "Micke Swedin"
 handle: "swe.goaliecoach"
-category: [training]
+category: technique
+tags: [positioning]
 platform: "instagram"
 video_id: "DWhMZH9jA0K"
 thumbnail: "/assets/images/thumbs/DWhMZH9jA0K.jpg"

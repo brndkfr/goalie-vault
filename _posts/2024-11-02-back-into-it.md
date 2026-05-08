@@ -3,7 +3,8 @@ layout: post
 title: "Back into it!"
 author: "Målvaktsfokus"
 handle: "pontusboman"
-category: [training]
+category: technique
+tags: [injury-recovery]
 platform: "instagram"
 video_id: "DB4UB2juzJx"
 thumbnail: "/assets/images/thumbs/DB4UB2juzJx.jpg"

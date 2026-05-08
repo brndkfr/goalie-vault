@@ -3,7 +3,8 @@ layout: post
 title: "🔥 Cvičení na zlepšení přesunů, zrychlení reakcí a rozhodování ⚡️"
 author: "Tomáš Švehla - Klubový a osobní trenér"
 handle: "trenersvehla"
-category: [warmup]
+category: warmup
+tags: []
 platform: "instagram"
 video_id: "DSAPEA7iEXZ"
 thumbnail: "/assets/images/thumbs/DSAPEA7iEXZ.jpg"

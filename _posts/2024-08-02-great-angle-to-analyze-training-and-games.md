@@ -3,7 +3,8 @@ layout: post
 title: "Great angle to analyze training and games📽"
 author: "Aki Karjalainen"
 handle: "floorballgoalie_1"
-category: [training]
+category: technique
+tags: [positioning]
 platform: "instagram"
 video_id: "C-KMJlfswjO"
 thumbnail: "/assets/images/thumbs/C-KMJlfswjO.jpg"

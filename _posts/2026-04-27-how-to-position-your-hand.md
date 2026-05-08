@@ -3,7 +3,8 @@ layout: post
 title: "How to position your hand"
 author: "Christian Coray"
 handle: "coray99"
-category: [goal-technical, movement]
+category: technique
+tags: [movement, positioning]
 platform: "youtube"
 video_id: "bjKZ4hTJrjg"
 thumbnail: "https://img.youtube.com/vi/bjKZ4hTJrjg/hqdefault.jpg"

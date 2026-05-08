@@ -3,7 +3,8 @@ layout: post
 title: "For a long time many of you have wished to see some of my mobility"
 author: "Aki Karjalainen"
 handle: "floorballgoalie_1"
-category: [stretching]
+category: movement
+tags: [mobility, positioning, stretching, theory, warmup]
 platform: "instagram"
 video_id: "C-h1Z8us_dt"
 thumbnail: "/assets/images/thumbs/C-h1Z8us_dt.jpg"

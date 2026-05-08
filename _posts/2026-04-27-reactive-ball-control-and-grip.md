@@ -3,7 +3,8 @@ layout: post
 title: "Reactive Ball Control and Grip"
 author: "Christian Coray"
 handle: "coray99"
-category: [coordination, reaction]
+category: technique
+tags: [coordination, hand-eye, reaction]
 platform: "youtube"
 video_id: "2OO6I6UbL4E"
 thumbnail: "https://img.youtube.com/vi/2OO6I6UbL4E/hqdefault.jpg"

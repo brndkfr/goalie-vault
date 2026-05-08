@@ -3,7 +3,8 @@ layout: post
 title: "Ah yeah back then when we could go to the gym and record there."
 author: "Between-the-Posts.com"
 handle: "between_the_posts_com"
-category: [strength]
+category: strength
+tags: [stretching]
 platform: "instagram"
 video_id: "CMu4wLRp0MH"
 thumbnail: "/assets/images/thumbs/CMu4wLRp0MH.jpg"

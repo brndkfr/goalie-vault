@@ -3,7 +3,8 @@ layout: post
 title: "That’s a way to warm up 😁"
 author: "Floorball Goalie Coach"
 handle: "tinygoaliecoach"
-category: [warmup]
+category: warmup
+tags: []
 platform: "instagram"
 video_id: "Co0aMcWIhvm"
 thumbnail: "/assets/images/thumbs/Co0aMcWIhvm.jpg"

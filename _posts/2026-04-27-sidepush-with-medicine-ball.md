@@ -3,7 +3,8 @@ layout: post
 title: "Sidepush with Medicine Ball"
 author: "saara"
 handle: "goaliesaara"
-category: [warmup, strength, movement]
+category: strength
+tags: [medicine-ball, movement, warmup]
 platform: "instagram"
 video_id: "Bny3fI8HXro"
 thumbnail: "/assets/images/thumbs/Bny3fI8HXro.jpg"

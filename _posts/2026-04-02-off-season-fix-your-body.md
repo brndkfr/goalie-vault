@@ -3,7 +3,8 @@ layout: post
 title: "OFF-SEASON = FIX YOUR BODY 🏑"
 author: "HockeyFitnessCoach"
 handle: "hockeyfitnesscoach"
-category: [stretching]
+category: strength
+tags: [injury-recovery, mobility, stretching]
 platform: "instagram"
 video_id: "DWn1UmOjHFe"
 thumbnail: "/assets/images/thumbs/DWn1UmOjHFe.jpg"

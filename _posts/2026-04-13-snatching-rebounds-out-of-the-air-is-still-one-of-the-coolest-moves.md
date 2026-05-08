@@ -3,7 +3,8 @@ layout: post
 title: "Snatching rebounds out of the air is still one of the coolest moves"
 author: "Målvaktsfokus"
 handle: "pontusboman"
-category: [training]
+category: technique
+tags: [rebound-control]
 platform: "instagram"
 video_id: "DXEmuiyjUUj"
 thumbnail: "/assets/images/thumbs/DXEmuiyjUUj.jpg"

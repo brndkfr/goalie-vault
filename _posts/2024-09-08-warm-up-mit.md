@@ -3,7 +3,8 @@ layout: post
 title: "Warm up mit 🇨🇭"
 author: "Målvaktsfokus"
 handle: "pontusboman"
-category: [warmup]
+category: warmup
+tags: []
 platform: "instagram"
 video_id: "C_qbfgEoaPn"
 thumbnail: "/assets/images/thumbs/C_qbfgEoaPn.jpg"

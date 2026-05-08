@@ -3,7 +3,8 @@ layout: post
 title: "MV-träning"
 author: "Andreas Wallin"
 handle: "andreaskimwallin"
-category: [training]
+category: technique
+tags: []
 platform: "instagram"
 video_id: "DFXnqkNtdyb"
 thumbnail: "/assets/images/thumbs/DFXnqkNtdyb.jpg"

@@ -3,7 +3,8 @@ layout: post
 title: "Do you get it yet?"
 author: "Jake Dyson"
 handle: "emergeperformance"
-category: [floorball, training]
+category: technique
+tags: []
 platform: "instagram"
 video_id: "DVv_ht2jiK3"
 thumbnail: "/assets/images/thumbs/DVv_ht2jiK3.jpg"

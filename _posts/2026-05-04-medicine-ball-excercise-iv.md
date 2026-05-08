@@ -3,7 +3,8 @@ layout: post
 title: "Medicine Ball Excercise IV"
 author: "Aki Karjalainen"
 handle: "floorballgoalie_1"
-category: [warmup, strength]
+category: strength
+tags: [medicine-ball, warmup]
 platform: "instagram"
 video_id: "Bv9WGDRBzlS"
 thumbnail: "/assets/images/thumbs/Bv9WGDRBzlS.jpg"

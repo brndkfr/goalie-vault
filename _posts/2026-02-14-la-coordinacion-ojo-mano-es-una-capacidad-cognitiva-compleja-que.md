@@ -3,7 +3,8 @@ layout: post
 title: "La coordinación ojo-mano es una capacidad cognitiva compleja que"
 author: "Eric Imbernon | Movement Spirit"
 handle: "the_movement_spirit"
-category: [coordination]
+category: coordination
+tags: [footwork]
 platform: "instagram"
 video_id: "DUv55ksDf32"
 thumbnail: "/assets/images/thumbs/DUv55ksDf32.jpg"

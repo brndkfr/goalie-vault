@@ -3,7 +3,8 @@ layout: post
 title: "Liam Wilson on Instagram: &quot;For more details and other tutorials"
 author: ""
 handle: ""
-category: [training]
+category: technique
+tags: []
 platform: "instagram"
 video_id: "DJEXa5DN57v"
 thumbnail: "/assets/images/thumbs/DJEXa5DN57v.jpg"

@@ -3,7 +3,8 @@ layout: post
 title: "Hand - eye - coordination ⭐️ some good exercises you can do whenever"
 author: "Stefan Flöjt"
 handle: "flojt76"
-category: [coordination]
+category: technique
+tags: [coordination]
 platform: "instagram"
 video_id: "C-LO9lMIeuS"
 thumbnail: "/assets/images/thumbs/C-LO9lMIeuS.jpg"

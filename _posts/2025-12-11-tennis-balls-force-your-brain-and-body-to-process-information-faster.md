@@ -3,7 +3,8 @@ layout: post
 title: "Tennis balls force your brain and body to process information faster."
 author: "Carmen Del Mastro"
 handle: "nooch_13"
-category: [coordination]
+category: reaction
+tags: [coordination, hand-eye, tennis-ball]
 platform: "instagram"
 video_id: "DSH83k7ESxs"
 thumbnail: "/assets/images/thumbs/DSH83k7ESxs.jpg"

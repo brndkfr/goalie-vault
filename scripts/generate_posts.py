@@ -21,13 +21,14 @@ META = ROOT / "scripts" / "curate" / "instagram"
 THUMBS = ROOT / "assets" / "images" / "thumbs"
 POSTS = ROOT / "_posts"
 
-CATEGORY_MAP: dict[str, list[str]] = {
-    "Goalie Traning": ["training"],
-    "Goalie Coordination": ["coordination"],
-    "Goalie Strength": ["strength"],
-    "Goalie Stretching": ["stretching"],
-    "Goalie Warmup": ["warmup"],
-    "floorball training": ["floorball", "training"],
+CATEGORY_MAP: dict[str, tuple[str, list[str]]] = {
+    # curator bucket -> (primary skill category, extra tags)
+    "Goalie Traning":      ("technique",    []),
+    "Goalie Coordination": ("coordination", []),
+    "Goalie Strength":     ("strength",     []),
+    "Goalie Stretching":   ("stretching",   []),
+    "Goalie Warmup":       ("warmup",       []),
+    "floorball training":  ("technique",    []),
 }
 
 # Display name used when synthesising a fallback title.
@@ -197,13 +198,18 @@ def render_post(meta: dict, pid: str, title: str, tags: list[str], thumb: str) -
     description = clean_description(meta.get("description") or "")
     author = (meta.get("uploader") or meta.get("channel") or "").strip()
     handle = (meta.get("channel") or meta.get("uploader_id") or "").strip()
+def render_post(meta: dict, pid: str, title: str, primary: str, tags: list[str], thumb: str) -> str:
+    description = clean_description(meta.get("description") or "")
+    author = (meta.get("uploader") or meta.get("channel") or "").strip()
+    handle = (meta.get("channel") or meta.get("uploader_id") or "").strip()
     lines = [
         "---",
         "layout: post",
         f"title: {yaml_str(title)}",
         f"author: {yaml_str(author)}",
         f"handle: {yaml_str(handle)}",
-        "category: [" + ", ".join(tags) + "]",
+        f"category: {primary}",
+        "tags: [" + ", ".join(tags) + "]",
         'platform: "instagram"',
         f"video_id: {yaml_str(pid)}",
         f"thumbnail: {yaml_str(thumb)}",
@@ -243,7 +249,7 @@ def main() -> None:
             continue
         meta = json.loads(meta_path.read_text(encoding="utf-8"))
         title = derive_title(meta, cat)
-        tags = CATEGORY_MAP[cat]
+        primary, extra_tags = CATEGORY_MAP[cat]
         thumb = find_thumbnail(pid)
         date = date_from_meta(meta)
         fname = f"{date}-{slugify(title)}.md"
@@ -253,7 +259,7 @@ def main() -> None:
             out = POSTS / fname
         used_filenames.add(fname)
 
-        out.write_text(render_post(meta, pid, title, tags, thumb), encoding="utf-8")
+        out.write_text(render_post(meta, pid, title, primary, extra_tags, thumb), encoding="utf-8")
         written += 1
 
     print(f"written:            {written}")

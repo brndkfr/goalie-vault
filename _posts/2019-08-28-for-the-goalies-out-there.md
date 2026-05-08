@@ -3,7 +3,8 @@ layout: post
 title: "For the goalies out there!"
 author: "Flemming Kühl FZ17"
 handle: "floorballzone17"
-category: [training]
+category: technique
+tags: []
 platform: "instagram"
 video_id: "B1tLyGIBmBe"
 thumbnail: "/assets/images/thumbs/B1tLyGIBmBe.jpg"

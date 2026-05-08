@@ -4,10 +4,11 @@ layout: default
 <div class="post-container">
 
   <header class="post-header">
-    {% if page.category %}
+    {% if page.category or page.tags %}
     <div class="post-header__tags">
-      {% for cat in page.category %}
-        <span class="drill-card__tag">{{ cat }}</span>
+      {% if page.category %}<a class="drill-card__tag drill-card__tag--primary" href="{{ site.baseurl }}/{{ page.category }}/">{{ page.category }}</a>{% endif %}
+      {% for tag in page.tags %}
+        <a class="drill-card__tag" href="{{ site.baseurl }}/{{ tag }}/">{{ tag }}</a>
       {% endfor %}
     </div>
     {% endif %}

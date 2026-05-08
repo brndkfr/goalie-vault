@@ -3,7 +3,8 @@ layout: post
 title: "Using that double-step I posted a while ago."
 author: "Saara 🇫🇮"
 handle: "goaliesaara"
-category: [training]
+category: technique
+tags: [game-situation]
 platform: "instagram"
 video_id: "Bg_fcSAnG6B"
 thumbnail: "/assets/images/thumbs/Bg_fcSAnG6B.jpg"

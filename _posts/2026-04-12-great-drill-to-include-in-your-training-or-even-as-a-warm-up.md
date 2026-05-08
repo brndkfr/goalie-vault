@@ -3,7 +3,8 @@ layout: post
 title: "Great drill to include in your training or even as a warm-up⚡"
 author: "WFGA"
 handle: "worldfloorballgoalieacademy"
-category: [training]
+category: technique
+tags: [coordination, mental, movement, reaction, warmup]
 platform: "instagram"
 video_id: "DXCrYu7jX5U"
 thumbnail: "/assets/images/thumbs/DXCrYu7jX5U.jpg"

@@ -3,7 +3,8 @@ layout: post
 title: "Mattias S& ;derlund on Instagram: &quot;T& ;vlingss& ;songen f& ;r &"
 author: ""
 handle: ""
-category: [training]
+category: technique
+tags: [positioning]
 platform: "instagram"
 video_id: "DV9eD8IiGB4"
 thumbnail: "/assets/images/thumbs/DV9eD8IiGB4.jpg"

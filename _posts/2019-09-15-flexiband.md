@@ -3,7 +3,8 @@ layout: post
 title: "[FLEXIBAND]"
 author: "WFGA"
 handle: "worldfloorballgoalieacademy"
-category: [strength]
+category: strength
+tags: [band, movement]
 platform: "instagram"
 video_id: "B2bO379oSSa"
 thumbnail: "/assets/images/thumbs/B2bO379oSSa.jpg"

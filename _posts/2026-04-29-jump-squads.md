@@ -3,7 +3,8 @@ layout: post
 title: "Jump Squads"
 author: "PureGym"
 handle: "PureGymVideo"
-category: [strength, stretching]
+category: strength
+tags: [stretching]
 platform: "youtube"
 video_id: "BRfxI2Es2lE"
 thumbnail: "https://img.youtube.com/vi/BRfxI2Es2lE/hqdefault.jpg"

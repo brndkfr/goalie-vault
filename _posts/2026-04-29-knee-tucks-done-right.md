@@ -3,7 +3,8 @@ layout: post
 title: "Knee Tucks done right"
 author: "Go with JO FITNESS"
 handle: "GowithJOFITNESS"
-category: [strength, stretching]
+category: strength
+tags: [stretching]
 platform: "youtube"
 video_id: "QCd3BA_PflM"
 thumbnail: "https://img.youtube.com/vi/QCd3BA_PflM/hqdefault.jpg"

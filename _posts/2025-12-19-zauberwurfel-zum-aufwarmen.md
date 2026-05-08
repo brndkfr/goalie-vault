@@ -3,7 +3,8 @@ layout: post
 title: "„Zauberwürfel“ zum Aufwärmen."
 author: "TSV Ratekau Jugendfußball"
 handle: "tsv.ratekau.jugendfussball"
-category: [floorball, training]
+category: technique
+tags: []
 platform: "instagram"
 video_id: "DSdSnBmDNXh"
 thumbnail: "/assets/images/thumbs/DSdSnBmDNXh.jpg"

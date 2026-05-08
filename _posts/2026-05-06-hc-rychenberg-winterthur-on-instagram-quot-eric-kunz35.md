@@ -3,7 +3,8 @@ layout: post
 title: "HC Rychenberg Winterthur on Instagram: &quot;& ;eric_kunz35"
 author: ""
 handle: ""
-category: [coordination]
+category: coordination
+tags: [match-prep, warmup]
 platform: "instagram"
 video_id: "DXCPXwWCJbH"
 thumbnail: "/assets/images/thumbs/DXCPXwWCJbH.jpg"

@@ -3,6 +3,14 @@ description: "A floorball goalie resource hub."
 baseurl: "/goalie-vault" # Important if hosted in a subfolder
 url: "https://brndkfr.github.io"
 
+# Stable post URLs that don't depend on category tags.
+permalink: /:year/:month/:day/:title/
+
+# Plugins (jekyll-redirect-from is whitelisted on GitHub Pages and lets us
+# preserve old category URLs after renames, e.g. /goal-technical/ -> /technique/).
+plugins:
+  - jekyll-redirect-from
+
 # Collections tell Jekyll to look into your custom folders
 collections:
   articles:

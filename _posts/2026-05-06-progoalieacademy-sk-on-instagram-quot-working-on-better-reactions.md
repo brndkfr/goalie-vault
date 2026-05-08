@@ -3,7 +3,8 @@ layout: post
 title: "ProGoalieAcademy.sk on Instagram: &quot;Working on better reactions"
 author: ""
 handle: ""
-category: [floorball, training]
+category: reaction
+tags: [coordination, hand-eye]
 platform: "instagram"
 video_id: "DXJe-CsoGwD"
 thumbnail: "/assets/images/thumbs/DXJe-CsoGwD.jpg"

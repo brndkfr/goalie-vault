@@ -3,7 +3,8 @@ layout: post
 title: "Best Goalie Workout 😂😁🔥👍 ( )"
 author: "Floorball Highlights"
 handle: "floorball_fanatic"
-category: [warmup]
+category: reaction
+tags: [fitlight, warmup]
 platform: "instagram"
 video_id: "Bb3jDVHlKME"
 thumbnail: "/assets/images/thumbs/Bb3jDVHlKME.jpg"

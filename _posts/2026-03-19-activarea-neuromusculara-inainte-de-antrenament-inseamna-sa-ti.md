@@ -3,7 +3,8 @@ layout: post
 title: "Activarea neuromusculară înainte de antrenament înseamnă să-ți"
 author: "Move Human 🐒"
 handle: "vlad.codescu"
-category: [coordination]
+category: coordination
+tags: []
 platform: "instagram"
 video_id: "DWEodwtjCtM"
 thumbnail: "/assets/images/thumbs/DWEodwtjCtM.jpg"

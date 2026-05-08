@@ -1,7 +1,7 @@
 ---
 layout: category
-title: "Warmup Drills"
-description: "Drills to warm up before training"
+title: "Warmup"
+description: "Pre-training and pre-match preparation."
 category_filter: warmup
 permalink: /warmup/
 ---

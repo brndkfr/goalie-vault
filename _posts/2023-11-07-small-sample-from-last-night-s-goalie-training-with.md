@@ -3,7 +3,8 @@ layout: post
 title: "Small sample from last night's goalie training with"
 author: "Målvaktsfokus"
 handle: "pontusboman"
-category: [training]
+category: technique
+tags: [strength]
 platform: "instagram"
 video_id: "CzVjYlBI8sz"
 thumbnail: "/assets/images/thumbs/CzVjYlBI8sz.jpg"

@@ -3,7 +3,8 @@ layout: post
 title: "Goalie training vol."
 author: "Martin Jesenský, PhD."
 handle: "mjesensky_coach"
-category: [coordination]
+category: coordination
+tags: []
 platform: "instagram"
 video_id: "CxS5ntFIu9g"
 thumbnail: "/assets/images/thumbs/CxS5ntFIu9g.jpg"

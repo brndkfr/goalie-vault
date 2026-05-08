@@ -3,7 +3,8 @@ layout: post
 title: "Shot from the slot drill"
 author: "Floorball Connect"
 handle: "floorballconnect"
-category: [training]
+category: warmup
+tags: []
 platform: "instagram"
 video_id: "DT8ghVQjDgZ"
 thumbnail: "/assets/images/thumbs/DT8ghVQjDgZ.jpg"

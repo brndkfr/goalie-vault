@@ -3,7 +3,8 @@ layout: post
 title: "Some friends nibbling in a good fight"
 author: "Floorball GoalieGirl"
 handle: "fbgoaliegirl"
-category: [training]
+category: technique
+tags: []
 platform: "instagram"
 video_id: "DUS3bgBDXOO"
 thumbnail: "/assets/images/thumbs/DUS3bgBDXOO.jpg"

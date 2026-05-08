@@ -3,7 +3,8 @@ layout: post
 title: "Goalie Battle"
 author: "Floorball Goalie Coach"
 handle: "tinygoaliecoach"
-category: [warmup, strength, reaction, movement]
+category: reaction
+tags: [movement, strength, warmup]
 platform: "instagram"
 video_id: "ChkDKeKo-Rz"
 thumbnail: ""

@@ -3,7 +3,8 @@ layout: post
 title: "Howto Drop Jump"
 author: ""
 handle: ""
-category: []
+category: strength
+tags: []
 platform: "youtube"
 video_id: "3JY0pxIPaC4"
 thumbnail: "https://img.youtube.com/vi/3JY0pxIPaC4/hqdefault.jpg"

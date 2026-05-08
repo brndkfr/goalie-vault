@@ -3,7 +3,8 @@ layout: post
 title: "Before and after is the best proof of the work that’s been done 💪"
 author: "Sergey Smorodin"
 handle: "smorodin_s"
-category: [coordination]
+category: coordination
+tags: []
 platform: "instagram"
 video_id: "DVO9rTaDej7"
 thumbnail: "/assets/images/thumbs/DVO9rTaDej7.jpg"

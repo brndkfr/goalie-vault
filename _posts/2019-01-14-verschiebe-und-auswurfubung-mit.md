@@ -3,7 +3,8 @@ layout: post
 title: "Verschiebe- und Auswurfübung mit"
 author: "Floorball Goalietraining"
 handle: "floorballgoalietraining"
-category: [training]
+category: movement
+tags: []
 platform: "instagram"
 video_id: "Bsn4YH1HZmx"
 thumbnail: "/assets/images/thumbs/Bsn4YH1HZmx.jpg"

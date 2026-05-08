@@ -3,7 +3,8 @@ layout: post
 title: "Floorball Connect on Instagram: &quot;Floorball decision-making isn&"
 author: ""
 handle: ""
-category: [floorball, training]
+category: technique
+tags: []
 platform: "instagram"
 video_id: "DNfLjpiCEI4"
 thumbnail: "/assets/images/thumbs/DNfLjpiCEI4.jpg"

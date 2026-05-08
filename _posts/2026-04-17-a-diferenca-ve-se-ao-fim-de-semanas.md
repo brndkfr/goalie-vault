@@ -3,7 +3,8 @@ layout: post
 title: "A diferença vê-se ao fim de semanas…"
 author: "Hockey GoalKeeper Lab"
 handle: "hockey.gk.lab"
-category: [training]
+category: technique
+tags: []
 platform: "instagram"
 video_id: "DXPogtuCCEL"
 thumbnail: "/assets/images/thumbs/DXPogtuCCEL.jpg"

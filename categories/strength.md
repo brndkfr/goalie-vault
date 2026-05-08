@@ -1,7 +1,7 @@
 ---
 layout: category
-title: "Strength Drills"
-description: "Drills to build goalie strength"
+title: "Strength"
+description: "Power, plyometrics and lifting."
 category_filter: strength
 permalink: /strength/
 ---

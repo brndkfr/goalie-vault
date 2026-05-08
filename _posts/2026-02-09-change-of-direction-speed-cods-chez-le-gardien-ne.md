@@ -3,7 +3,8 @@ layout: post
 title: "Change of direction speed (CODS) chez le gardien-ne."
 author: "Vaud Unihockey CRP | SPE"
 handle: "vdu_crp.spe"
-category: [strength]
+category: strength
+tags: []
 platform: "instagram"
 video_id: "DUjRGaBCNY4"
 thumbnail: "/assets/images/thumbs/DUjRGaBCNY4.jpg"

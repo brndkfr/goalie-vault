@@ -3,7 +3,8 @@ layout: post
 title: "Reaction and goalie training"
 author: "Regionales Leistungszentrum TG"
 handle: "regionalesleistungszentrum"
-category: [training]
+category: reaction
+tags: []
 platform: "instagram"
 video_id: "BnVTddKArlC"
 thumbnail: "/assets/images/thumbs/BnVTddKArlC.jpg"

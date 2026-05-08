@@ -3,7 +3,8 @@ layout: post
 title: "Saara & ;& ; on Instagram: &quot;Controlling rebounds."
 author: ""
 handle: ""
-category: [training]
+category: technique
+tags: [rebound-control]
 platform: "instagram"
 video_id: "BhIeq9jASoA"
 thumbnail: "/assets/images/thumbs/BhIeq9jASoA.jpg"

@@ -3,7 +3,8 @@ layout: post
 title: "✅ Cognitive Skills for Goalkeepers"
 author: "Ricky K Henry"
 handle: "rickykhenry"
-category: [coordination]
+category: reaction
+tags: [coordination, hand-eye]
 platform: "instagram"
 video_id: "DXhizzfDCz4"
 thumbnail: "/assets/images/thumbs/DXhizzfDCz4.jpg"

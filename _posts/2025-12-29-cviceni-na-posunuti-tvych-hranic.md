@@ -3,7 +3,8 @@ layout: post
 title: "🔥 Cvičení na posunutí tvých hranic!"
 author: "Tomáš Švehla - Klubový a osobní trenér"
 handle: "trenersvehla"
-category: [training]
+category: technique
+tags: []
 platform: "instagram"
 video_id: "DS2UjmvCEF1"
 thumbnail: "/assets/images/thumbs/DS2UjmvCEF1.jpg"

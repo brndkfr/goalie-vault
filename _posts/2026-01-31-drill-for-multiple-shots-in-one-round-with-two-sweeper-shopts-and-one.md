@@ -3,7 +3,8 @@ layout: post
 title: "Drill for multiple shots in one round with two sweeper shopts and one"
 author: "Floorball Connect"
 handle: "floorballconnect"
-category: [floorball, training]
+category: technique
+tags: []
 platform: "instagram"
 video_id: "DUK8uE6DDCI"
 thumbnail: "/assets/images/thumbs/DUK8uE6DDCI.jpg"

@@ -3,7 +3,8 @@ layout: post
 title: "180° turn Power turn - Richtungswechsel 180° Richtungswechsel Power"
 author: "Swiss Unihockey"
 handle: "swissunihockey"
-category: [coordination, strength, reaction, movement]
+category: reaction
+tags: [coordination, movement, strength]
 platform: "youtube"
 video_id: "tncCHweZreQ"
 thumbnail: "https://img.youtube.com/vi/tncCHweZreQ/hqdefault.jpg"

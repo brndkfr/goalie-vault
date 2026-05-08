@@ -3,7 +3,8 @@ layout: post
 title: "If you don't want to learn the box, I can only guess it's because you"
 author: "Liam Wilson"
 handle: "liamjwilson423"
-category: [coordination]
+category: coordination
+tags: []
 platform: "instagram"
 video_id: "DU-XkIcjbOf"
 thumbnail: "/assets/images/thumbs/DU-XkIcjbOf.jpg"

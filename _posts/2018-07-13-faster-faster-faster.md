@@ -3,7 +3,8 @@ layout: post
 title: "Faster, faster, faster!"
 author: "Saara 🇫🇮"
 handle: "goaliesaara"
-category: [strength]
+category: strength
+tags: []
 platform: "instagram"
 video_id: "BlKw5hYnObZ"
 thumbnail: "/assets/images/thumbs/BlKw5hYnObZ.jpg"

@@ -3,7 +3,8 @@ layout: post
 title: "Ein weiteres Trainingslager ist hinter uns 👀"
 author: "U17 Juniorinnen Ostauswahl"
 handle: "u17w_ostauswahl"
-category: [coordination]
+category: coordination
+tags: []
 platform: "instagram"
 video_id: "DWMg_l-Dd_H"
 thumbnail: "/assets/images/thumbs/DWMg_l-Dd_H.jpg"

@@ -3,7 +3,8 @@ layout: post
 title: "👁️ Když oči a hlava fungují naplno, může fungovat naplno i zbytek"
 author: "Tomáš Jurco"
 handle: "tomas_jurco22"
-category: [coordination]
+category: coordination
+tags: []
 platform: "instagram"
 video_id: "DCT0wXqt5Nb"
 thumbnail: "/assets/images/thumbs/DCT0wXqt5Nb.jpg"

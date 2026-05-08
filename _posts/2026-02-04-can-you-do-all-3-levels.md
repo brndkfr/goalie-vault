@@ -3,7 +3,8 @@ layout: post
 title: "Can you do all 3 LEVELS?!💪🏻✅"
 author: "𝗠𝗿. 𝗛𝗶𝗴𝗵 𝗟𝗲𝘃𝗲𝗹"
 handle: "mr.highlevel_"
-category: [strength]
+category: coordination
+tags: [mental, strength, theory, warmup]
 platform: "instagram"
 video_id: "DUVPUJujHb-"
 thumbnail: "/assets/images/thumbs/DUVPUJujHb-.jpg"

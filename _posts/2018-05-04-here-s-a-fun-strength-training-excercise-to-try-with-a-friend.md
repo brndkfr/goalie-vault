@@ -3,7 +3,8 @@ layout: post
 title: "Here's a fun strength training excercise to try with a friend!"
 author: "Saara 🇫🇮"
 handle: "goaliesaara"
-category: [strength]
+category: strength
+tags: []
 platform: "instagram"
 video_id: "BiWolFggycu"
 thumbnail: "/assets/images/thumbs/BiWolFggycu.jpg"

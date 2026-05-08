@@ -3,7 +3,8 @@ layout: post
 title: "Goalie positioning when the ball is in the corner 🥅"
 author: "WFGA"
 handle: "worldfloorballgoalieacademy"
-category: [training]
+category: reaction
+tags: [positioning, vision]
 platform: "instagram"
 video_id: "DWrDkg-iO61"
 thumbnail: "/assets/images/thumbs/DWrDkg-iO61.jpg"

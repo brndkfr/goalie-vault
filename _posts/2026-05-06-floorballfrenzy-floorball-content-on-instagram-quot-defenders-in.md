@@ -3,7 +3,8 @@ layout: post
 title: "FloorballFrenzy | Floorball Content on Instagram: &quot;Defenders in"
 author: ""
 handle: ""
-category: [floorball, training]
+category: technique
+tags: [mental]
 platform: "instagram"
 video_id: "C-5Lm1StvDv"
 thumbnail: "/assets/images/thumbs/C-5Lm1StvDv.jpg"

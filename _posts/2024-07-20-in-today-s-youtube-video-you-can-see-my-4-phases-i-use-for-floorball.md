@@ -3,7 +3,8 @@ layout: post
 title: "In today's youtube video you can see my 4 phases I use for floorball"
 author: "Aki Karjalainen"
 handle: "floorballgoalie_1"
-category: [warmup]
+category: warmup
+tags: []
 platform: "instagram"
 video_id: "C9oyiIdMM9J"
 thumbnail: "/assets/images/thumbs/C9oyiIdMM9J.jpg"

@@ -1,7 +1,7 @@
 ---
 layout: category
-title: "Stretching Drills"
-description: "Drills for flexibility and stretching"
+title: "Stretching"
+description: "Static stretching for goalies."
 category_filter: stretching
 permalink: /stretching/
 ---

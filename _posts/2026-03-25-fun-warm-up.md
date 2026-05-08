@@ -3,7 +3,8 @@ layout: post
 title: "Fun warm up."
 author: "Power and Speed Training"
 handle: "4vpowerspeed"
-category: [floorball, training]
+category: coordination
+tags: [footwork, strength, warmup]
 platform: "instagram"
 video_id: "DWUI3OIjngQ"
 thumbnail: "/assets/images/thumbs/DWUI3OIjngQ.jpg"

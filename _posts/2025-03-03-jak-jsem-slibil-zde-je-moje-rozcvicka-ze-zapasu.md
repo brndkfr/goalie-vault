@@ -3,7 +3,8 @@ layout: post
 title: "Jak jsem slíbil zde je moje rozcvička ze zápasu🫵🏻"
 author: "Lukas45kriz"
 handle: "krizlukas"
-category: [training]
+category: technique
+tags: []
 platform: "instagram"
 video_id: "DGvG8BEsGPP"
 thumbnail: "/assets/images/thumbs/DGvG8BEsGPP.jpg"
