@@ -47,6 +47,7 @@ jobs:
           fi
 
       - name: Create pull request
+        id: cpr
         if: ${{ github.event.inputs.dry_run != 'true' }}
         uses: peter-evans/create-pull-request@v6
         with:
@@ -62,3 +63,9 @@ jobs:
           delete-branch: true
           add-paths: |
             _data/thumbnails.json
+
+      - name: Enable auto-merge
+        if: ${{ steps.cpr.outputs.pull-request-number }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh pr merge --squash --auto "${{ steps.cpr.outputs.pull-request-number }}" --repo "${{ github.repository }}"
