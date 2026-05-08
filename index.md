@@ -85,7 +85,8 @@ title: "Goalie Vault"
 
   <!-- Drill grid -->
   <div class="drill-grid" id="drillGrid">
-    {% for post in site.posts %}
+    {% assign sorted_posts = site.posts | sort: 'date' | reverse %}
+    {% for post in sorted_posts %}
     {% capture post_filters %}{{ post.category }}{% if post.tags %},{{ post.tags | join: ',' }}{% endif %}{% endcapture %}
     <div class="drill-card"
          data-categories="{{ post_filters | downcase }}"
