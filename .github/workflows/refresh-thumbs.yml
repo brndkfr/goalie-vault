@@ -2,9 +2,9 @@ name: Refresh Instagram thumbnail URLs
 
 on:
   schedule:
-    # Every 6 hours (4x/day). IG throttles after ~6 anon requests/IP, so we
-    # process small batches more frequently to stay under the limit.
-    - cron: "17 */6 * * *"
+    # Every 3 hours (8x/day, ~48 URLs/day @ cap=6). IG throttles after ~6
+    # anon requests/IP, so we keep batches small but run more often.
+    - cron: "17 */3 * * *"
   workflow_dispatch:
     inputs:
       max:
