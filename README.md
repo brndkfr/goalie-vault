@@ -86,10 +86,35 @@ The site will be available at `http://localhost:4000/goalie-vault`.
 | Workflow | Trigger | What it does |
 |---|---|---|
 | `new-drill.yml` | Issue labeled `new-drill` | Parses the issue form, fetches a thumbnail (YouTube CDN URL or `yt-dlp` for Instagram), creates `_posts/*.md`, commits, and closes the issue |
-| `remove-thumbnail.yml` | Manual — Actions tab → **Run workflow** | Clears `thumbnail:` from the post frontmatter and deletes the image from `assets/images/thumbs/`. Input: `post_slug` (e.g. `2026-04-24-inner-core-strength`) |
-| `refetch-thumbnails.yml` | Manual or weekly (Mon 03:00 UTC) | Scans all Instagram posts with empty `thumbnail:`, retries `yt-dlp` for each, patches post files and commits. Results shown in the Actions run summary. |
+| `build-and-verify.yml` | Push / PR | Runs `validate_taxonomy.py` (strict YAML + tag check) and `check_site.py` (landing pages + API endpoints) |
+| `refresh-thumbs.yml` | Daily 06:17 UTC + manual | Calls `scripts/refresh_thumb_urls.py` to re-fetch expiring Instagram CDN URLs into `_data/thumbnails.json` and opens an auto-merging PR |
+| `remove-thumbnail.yml` | Manual — Actions tab → **Run workflow** | Clears `thumbnail:` from the post frontmatter and deletes the image from `assets/images/thumbs/`. Input: `post_slug` |
+| `refetch-thumbnails.yml` | Manual or weekly (Mon 03:00 UTC) | Legacy: scans Instagram posts with empty `thumbnail:`, retries `yt-dlp`, patches post files |
 
 To trigger `remove-thumbnail`: go to **Actions → Remove Drill Thumbnail → Run workflow** and enter the post slug.
+
+---
+
+## Thumbnail URL Cache
+
+Instagram CDN URLs are signed and expire (~14 days). To stay legally clean
+(no locally stored Instagram thumbnails) the site reads URLs from
+[`_data/thumbnails.json`](_data/thumbnails.json), keyed by `video_id`.
+
+The daily `refresh-thumbs.yml` workflow runs `scripts/refresh_thumb_urls.py`
+which:
+
+- Picks up to N entries whose `expires` is within the safety window or whose
+  `fetched` timestamp is older than the min-age.
+- Re-resolves each via `yt-dlp` with random delays + UA rotation.
+- Backs off after `--max-attempts` failures.
+- Opens a PR (auto-merged when checks pass).
+
+Layouts read `site.data.thumbnails[post.video_id].url`, falling back to the
+legacy `post.thumbnail` field, then to a placeholder via `onerror`.
+
+See [_docs/legal-and-compliance-plan.md](_docs/legal-and-compliance-plan.md)
+§1.2 + §3.2 for context.
 
 ---
 
@@ -99,12 +124,13 @@ To trigger `remove-thumbnail`: go to **Actions → Remove Drill Thumbnail → Ru
 _posts/                  # Video drill posts (auto-generated or manual)
 _drafts/                 # Soft-deleted posts (excluded from build)
 _quizzes/                # Interactive quiz definitions (YAML front matter)
-_layouts/                # default.html, post.html, quiz.html templates
+_layouts/                # default.html, post.html, quiz.html, category.html templates
 _data/
   quiz_config.yml        # Google Sheets submission config (optional)
+  thumbnails.json        # Instagram CDN URL cache (refreshed daily)
 assets/images/           # Logo and media
-assets/images/thumbs/    # Auto-fetched Instagram thumbnails
-scripts/                 # Local curation pipeline (see Curation Tooling)
+assets/images/thumbs/    # Legacy local Instagram thumbnails (being phased out)
+scripts/                 # Local curation pipeline + audit/validator scripts
   curate/                # Static-served vanilla-JS UIs + manifests
 assets/js/
   quiz.js                # Quiz engine (state, scoring, Chart.js)
@@ -213,8 +239,9 @@ The quiz engine (`assets/js/quiz.js`) handles state, scoring, and a Chart.js dou
 - [x] Static REST API (`/api/v1/`)
 - [x] Live search on the drill grid
 - [x] Local curation tooling for Instagram triage and post editing
+- [x] On-demand Instagram thumbnail URL cache (`_data/thumbnails.json`)
 - [ ] Articles collection (`_articles/`)
-- [ ] Category filter pages (`/warmup`, `/coordination`, etc.)
+- [ ] Phase-4 cleanup: drop local `assets/images/thumbs/*.jpg` once URL cache is fully populated
 
 ---
 
