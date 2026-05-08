@@ -5,11 +5,12 @@ oldest stale entries, hits the public Instagram post page via yt-dlp (no
 login, no cookies), and stores the resulting CDN thumbnail URL.
 
 Polite-scraper behavior:
-  * Random per-request delay (3-8s)
+  * Random per-request delay (8-20s)
   * Random inter-batch pause (30-90s)
   * Rotating User-Agent
   * Early abort on repeated rate-limit responses
-  * Caps total work per run
+  * Caps total work per run (default 6, matches IG anonymous throttle)
+  * Cool-down: rate_limit'd entries are skipped for N days
 
 Usage:
     python scripts/refresh_thumb_urls.py [--max 30] [--batch 5]
@@ -106,15 +107,18 @@ def pick_work(
     min_age_days: int,
     safety_days: int,
     max_attempts: int,
+    rl_cooldown_days: int,
     cap: int,
 ) -> list[str]:
     """Return up to `cap` video_ids that need refreshing.
 
     Selection rules:
       * Skip ``not_found``.
+      * Skip ``rate_limit`` entries whose last attempt is younger than
+        ``rl_cooldown_days`` (avoid hammering IG from the same runner IP).
       * Skip entries that already failed ``max_attempts`` times in a row
         without ever turning ``ok`` (perma-broken).
-      * Always include entries with no URL or non-ok status.
+      * Always include entries with no URL or non-ok status (after cooldown).
       * Otherwise refresh when EITHER:
           - The URL's own ``expires`` is within ``safety_days``, OR
           - We last fetched it more than ``min_age_days`` ago (catch-all
@@ -124,6 +128,7 @@ def pick_work(
     today = date.today()
     expiry_horizon = today + timedelta(days=safety_days)
     age_cutoff = today - timedelta(days=min_age_days)
+    rl_cutoff = today - timedelta(days=rl_cooldown_days)
     pool: list[tuple[str, str]] = []  # (sort-key, video_id)
     for vid in valid_ids:
         entry = data.get(vid, {})
@@ -131,6 +136,14 @@ def pick_work(
         if status == "not_found":
             continue
         attempts = int(entry.get("attempts", 0) or 0)
+        # Cool-down for rate-limited entries: skip if last attempt is recent.
+        if status == "rate_limit":
+            try:
+                f_date = datetime.strptime(entry.get("fetched") or "2000-01-01", "%Y-%m-%d").date()
+            except ValueError:
+                f_date = date(2000, 1, 1)
+            if f_date >= rl_cutoff:
+                continue
         # Perma-broken: many attempts, never reached ok.
         if status in ("error", "rate_limit") and attempts >= max_attempts:
             # Skip unless the last attempt is older than min_age_days
@@ -220,8 +233,8 @@ def summarize_state(data: dict) -> Counter:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--max", type=int, default=30, help="Max IDs per run")
-    parser.add_argument("--batch", type=int, default=5, help="IDs per batch")
+    parser.add_argument("--max", type=int, default=6, help="Max IDs per run (IG throttles ~6/session)")
+    parser.add_argument("--batch", type=int, default=3, help="IDs per batch")
     parser.add_argument(
         "--min-age-days",
         type=int,
@@ -239,6 +252,18 @@ def main() -> int:
         type=int,
         default=5,
         help="After this many consecutive failures, back off for min-age-days",
+    )
+    parser.add_argument(
+        "--rl-cooldown-days",
+        type=int,
+        default=2,
+        help="Skip rate_limit'd entries for this many days (avoid hammering IG from same IP)",
+    )
+    parser.add_argument(
+        "--delay-min", type=float, default=8.0, help="Min seconds between requests"
+    )
+    parser.add_argument(
+        "--delay-max", type=float, default=20.0, help="Max seconds between requests"
     )
     parser.add_argument("--dry-run", action="store_true", help="Don't call yt-dlp")
     args = parser.parse_args()
@@ -282,6 +307,7 @@ def main() -> int:
         args.min_age_days,
         args.safety_days,
         args.max_attempts,
+        args.rl_cooldown_days,
         args.max,
     )
     if not work:
@@ -365,7 +391,7 @@ def main() -> int:
                 print(f"  err  {vid} ({dt:.1f}s) :: {err[:120]}")
                 if len(sample_errors) < 3:
                     sample_errors.append(f"`{vid}`: {err[:200]}")
-            time.sleep(random.uniform(3, 8))
+            time.sleep(random.uniform(args.delay_min, args.delay_max))
         if aborted:
             break
         if i + args.batch < len(work):

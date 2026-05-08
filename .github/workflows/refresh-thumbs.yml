@@ -2,14 +2,15 @@ name: Refresh Instagram thumbnail URLs
 
 on:
   schedule:
-    # Daily at 06:17 UTC. Cron is best-effort; GitHub may add jitter.
-    - cron: "17 6 * * *"
+    # Every 6 hours (4x/day). IG throttles after ~6 anon requests/IP, so we
+    # process small batches more frequently to stay under the limit.
+    - cron: "17 */6 * * *"
   workflow_dispatch:
     inputs:
       max:
         description: "Max IDs to refresh in this run"
         required: false
-        default: "30"
+        default: "6"
       dry_run:
         description: "Dry run (no network calls)"
         type: boolean
@@ -37,7 +38,7 @@ jobs:
 
       - name: Refresh thumbnail URLs
         env:
-          MAX: ${{ github.event.inputs.max || '30' }}
+          MAX: ${{ github.event.inputs.max || '6' }}
           DRY: ${{ github.event.inputs.dry_run }}
         run: |
           if [ "$DRY" = "true" ]; then
