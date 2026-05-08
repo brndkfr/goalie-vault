@@ -3,7 +3,8 @@ layout: post
 title: "Medicine Ball Exercise I"
 author: "Aki Karjalainen"
 handle: "floorballgoalie_1"
-category: [warmup, strength]
+category: strength
+tags: [medicine-ball, warmup]
 platform: "instagram"  # or "youtube"
 video_id: "ByxlPw4HMax"  # The ID from the URL
 description: "This exercise builds your core"

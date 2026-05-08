@@ -3,7 +3,8 @@ layout: post
 title: "Movement-Drill mit von"
 author: "Floorball Goalietraining"
 handle: "floorballgoalietraining"
-category: [training]
+category: movement
+tags: []
 platform: "instagram"
 video_id: "BsfYxRPDwe-"
 thumbnail: "/assets/images/thumbs/BsfYxRPDwe-.jpg"

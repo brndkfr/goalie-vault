@@ -3,7 +3,8 @@ layout: post
 title: "I do it anyways 🧠📈"
 author: "Lucie Řezáčová | Floorball player"
 handle: "l.rezacova12"
-category: [floorball, training]
+category: technique
+tags: []
 platform: "instagram"
 video_id: "DWRiZsiDZSN"
 thumbnail: "/assets/images/thumbs/DWRiZsiDZSN.jpg"

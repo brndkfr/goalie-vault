@@ -3,7 +3,8 @@ layout: post
 title: "First training of new season ⚡️"
 author: "Floorball Goalie Coach"
 handle: "tinygoaliecoach"
-category: [warmup]
+category: warmup
+tags: []
 platform: "instagram"
 video_id: "CxDIKUBopsT"
 thumbnail: "/assets/images/thumbs/CxDIKUBopsT.jpg"

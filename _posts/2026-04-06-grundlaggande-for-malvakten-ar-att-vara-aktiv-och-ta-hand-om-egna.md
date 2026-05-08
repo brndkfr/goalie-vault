@@ -3,7 +3,8 @@ layout: post
 title: "Grundläggande för målvakten är att vara aktiv och ta hand om egna"
 author: "Micke Swedin"
 handle: "swe.goaliecoach"
-category: [floorball, training]
+category: technique
+tags: [positioning, rebound-control]
 platform: "instagram"
 video_id: "DWyH61JDCeJ"
 thumbnail: "/assets/images/thumbs/DWyH61JDCeJ.jpg"

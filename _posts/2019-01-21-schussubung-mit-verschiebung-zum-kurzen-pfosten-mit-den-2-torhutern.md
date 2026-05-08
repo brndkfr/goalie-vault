@@ -3,7 +3,8 @@ layout: post
 title: "Schussübung mit Verschiebung zum kurzen Pfosten mit den 2 Torhütern"
 author: "Floorball Goalietraining"
 handle: "floorballgoalietraining"
-category: [training]
+category: movement
+tags: []
 platform: "instagram"
 video_id: "Bs5SO9-HVgL"
 thumbnail: "/assets/images/thumbs/Bs5SO9-HVgL.jpg"

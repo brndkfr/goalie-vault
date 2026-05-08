@@ -3,7 +3,8 @@ layout: post
 title: "Sometimes you need to do a little bit of breakdance when you want to"
 author: "WFGA"
 handle: "worldfloorballgoalieacademy"
-category: [training]
+category: technique
+tags: []
 platform: "instagram"
 video_id: "DXKTQF3DUiD"
 thumbnail: "/assets/images/thumbs/DXKTQF3DUiD.jpg"

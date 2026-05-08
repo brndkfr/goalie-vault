@@ -3,7 +3,8 @@ layout: post
 title: "The Kids loses the motivation when working on the Basic Skills?"
 author: "Oscar Lundin"
 handle: "oscarwiz"
-category: [floorball, training]
+category: technique
+tags: []
 platform: "instagram"
 video_id: "DXV9OpfjR5R"
 thumbnail: "/assets/images/thumbs/DXV9OpfjR5R.jpg"

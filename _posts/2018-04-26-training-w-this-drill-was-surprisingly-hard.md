@@ -3,7 +3,8 @@ layout: post
 title: "Training w/ 💪This drill was surprisingly hard 😅."
 author: "Saara 🇫🇮"
 handle: "goaliesaara"
-category: [warmup]
+category: warmup
+tags: []
 platform: "instagram"
 video_id: "BiCjPIPg--j"
 thumbnail: "/assets/images/thumbs/BiCjPIPg--j.jpg"

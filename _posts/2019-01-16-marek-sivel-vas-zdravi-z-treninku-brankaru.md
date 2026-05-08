@@ -3,7 +3,8 @@ layout: post
 title: "Marek Šivel vás zdraví z tréninku brankářů :)"
 author: "FBC Dragons"
 handle: "fbc_dragons"
-category: [strength]
+category: strength
+tags: []
 platform: "instagram"
 video_id: "BstGQQhlskh"
 thumbnail: "/assets/images/thumbs/BstGQQhlskh.jpg"

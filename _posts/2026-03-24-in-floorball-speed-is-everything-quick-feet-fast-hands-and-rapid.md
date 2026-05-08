@@ -3,7 +3,8 @@ layout: post
 title: "In floorball, speed is everything — quick feet, fast hands, and rapid"
 author: "FloorballFrenzy | Floorball Content"
 handle: "floorballfrenzy"
-category: [floorball, training]
+category: technique
+tags: []
 platform: "instagram"
 video_id: "DWRBHVXjL5T"
 thumbnail: "/assets/images/thumbs/DWRBHVXjL5T.jpg"

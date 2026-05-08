@@ -3,7 +3,8 @@ layout: post
 title: "🎥 (salibandy)maalivahdin lämmittely ennen lajisuoritusta"
 author: "TONI VILANDER | Valmentaja Turust"
 handle: "coachvilander"
-category: [stretching]
+category: stretching
+tags: []
 platform: "instagram"
 video_id: "CikUNEvDo-6"
 thumbnail: "/assets/images/thumbs/CikUNEvDo-6.jpg"

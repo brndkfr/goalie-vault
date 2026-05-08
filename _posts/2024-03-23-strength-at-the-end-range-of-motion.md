@@ -3,7 +3,8 @@ layout: post
 title: "Strength at the end-range of motion 💪"
 author: "Målvaktsfokus"
 handle: "pontusboman"
-category: [stretching]
+category: strength
+tags: [mobility, positioning, stretching]
 platform: "instagram"
 video_id: "C421QGLo1Er"
 thumbnail: "/assets/images/thumbs/C421QGLo1Er.jpg"

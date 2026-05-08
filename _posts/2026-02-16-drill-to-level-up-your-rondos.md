@@ -3,7 +3,8 @@ layout: post
 title: "Drill to level up your Rondos."
 author: "Floorball Connect"
 handle: "floorballconnect"
-category: [training]
+category: technique
+tags: []
 platform: "instagram"
 video_id: "DU06bVljLNx"
 thumbnail: "/assets/images/thumbs/DU06bVljLNx.jpg"

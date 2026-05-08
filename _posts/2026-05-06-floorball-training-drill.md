@@ -3,7 +3,8 @@ layout: post
 title: "Floorball training drill"
 author: ""
 handle: ""
-category: [floorball, training]
+category: technique
+tags: []
 platform: "instagram"
 video_id: "DUGPCXFDbGG"
 thumbnail: "/assets/images/thumbs/DUGPCXFDbGG.jpg"

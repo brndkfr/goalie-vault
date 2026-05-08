@@ -3,7 +3,8 @@ layout: post
 title: "Working on the basic position is one of the most important things"
 author: "Maximilian Obereder"
 handle: "floorgoalie_55"
-category: [warmup]
+category: warmup
+tags: [positioning]
 platform: "instagram"
 video_id: "CxdG3bwNlCp"
 thumbnail: "/assets/images/thumbs/CxdG3bwNlCp.jpg"

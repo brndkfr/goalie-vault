@@ -3,7 +3,8 @@ layout: post
 title: "FloorballFrenzy | Floorball Content on Instagram: &quot;Stop"
 author: ""
 handle: ""
-category: [floorball, training]
+category: technique
+tags: []
 platform: "instagram"
 video_id: "DX3x1RYgs2t"
 thumbnail: "/assets/images/thumbs/DX3x1RYgs2t.jpg"

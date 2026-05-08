@@ -3,7 +3,8 @@ layout: post
 title: "Warm-ups don’t fail because they’re wrong."
 author: "Troy Beauregard CISSN"
 handle: "troybeauregard"
-category: [floorball, training]
+category: reaction
+tags: [footwork, warmup]
 platform: "instagram"
 video_id: "DUR3omEDEEJ"
 thumbnail: "/assets/images/thumbs/DUR3omEDEEJ.jpg"

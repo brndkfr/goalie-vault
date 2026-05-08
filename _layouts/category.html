@@ -15,8 +15,8 @@ layout: default
     <a href="{{ site.baseurl }}/" class="filter-btn active" style="display:inline-block;">&larr; All Drills</a>
   </div>
 
-  <!-- Drill grid (filtered by category) -->
-  {% assign filtered = site.posts | where_exp: "p", "p.category contains page.category_filter" %}
+  <!-- Drill grid (filtered by primary category OR tag) -->
+  {% assign filtered = site.posts | where_exp: "p", "p.category == page.category_filter or p.tags contains page.category_filter" %}
 
   <div class="drill-grid">
     {% for post in filtered %}
@@ -45,10 +45,11 @@ layout: default
         {% endif %}
 
         <div class="drill-card__body">
-          {% if post.category %}
+          {% if post.category or post.tags %}
           <div class="drill-card__tags">
-            {% for cat in post.category %}
-              <span class="drill-card__tag">{{ cat }}</span>
+            {% if post.category %}<span class="drill-card__tag drill-card__tag--primary">{{ post.category }}</span>{% endif %}
+            {% for tag in post.tags %}
+              <span class="drill-card__tag">{{ tag }}</span>
             {% endfor %}
           </div>
           {% endif %}

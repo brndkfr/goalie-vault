@@ -3,7 +3,8 @@ layout: post
 title: "Goalie coordination drill"
 author: ""
 handle: ""
-category: [coordination]
+category: coordination
+tags: []
 platform: "instagram"
 video_id: "ChsHlaPMuCx"
 thumbnail: "/assets/images/thumbs/ChsHlaPMuCx.jpg"

@@ -3,7 +3,8 @@ layout: post
 title: "The position of the hand is important."
 author: "Stefan Flöjt"
 handle: "flojt76"
-category: [training]
+category: technique
+tags: [positioning]
 platform: "instagram"
 video_id: "DAgjDDsowh0"
 thumbnail: "/assets/images/thumbs/DAgjDDsowh0.jpg"

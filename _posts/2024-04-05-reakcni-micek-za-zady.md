@@ -3,7 +3,8 @@ layout: post
 title: "REAKČNÍ MÍČEK ZA ZÁDY 🚸"
 author: "97 FLOORBALL GOALIE TRAINING"
 handle: "97floorballgoalietraining"
-category: [coordination]
+category: coordination
+tags: []
 platform: "instagram"
 video_id: "C5ZMfP7i4AO"
 thumbnail: "/assets/images/thumbs/C5ZMfP7i4AO.jpg"

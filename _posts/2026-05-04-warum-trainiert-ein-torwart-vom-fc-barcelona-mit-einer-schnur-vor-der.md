@@ -3,7 +3,8 @@ layout: post
 title: "Warum trainiert ein Torwart vom FC Barcelona mit einer Schnur vor der"
 author: "Lisa & Andreas Könings | Neuroathletik Ausbildung"
 handle: "neuroakademie"
-category: [coordination]
+category: coordination
+tags: [brock-string]
 platform: "instagram"
 video_id: "DX6lFRNsGwO"
 thumbnail: "/assets/images/thumbs/DX6lFRNsGwO.jpg"

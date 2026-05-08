@@ -3,7 +3,8 @@ layout: post
 title: "\"Look, without hands!!\" 😂"
 author: "Saara 🇫🇮"
 handle: "goaliesaara"
-category: [warmup]
+category: warmup
+tags: []
 platform: "instagram"
 video_id: "Bg1AuwHHsL4"
 thumbnail: "/assets/images/thumbs/Bg1AuwHHsL4.jpg"

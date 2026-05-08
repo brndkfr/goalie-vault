@@ -3,7 +3,8 @@ layout: post
 title: "Hand-eye coordination!"
 author: "Målvaktsfokus"
 handle: "pontusboman"
-category: [training]
+category: technique
+tags: [coordination, hand-eye, rebound-control]
 platform: "instagram"
 video_id: "C49w3f1Irh8"
 thumbnail: "/assets/images/thumbs/C49w3f1Irh8.jpg"

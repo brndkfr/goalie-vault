@@ -3,7 +3,8 @@ layout: post
 title: "Between-the-Posts.com on Instagram: &quot;You want to train rebound"
 author: ""
 handle: ""
-category: [coordination]
+category: coordination
+tags: [hand-eye, juggling, rebound-control]
 platform: "instagram"
 video_id: "BqXW40Jitib"
 thumbnail: "/assets/images/thumbs/BqXW40Jitib.jpg"

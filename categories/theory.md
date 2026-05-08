@@ -1,7 +1,7 @@
 ---
 layout: category
 title: "Theory"
-description: "Goaltending theory and concepts"
+description: "Talking-head explanations and concepts."
 category_filter: theory
 permalink: /theory/
 ---

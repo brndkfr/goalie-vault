@@ -3,7 +3,8 @@ layout: post
 title: "And a new invention for goalie training 🤩👏🏻"
 author: "International Floorball Federation"
 handle: "iff_floorball"
-category: [training]
+category: technique
+tags: [positioning]
 platform: "instagram"
 video_id: "CFwG0X1BPGR"
 thumbnail: "/assets/images/thumbs/CFwG0X1BPGR.jpg"

@@ -3,7 +3,8 @@ layout: post
 title: "Goalie training drill"
 author: ""
 handle: ""
-category: [training]
+category: technique
+tags: []
 platform: "instagram"
 video_id: "DX-D9hLDaj1"
 thumbnail: "/assets/images/thumbs/DX-D9hLDaj1.jpg"

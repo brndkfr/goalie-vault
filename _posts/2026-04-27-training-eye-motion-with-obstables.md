@@ -3,7 +3,8 @@ layout: post
 title: "Training Eye Motion with Obstacles"
 author: "Vaud Unihockey CRP | SPE"
 handle: "vdu_crp.spe"
-category: [warmup, coordination, reaction]
+category: reaction
+tags: [coordination, vision, warmup]
 platform: "instagram"
 video_id: "DWGuKktiELx"
 thumbnail: "skip"

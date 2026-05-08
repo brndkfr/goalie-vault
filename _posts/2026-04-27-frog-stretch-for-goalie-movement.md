@@ -3,7 +3,8 @@ layout: post
 title: "Frog Stretch for Goalie Movement"
 author: "Andreas Wallin"
 handle: "andreaskimwallin"
-category: [stretching]
+category: movement
+tags: [mobility, stretching]
 platform: "instagram"
 video_id: "Cpy_oorqrpH"
 thumbnail: "skip"

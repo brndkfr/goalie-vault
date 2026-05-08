@@ -3,7 +3,8 @@ layout: post
 title: "Steady Movement & Catching"
 author: "Ela Piotrowska"
 handle: "elpio98"
-category: [goal-technical, coordination, reaction, movement]
+category: technique
+tags: [coordination, hand-eye, movement, reaction]
 platform: "instagram"
 video_id: "BQ6Snw1FYVF"
 thumbnail: "/assets/images/thumbs/BQ6Snw1FYVF.jpg"

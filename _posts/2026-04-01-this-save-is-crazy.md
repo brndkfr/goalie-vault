@@ -3,7 +3,8 @@ layout: post
 title: "This save is crazy 😳🔥"
 author: "WFGA"
 handle: "worldfloorballgoalieacademy"
-category: [training]
+category: technique
+tags: []
 platform: "instagram"
 video_id: "DWme0majQDU"
 thumbnail: "/assets/images/thumbs/DWme0majQDU.jpg"

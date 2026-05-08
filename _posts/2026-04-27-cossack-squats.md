@@ -3,7 +3,8 @@ layout: post
 title: "Cossack Squats"
 author: "Freeletics"
 handle: "freeletics"
-category: [strength, stretching]
+category: strength
+tags: [stretching]
 platform: "youtube"
 video_id: "uK5bgeZixIY"
 thumbnail: "https://img.youtube.com/vi/uK5bgeZixIY/hqdefault.jpg"

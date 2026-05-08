@@ -3,7 +3,8 @@ layout: post
 title: "Achtung ⚠️ die Übung ist fies"
 author: "Olaf und Yannik"
 handle: "physio_olaf"
-category: [strength]
+category: strength
+tags: []
 platform: "instagram"
 video_id: "DWZgqBzDD8c"
 thumbnail: "/assets/images/thumbs/DWZgqBzDD8c.jpg"

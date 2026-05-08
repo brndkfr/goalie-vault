@@ -3,7 +3,8 @@ layout: post
 title: "Here's another fun juggling drill we tried the other day w/ Even"
 author: "Saara 🇫🇮"
 handle: "goaliesaara"
-category: [warmup]
+category: warmup
+tags: [hand-eye, juggling]
 platform: "instagram"
 video_id: "BiE_-0MgXKg"
 thumbnail: "/assets/images/thumbs/BiE_-0MgXKg.jpg"

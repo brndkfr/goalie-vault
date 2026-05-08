@@ -3,7 +3,8 @@ layout: post
 title: "Improving leg strength with Swedish Ladder and Rubberband"
 author: "saara"
 handle: "goaliesaara"
-category: [warmup, coordination, strength, reaction, movement]
+category: reaction
+tags: [band, coordination, footwork, movement, strength, warmup]
 platform: "instagram"
 video_id: "BiAL0i7gIl4"
 thumbnail: "/assets/images/thumbs/BiAL0i7gIl4.jpg"

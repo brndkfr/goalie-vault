@@ -3,7 +3,8 @@ layout: post
 title: "This drill builds the foundation most athletes skip, lateral power"
 author: "Coach Tracy Green, PhD | Speed & Performance Coach"
 handle: "uoasportsagility"
-category: [floorball, training]
+category: reaction
+tags: [coordination, footwork, game-situation, movement, strength]
 platform: "instagram"
 video_id: "DXo6hBoinPU"
 thumbnail: "/assets/images/thumbs/DXo6hBoinPU.jpg"

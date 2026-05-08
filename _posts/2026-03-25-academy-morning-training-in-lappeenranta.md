@@ -3,7 +3,8 @@ layout: post
 title: "Academy morning training in Lappeenranta."
 author: "Petri Kettunen"
 handle: "petri.kettunen.58"
-category: [training]
+category: technique
+tags: []
 platform: "instagram"
 video_id: "DWTSLG3DWcp"
 thumbnail: "/assets/images/thumbs/DWTSLG3DWcp.jpg"

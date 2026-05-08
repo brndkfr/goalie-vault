@@ -3,7 +3,8 @@ layout: post
 title: "Which warm-up exercise is yours top?"
 author: "Jakub Klobučník"
 handle: "klobucnikjakub"
-category: [coordination]
+category: coordination
+tags: [warmup]
 platform: "instagram"
 video_id: "Cpxq6MXvMn_"
 thumbnail: "/assets/images/thumbs/Cpxq6MXvMn_.jpg"

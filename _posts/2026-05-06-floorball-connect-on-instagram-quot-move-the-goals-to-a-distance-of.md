@@ -3,7 +3,8 @@ layout: post
 title: "Floorball Connect on Instagram: &quot;Move the goals to a distance of"
 author: ""
 handle: ""
-category: [floorball, training]
+category: technique
+tags: []
 platform: "instagram"
 video_id: "DUoAnEPjJ2I"
 thumbnail: "/assets/images/thumbs/DUoAnEPjJ2I.jpg"

@@ -14,14 +14,55 @@ title: "Goalie Vault"
   <div class="vault-toolbar" markdown="0">
     <div class="filter-bar" id="filterBar">
       <button class="filter-btn active" data-filter="all">All</button>
-      <button class="filter-btn" data-filter="warmup">Warmup</button>
-      <button class="filter-btn" data-filter="coordination">Coordination</button>
-      <button class="filter-btn" data-filter="strength">Strength</button>
-      <button class="filter-btn" data-filter="stretching">Stretching</button>
-      <button class="filter-btn" data-filter="goal-technical">Goal Technical</button>
-      <button class="filter-btn" data-filter="reaction">Reaction</button>
-      <button class="filter-btn" data-filter="movement">Movement</button>
-      <button class="filter-btn" data-filter="theory">Theory</button>
+
+      <details class="filter-group" open>
+        <summary class="filter-group__label">Skill</summary>
+        <div class="filter-group__buttons">
+          <button class="filter-btn" data-filter="technique">Technique</button>
+          <button class="filter-btn" data-filter="coordination">Coordination</button>
+          <button class="filter-btn" data-filter="movement">Movement</button>
+          <button class="filter-btn" data-filter="reaction">Reaction</button>
+          <button class="filter-btn" data-filter="strength">Strength</button>
+          <button class="filter-btn" data-filter="stretching">Stretching</button>
+          <button class="filter-btn" data-filter="mobility">Mobility</button>
+          <button class="filter-btn" data-filter="warmup">Warmup</button>
+          <button class="filter-btn" data-filter="theory">Theory</button>
+        </div>
+      </details>
+
+      <details class="filter-group">
+        <summary class="filter-group__label">Sub-skill</summary>
+        <div class="filter-group__buttons">
+          <button class="filter-btn" data-filter="hand-eye">Hand-Eye</button>
+          <button class="filter-btn" data-filter="juggling">Juggling</button>
+          <button class="filter-btn" data-filter="vision">Vision</button>
+          <button class="filter-btn" data-filter="footwork">Footwork</button>
+          <button class="filter-btn" data-filter="positioning">Positioning</button>
+          <button class="filter-btn" data-filter="rebound-control">Rebound Control</button>
+          <button class="filter-btn" data-filter="mental">Mental</button>
+        </div>
+      </details>
+
+      <details class="filter-group">
+        <summary class="filter-group__label">Context</summary>
+        <div class="filter-group__buttons">
+          <button class="filter-btn" data-filter="game-situation">Game Situation</button>
+          <button class="filter-btn" data-filter="match-prep">Match Prep</button>
+          <button class="filter-btn" data-filter="injury-recovery">Injury Recovery</button>
+        </div>
+      </details>
+
+      <details class="filter-group">
+        <summary class="filter-group__label">Equipment</summary>
+        <div class="filter-group__buttons">
+          <button class="filter-btn" data-filter="medicine-ball">Medicine Ball</button>
+          <button class="filter-btn" data-filter="tennis-ball">Tennis Ball</button>
+          <button class="filter-btn" data-filter="band">Band</button>
+          <button class="filter-btn" data-filter="slideboard">Slideboard</button>
+          <button class="filter-btn" data-filter="fitlight">Reaction Lights</button>
+          <button class="filter-btn" data-filter="brock-string">Brock String</button>
+        </div>
+      </details>
     </div>
 
     <div class="search-bar">
@@ -41,8 +82,9 @@ title: "Goalie Vault"
   <!-- Drill grid -->
   <div class="drill-grid" id="drillGrid">
     {% for post in site.posts %}
+    {% capture post_filters %}{{ post.category }}{% if post.tags %},{{ post.tags | join: ',' }}{% endif %}{% endcapture %}
     <div class="drill-card"
-         data-categories="{{ post.category | join: ',' | downcase }}"
+         data-categories="{{ post_filters | downcase }}"
          data-title="{{ post.title | downcase | escape }}"
          data-author="{{ post.author | downcase | escape }}"
          data-handle="{{ post.handle | downcase | escape }}">
@@ -70,10 +112,11 @@ title: "Goalie Vault"
         {% endif %}
 
         <div class="drill-card__body">
-          {% if post.category %}
+          {% if post.category or post.tags %}
           <div class="drill-card__tags">
-            {% for cat in post.category %}
-              <a class="drill-card__tag" href="{{ site.baseurl }}/{{ cat }}/" onclick="event.stopPropagation();">{{ cat }}</a>
+            {% if post.category %}<a class="drill-card__tag drill-card__tag--primary" href="{{ site.baseurl }}/{{ post.category }}/" onclick="event.stopPropagation();">{{ post.category }}</a>{% endif %}
+            {% for tag in post.tags %}
+              <a class="drill-card__tag" href="{{ site.baseurl }}/{{ tag }}/" onclick="event.stopPropagation();">{{ tag }}</a>
             {% endfor %}
           </div>
           {% endif %}
@@ -128,8 +171,9 @@ title: "Goalie Vault"
 
       var visible = 0;
       cards.forEach(function (card) {
-        var cats = (card.dataset.categories || '').split(',');
-        var catOk = showAll || active.some(function (f) { return cats.indexOf(f) !== -1; });
+        var cats = (card.dataset.categories || '').split(',').map(function (s) { return s.trim(); });
+        // AND across facets: a post must match every active filter.
+        var catOk = showAll || active.every(function (f) { return cats.indexOf(f) !== -1; });
         var searchOk = cardMatchesSearch(card, searchTerm);
         if (catOk && searchOk) {
           card.classList.remove('hidden');

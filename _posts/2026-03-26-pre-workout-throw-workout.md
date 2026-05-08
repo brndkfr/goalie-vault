@@ -3,7 +3,8 @@ layout: post
 title: "Pre-workout throw workout"
 author: "Floorball GoalieGirl"
 handle: "fbgoaliegirl"
-category: [training]
+category: technique
+tags: []
 platform: "instagram"
 video_id: "DWW9KvmDS55"
 thumbnail: "/assets/images/thumbs/DWW9KvmDS55.jpg"

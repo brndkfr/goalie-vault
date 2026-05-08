@@ -1,7 +1,7 @@
 ---
 layout: category
-title: "Movement Drills"
-description: "Drills for goalie movement and footwork"
+title: "Movement"
+description: "Locomotion and agility around the crease."
 category_filter: movement
 permalink: /movement/
 ---

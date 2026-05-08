@@ -3,7 +3,8 @@ layout: post
 title: "A lot of things to focus on as a goalie."
 author: "Stefan Flöjt"
 handle: "flojt76"
-category: [training]
+category: movement
+tags: [mental, positioning]
 platform: "instagram"
 video_id: "DBzQ8jsoZgH"
 thumbnail: "/assets/images/thumbs/DBzQ8jsoZgH.jpg"

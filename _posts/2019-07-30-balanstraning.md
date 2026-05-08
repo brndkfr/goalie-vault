@@ -3,7 +3,8 @@ layout: post
 title: "Balansträning!"
 author: "Andreas Wallin"
 handle: "andreaskimwallin"
-category: [strength]
+category: strength
+tags: [medicine-ball]
 platform: "instagram"
 video_id: "B0h5EUwlN1Z"
 thumbnail: "/assets/images/thumbs/B0h5EUwlN1Z.jpg"

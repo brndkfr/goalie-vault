@@ -3,7 +3,8 @@ layout: post
 title: "Två stretch övningar för vaderna, detta hjälper vid träning för"
 author: "Andreas Wallin"
 handle: "andreaskimwallin"
-category: [strength]
+category: strength
+tags: [stretching]
 platform: "instagram"
 video_id: "CpndJlbMKTv"
 thumbnail: "/assets/images/thumbs/CpndJlbMKTv.jpg"

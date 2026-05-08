@@ -96,7 +96,40 @@ a:hover { text-decoration: underline; }
   flex-wrap: wrap;
   gap: 8px;
   justify-content: center;
+  align-items: flex-start;
   margin: 0;
+}
+
+/* Facet groups (collapsible). */
+.filter-group {
+  background: var(--surface);
+  border: 1px solid #2a2a2a;
+  border-radius: 14px;
+  padding: 6px 10px;
+}
+.filter-group[open] { padding-bottom: 10px; }
+.filter-group__label {
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  padding: 4px 6px;
+  list-style: none;
+  user-select: none;
+}
+.filter-group__label::-webkit-details-marker { display: none; }
+.filter-group__label::before {
+  content: "▸ ";
+  color: var(--accent-dim);
+}
+.filter-group[open] .filter-group__label::before { content: "▾ "; }
+.filter-group__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
 }
 
 .filter-btn {
@@ -249,6 +282,16 @@ input.search-input::-webkit-search-cancel-button { display: none; }
   background: var(--accent);
   color: #000;
   text-decoration: none;
+}
+/* Primary category gets a filled-accent treatment to stand out from tags. */
+.drill-card__tag--primary {
+  background: var(--accent);
+  color: #000;
+  border-color: var(--accent);
+}
+.drill-card__tag--primary:hover {
+  background: var(--accent-dim);
+  color: #000;
 }
 
 .drill-card__title {

@@ -3,7 +3,8 @@ layout: post
 title: "A discussion from my visit to 🙌"
 author: "Målvaktsfokus"
 handle: "pontusboman"
-category: [training]
+category: movement
+tags: [footwork, positioning]
 platform: "instagram"
 video_id: "C_umO3IIyLE"
 thumbnail: "/assets/images/thumbs/C_umO3IIyLE.jpg"

@@ -3,7 +3,8 @@ layout: post
 title: "Filmed the safer version with cones instead of balls)"
 author: "Julia Chubarova"
 handle: "playwithjuly"
-category: [coordination]
+category: coordination
+tags: [footwork]
 platform: "instagram"
 video_id: "DSKHqkwCD5v"
 thumbnail: "/assets/images/thumbs/DSKHqkwCD5v.jpg"

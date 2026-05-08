@@ -3,7 +3,8 @@ layout: post
 title: "🏒 MOVILIDAD DE CADERA – HOCKEY PATINES"
 author: "Kike de Casa | Preparador Físico Hockey Online"
 handle: "kike_dcs_"
-category: [strength]
+category: strength
+tags: []
 platform: "instagram"
 video_id: "DTvkJwXDV6U"
 thumbnail: "/assets/images/thumbs/DTvkJwXDV6U.jpg"

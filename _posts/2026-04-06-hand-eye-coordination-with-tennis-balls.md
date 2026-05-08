@@ -3,7 +3,8 @@ layout: post
 title: "Hand-eye coordination with tennis balls 🎾 🥅✅"
 author: "ProGoalieAcademy.sk"
 handle: "progoalieacademy.sk"
-category: [coordination]
+category: coordination
+tags: [hand-eye, tennis-ball]
 platform: "instagram"
 video_id: "DWzJdZcCLfE"
 thumbnail: "/assets/images/thumbs/DWzJdZcCLfE.jpg"

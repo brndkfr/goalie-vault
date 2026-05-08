@@ -3,7 +3,8 @@ layout: post
 title: "This is something we did in ."
 author: "Saara 🇫🇮"
 handle: "goaliesaara"
-category: [coordination]
+category: coordination
+tags: []
 platform: "instagram"
 video_id: "BlIXiA9hMDI"
 thumbnail: "/assets/images/thumbs/BlIXiA9hMDI.jpg"

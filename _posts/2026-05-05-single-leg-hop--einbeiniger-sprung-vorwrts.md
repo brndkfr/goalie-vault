@@ -3,7 +3,8 @@ layout: post
 title: "Single Leg Hop - Einbeiniger Sprung vorwärts"
 author: "Swiss Unihockey"
 handle: "@swissunihockey"
-category: [coordination, strength, movement]
+category: coordination
+tags: [footwork, movement, strength]
 platform: "youtube"
 video_id: "cJg9zqRotxU"
 thumbnail: "https://img.youtube.com/vi/cJg9zqRotxU/hqdefault.jpg"

@@ -3,7 +3,8 @@ layout: post
 title: "Måndag och innebandy!"
 author: "FBC Kalmarsund Ungdom P13"
 handle: "fbckalmarsund_ungdom_p13"
-category: [warmup]
+category: warmup
+tags: []
 platform: "instagram"
 video_id: "DU072HTiNmH"
 thumbnail: "/assets/images/thumbs/DU072HTiNmH.jpg"

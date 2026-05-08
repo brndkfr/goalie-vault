@@ -3,7 +3,8 @@ layout: post
 title: "❌⭕ LIVE TIC TAC TOE (NO BALL) | SLALOM → CLAIM A SQUARE 🔥😂"
 author: "GameOnDrills"
 handle: "gameondrills"
-category: [floorball, training]
+category: warmup
+tags: [footwork]
 platform: "instagram"
 video_id: "DWs7PXEjVar"
 thumbnail: "/assets/images/thumbs/DWs7PXEjVar.jpg"

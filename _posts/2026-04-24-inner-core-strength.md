@@ -4,7 +4,8 @@ title: "Inner Core Strength"
 author: "Jonas Anshelm"
 handle: "janshelm"
 platform: "instagram"  # or "youtube"
-category: [warmup, strength]
+category: strength
+tags: [mental, warmup]
 video_id: "DXfP8HDD_dUclear"  # The ID from the URL
 description: "Focus on keeping your chest up and weight centered. Do 3 sets of 10 reps."
 ---

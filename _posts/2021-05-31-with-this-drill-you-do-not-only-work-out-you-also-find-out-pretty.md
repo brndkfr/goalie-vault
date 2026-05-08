@@ -3,7 +3,8 @@ layout: post
 title: "With this drill you do not only work out, you also find out pretty"
 author: "Between-the-Posts.com"
 handle: "between_the_posts_com"
-category: [training]
+category: coordination
+tags: [hand-eye, mental, rebound-control, strength]
 platform: "instagram"
 video_id: "CPi7qeipgKc"
 thumbnail: "/assets/images/thumbs/CPi7qeipgKc.jpg"

@@ -3,7 +3,8 @@ layout: post
 title: "Coach vs Goalie🥊"
 author: "WFGA"
 handle: "worldfloorballgoalieacademy"
-category: [training]
+category: technique
+tags: [game-situation]
 platform: "instagram"
 video_id: "DWRZq0qCD-r"
 thumbnail: "/assets/images/thumbs/DWRZq0qCD-r.jpg"

@@ -1,7 +1,7 @@
 ---
 layout: category
-title: "Reaction Drills"
-description: "Drills to sharpen reaction time"
+title: "Reaction"
+description: "Reflex and response training."
 category_filter: reaction
 permalink: /reaction/
 ---

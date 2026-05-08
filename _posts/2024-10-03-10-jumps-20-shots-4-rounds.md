@@ -3,7 +3,8 @@ layout: post
 title: "10 jumps, 20 shots, 4 rounds."
 author: "Målvaktsfokus"
 handle: "pontusboman"
-category: [training]
+category: technique
+tags: [hand-eye, mental, positioning, rebound-control]
 platform: "instagram"
 video_id: "DAp_GUqoALm"
 thumbnail: "/assets/images/thumbs/DAp_GUqoALm.jpg"

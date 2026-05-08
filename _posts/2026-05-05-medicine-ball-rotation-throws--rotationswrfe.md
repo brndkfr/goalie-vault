@@ -3,7 +3,8 @@ layout: post
 title: "Medicine ball rotation throws - Rotationswürfe"
 author: "Swiss Unihockey"
 handle: "<https://www.youtube.com/watch?v=p-ccdnXgeVs>"
-category: [coordination, strength, movement]
+category: coordination
+tags: [medicine-ball, movement, strength]
 platform: "youtube"
 video_id: "p-ccdnXgeVs"
 thumbnail: "https://img.youtube.com/vi/p-ccdnXgeVs/hqdefault.jpg"

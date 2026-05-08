@@ -3,7 +3,8 @@ layout: post
 title: "Scorpion Stretching"
 author: "Stefan Flöjt"
 handle: "flojt76"
-category: [stretching]
+category: mobility
+tags: [stretching]
 platform: "instagram"
 video_id: "CpQNjccofpu"
 thumbnail: "skip"

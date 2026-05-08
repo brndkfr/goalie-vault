@@ -3,7 +3,8 @@ layout: post
 title: "4 zones every goalie needs to master 🥅"
 author: "WFGA"
 handle: "worldfloorballgoalieacademy"
-category: [training]
+category: technique
+tags: []
 platform: "instagram"
 video_id: "DWhZmx6DX5d"
 thumbnail: "/assets/images/thumbs/DWhZmx6DX5d.jpg"

@@ -3,7 +3,8 @@ layout: post
 title: "Goalie Strength on Instagram: &quot;Glove hand program coming soon."
 author: ""
 handle: ""
-category: [strength]
+category: coordination
+tags: [hand-eye, strength]
 platform: "instagram"
 video_id: "DXXJZs_AAZN"
 thumbnail: "/assets/images/thumbs/DXXJZs_AAZN.jpg"

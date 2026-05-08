@@ -3,7 +3,8 @@ layout: post
 title: "Warm-up mit den beiden Goalies von !"
 author: "Floorball Goalietraining"
 handle: "floorballgoalietraining"
-category: [warmup]
+category: coordination
+tags: [warmup]
 platform: "instagram"
 video_id: "Bsd2Rvcj1Wg"
 thumbnail: "/assets/images/thumbs/Bsd2Rvcj1Wg.jpg"

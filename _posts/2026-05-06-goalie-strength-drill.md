@@ -3,7 +3,8 @@ layout: post
 title: "Goalie strength drill"
 author: ""
 handle: ""
-category: [strength]
+category: strength
+tags: []
 platform: "instagram"
 video_id: "BxrGY-4C8yH"
 thumbnail: "/assets/images/thumbs/BxrGY-4C8yH.jpg"

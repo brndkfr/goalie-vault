@@ -3,7 +3,8 @@ layout: post
 title: "You don’t have to be an athlete to move like one"
 author: "Karin Bensabat"
 handle: "karin.avi"
-category: [coordination]
+category: coordination
+tags: []
 platform: "instagram"
 video_id: "DWYkAFfjc6u"
 thumbnail: "/assets/images/thumbs/DWYkAFfjc6u.jpg"

@@ -3,7 +3,8 @@ layout: post
 title: "Fun drills for young athletes with a tennis ball 🎾"
 author: "Boris Boguslavsky"
 handle: "boris_boguslavsky"
-category: [coordination]
+category: coordination
+tags: [hand-eye, tennis-ball]
 platform: "instagram"
 video_id: "DU8sekuiDUA"
 thumbnail: "/assets/images/thumbs/DU8sekuiDUA.jpg"

@@ -3,7 +3,8 @@ layout: post
 title: "97 FLOORBALL GOALIE TRAINING on Instagram: &quot;V& ;HOZY S P&"
 author: ""
 handle: ""
-category: [coordination]
+category: coordination
+tags: []
 platform: "instagram"
 video_id: "CmHGWKdgaD7"
 thumbnail: "/assets/images/thumbs/CmHGWKdgaD7.jpg"

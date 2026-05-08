@@ -3,7 +3,8 @@ layout: post
 title: "Off-season is where real players are built."
 author: "FloorballFrenzy | Floorball Content"
 handle: "floorballfrenzy"
-category: [floorball, training]
+category: technique
+tags: []
 platform: "instagram"
 video_id: "DXygBtii6dU"
 thumbnail: "/assets/images/thumbs/DXygBtii6dU.jpg"
