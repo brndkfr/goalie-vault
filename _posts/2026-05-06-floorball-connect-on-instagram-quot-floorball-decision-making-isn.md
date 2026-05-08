@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Floorball Connect on Instagram: &quot;Floorball decision-making isn&"
-author: ""
-handle: ""
+author: "Floorball Connect"
+handle: "floorballconnect"
 category: technique
 tags: []
 platform: "instagram"

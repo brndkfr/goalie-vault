@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Liam Wilson on Instagram: &quot;For more details and other tutorials"
-author: ""
-handle: ""
+author: "Liam Wilson"
+handle: "liamjwilson423"
 category: technique
 tags: []
 platform: "instagram"

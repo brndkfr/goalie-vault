@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Goalie Strength on Instagram: &quot;Glove hand program coming soon."
-author: ""
-handle: ""
+author: "Goalie Strength"
+handle: "goaliestrength"
 category: coordination
 tags: [hand-eye, strength]
 platform: "instagram"

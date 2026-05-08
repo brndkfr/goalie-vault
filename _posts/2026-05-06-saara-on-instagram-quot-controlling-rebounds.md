@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Saara &;&; on Instagram: &quot;Controlling rebounds."
-author: ""
-handle: ""
+author: "Saara"
+handle: "goaliesaara"
 category: technique
 tags: [rebound-control]
 platform: "instagram"

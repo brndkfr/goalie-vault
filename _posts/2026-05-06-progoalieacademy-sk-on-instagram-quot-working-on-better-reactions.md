@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "ProGoalieAcademy.sk on Instagram: &quot;Working on better reactions"
-author: ""
-handle: ""
+author: "ProGoalieAcademy.sk"
+handle: "progoalieacademy.sk"
 category: reaction
 tags: [coordination, hand-eye]
 platform: "instagram"
