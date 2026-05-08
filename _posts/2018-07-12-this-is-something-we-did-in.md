@@ -1,13 +1,13 @@
 ---
 layout: post
-title: "Goalie Drill"
-author: "Saara 🇫🇮"
+title: "Another Hand-Eye Coordination Drill"
+author: "Saara"
 handle: "goaliesaara"
 category: coordination
 tags: []
 platform: "instagram"
 video_id: "BlIXiA9hMDI"
 thumbnail: "/assets/images/thumbs/BlIXiA9hMDI.jpg"
-description: "Something we did during camp. We got so many training ideas to do at home too! Love it!"
+description: "Another Hand-Eye Coordination Drill"
 auto_generated: true
 ---

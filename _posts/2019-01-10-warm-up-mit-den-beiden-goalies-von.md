@@ -8,6 +8,6 @@ tags: [warmup]
 platform: "instagram"
 video_id: "Bsd2Rvcj1Wg"
 thumbnail: "/assets/images/thumbs/Bsd2Rvcj1Wg.jpg"
-description: "Warm-up mit beiden Goalies. Danke für den wie immer tadellosen Einsatz!"
+description: "Warm-up with two goalies."
 auto_generated: true
 ---
