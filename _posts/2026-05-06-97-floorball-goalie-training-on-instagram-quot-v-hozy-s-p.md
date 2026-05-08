@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "97 FLOORBALL GOALIE TRAINING on Instagram: &quot;V&;HOZY S P&"
-author: ""
-handle: ""
+author: "97 FLOORBALL GOALIE TRAINING"
+handle: "97floorballgoalietraining"
 category: coordination
 tags: []
 platform: "instagram"

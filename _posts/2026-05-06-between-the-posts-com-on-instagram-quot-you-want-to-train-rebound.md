@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Between-the-Posts.com on Instagram: &quot;You want to train rebound"
-author: ""
-handle: ""
+author: "Between-the-Posts.com"
+handle: "between_the_posts_com"
 category: coordination
 tags: [hand-eye, juggling, rebound-control]
 platform: "instagram"

@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "FloorballFrenzy | Floorball Content on Instagram: &quot;Defenders"
-author: ""
-handle: ""
+author: "FloorballFrenzy | Floorball Content"
+handle: "floorballfrenzy"
 category: technique
 tags: [mental]
 platform: "instagram"

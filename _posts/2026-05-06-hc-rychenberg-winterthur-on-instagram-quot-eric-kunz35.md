@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "HC Rychenberg Winterthur on Instagram: &quot;&;eric_kunz35"
-author: ""
-handle: ""
+author: "HC Rychenberg Winterthur"
+handle: "hcrychenberg"
 category: coordination
 tags: [match-prep, warmup]
 platform: "instagram"
