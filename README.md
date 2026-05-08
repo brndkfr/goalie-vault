@@ -172,7 +172,7 @@ Jekyll generates static JSON endpoints at build time, hosted as plain files on G
 | [`/api/v1/categories/index.json`](https://brndkfr.github.io/goalie-vault/api/v1/categories/index.json) | All available categories with drill counts and endpoint URLs |
 | `/api/v1/categories/{name}.json` | Drills filtered by category (e.g. `warmup`, `coordination`, `strength`) |
 
-Each drill object contains: `title`, `author`, `handle`, `platform`, `video_id`, `category`, `description`, `thumbnail`, `url`.
+Each drill object contains: `title`, `author`, `handle`, `platform`, `video_id`, `category`, `tags`, `description`, `thumbnail`, `url`.
 
 **JavaScript fetcher** — `assets/js/api.js` exposes a `GoalieAPI` module:
 
