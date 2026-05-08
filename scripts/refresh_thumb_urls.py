@@ -20,11 +20,13 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import random
 import re
 import subprocess
 import sys
 import time
+from collections import Counter
 from datetime import date, datetime, timedelta
 from pathlib import Path
 
@@ -120,12 +122,13 @@ def fetch_one(video_id: str) -> tuple[str, dict | None, str]:
         random.choice(UA_POOL),
         url,
     ]
+    t0 = time.monotonic()
     try:
         proc = subprocess.run(
             cmd, check=True, timeout=45, capture_output=True, text=True
         )
     except subprocess.TimeoutExpired:
-        return ("error", None, "timeout")
+        return ("error", None, f"timeout after {time.monotonic()-t0:.1f}s")
     except subprocess.CalledProcessError as exc:
         err = (exc.stderr or "").strip().splitlines()[-1].lower() if exc.stderr else ""
         if "rate-limit" in err or "rate limit" in err or "login required" in err:
@@ -138,6 +141,25 @@ def fetch_one(video_id: str) -> tuple[str, dict | None, str]:
     except (ValueError, IndexError):
         return ("error", None, "no json from yt-dlp")
     return ("ok", info, "")
+
+
+def write_step_summary(lines: list[str]) -> None:
+    """Append a Markdown summary to GitHub Actions step summary, if available."""
+    path = os.environ.get("GITHUB_STEP_SUMMARY")
+    if not path:
+        return
+    try:
+        with open(path, "a", encoding="utf-8") as f:
+            f.write("\n".join(lines) + "\n")
+    except OSError:
+        pass
+
+
+def summarize_state(data: dict) -> Counter:
+    counts: Counter = Counter()
+    for entry in data.values():
+        counts[entry.get("status", "unknown")] += 1
+    return counts
 
 
 def main() -> int:
@@ -157,63 +179,130 @@ def main() -> int:
     valid_ids = scan_posts()
 
     # Drop stray entries no longer referenced by any post.
-    for orphan in [k for k in data if k not in valid_ids]:
+    orphans = [k for k in data if k not in valid_ids]
+    for orphan in orphans:
         data.pop(orphan, None)
+
+    pre_state = summarize_state(data)
+    print(f"Scan: {len(valid_ids)} IG posts found, {len(data)} cache entries.")
+    print(f"      orphans dropped: {len(orphans)}")
+    print(f"      cache state: " + ", ".join(f"{k}={v}" for k, v in sorted(pre_state.items())))
 
     work = pick_work(data, valid_ids, args.min_age_days, args.max)
     if not work:
-        print("Nothing to refresh.")
+        print("Nothing to refresh (all entries fresher than min-age-days).")
         save_data(data)
+        write_step_summary([
+            "## Refresh thumbnails (no work)",
+            f"- Posts scanned: **{len(valid_ids)}**",
+            f"- Cache entries: **{len(data)}**",
+            f"- Stale entries: **0**",
+        ])
         return 0
 
-    print(f"Refreshing {len(work)} entries (batch={args.batch}, dry-run={args.dry_run}).")
+    print(f"Picked {len(work)} entries to refresh "
+          f"(batch={args.batch}, dry-run={args.dry_run}, min-age-days={args.min_age_days}).")
 
     if args.dry_run:
         for vid in work:
-            print(f"  would fetch {vid}")
+            entry = data.get(vid, {})
+            print(f"  would fetch {vid} (status={entry.get('status', 'pending')}, fetched={entry.get('fetched', 'never')})")
+        write_step_summary([
+            "## Refresh thumbnails (dry run)",
+            f"- Would refresh **{len(work)}** of {len(valid_ids)} posts.",
+        ])
         return 0
 
     today = date.today().isoformat()
     consecutive_rl = 0
-    refreshed = 0
+    run_counts: Counter = Counter()
+    aborted = False
+    sample_errors: list[str] = []
+    t_start = time.monotonic()
+
     for i in range(0, len(work), args.batch):
         batch = work[i : i + args.batch]
+        batch_no = i // args.batch + 1
+        total_batches = (len(work) + args.batch - 1) // args.batch
+        print(f"\n-- batch {batch_no}/{total_batches} ({len(batch)} ids) --")
         for vid in batch:
+            t0 = time.monotonic()
             status, info, err = fetch_one(vid)
-            entry = data.setdefault(vid, {"url": None, "fetched": None, "status": "pending", "attempts": 0})
+            dt = time.monotonic() - t0
+            entry = data.setdefault(
+                vid,
+                {"url": None, "fetched": None, "status": "pending", "attempts": 0},
+            )
             entry["attempts"] = int(entry.get("attempts", 0)) + 1
+            run_counts[status] += 1
             if status == "ok":
                 entry["url"] = (info or {}).get("thumbnail")
                 entry["status"] = "ok" if entry["url"] else "error"
                 entry["fetched"] = today
-                refreshed += 1
                 consecutive_rl = 0
-                print(f"  ok  {vid}")
+                print(f"  ok   {vid} ({dt:.1f}s)")
             elif status == "not_found":
                 entry["status"] = "not_found"
                 entry["fetched"] = today
                 consecutive_rl = 0
-                print(f"  404 {vid}")
+                print(f"  404  {vid} ({dt:.1f}s)")
             elif status == "rate_limit":
                 entry["status"] = "rate_limit"
                 consecutive_rl += 1
-                print(f"  rl  {vid} ({err[:60]})")
+                print(f"  rl   {vid} ({dt:.1f}s) :: {err[:120]}")
+                if len(sample_errors) < 3:
+                    sample_errors.append(f"`{vid}`: {err[:200]}")
                 if consecutive_rl >= 3:
                     print("Aborting early: 3 consecutive rate-limits.")
-                    save_data(data)
-                    return 0
+                    aborted = True
+                    break
             else:
                 entry["status"] = "error"
                 consecutive_rl = 0
-                print(f"  err {vid} ({err[:60]})")
+                print(f"  err  {vid} ({dt:.1f}s) :: {err[:120]}")
+                if len(sample_errors) < 3:
+                    sample_errors.append(f"`{vid}`: {err[:200]}")
             time.sleep(random.uniform(3, 8))
+        if aborted:
+            break
         if i + args.batch < len(work):
             pause = random.uniform(30, 90)
             print(f"  -- inter-batch pause {pause:.1f}s --")
             time.sleep(pause)
 
     save_data(data)
-    print(f"Done. Refreshed: {refreshed}/{len(work)}.")
+    elapsed = time.monotonic() - t_start
+    post_state = summarize_state(data)
+
+    print(f"\nDone in {elapsed:.0f}s.")
+    print("Run results: " + ", ".join(f"{k}={v}" for k, v in sorted(run_counts.items())))
+    print("Cache state now: " + ", ".join(f"{k}={v}" for k, v in sorted(post_state.items())))
+
+    summary = [
+        "## Refresh thumbnails",
+        f"- Posts scanned: **{len(valid_ids)}**",
+        f"- Picked for refresh: **{len(work)}**",
+        f"- Aborted early: **{'yes (3 consecutive rate-limits)' if aborted else 'no'}**",
+        f"- Elapsed: **{elapsed:.0f}s**",
+        "",
+        "### This run",
+        "| status | count |",
+        "|---|---|",
+    ]
+    for k in sorted(run_counts):
+        summary.append(f"| {k} | {run_counts[k]} |")
+    summary += [
+        "",
+        "### Cache state",
+        "| status | count |",
+        "|---|---|",
+    ]
+    for k in sorted(post_state):
+        summary.append(f"| {k} | {post_state[k]} |")
+    if sample_errors:
+        summary += ["", "### Sample errors"] + [f"- {e}" for e in sample_errors]
+    write_step_summary(summary)
+
     return 0
 
 
