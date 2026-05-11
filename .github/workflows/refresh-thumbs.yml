@@ -49,6 +49,7 @@ jobs:
         run: pip install --upgrade yt-dlp
 
       - name: Refresh thumbnail URLs
+        id: refresh
         shell: bash
         env:
           MAX: ${{ github.event.inputs.max || '6' }}
@@ -65,12 +66,24 @@ jobs:
         if: ${{ github.event.inputs.dry_run != 'true' }}
         uses: peter-evans/create-pull-request@v6
         with:
-          commit-message: "chore: refresh Instagram thumbnail URLs (${{ matrix.os }})"
-          title: "chore: refresh Instagram thumbnail URLs (${{ matrix.os }})"
+          commit-message: "thumbs: ${{ steps.refresh.outputs.ok }} ok / ${{ steps.refresh.outputs.tried }} tried (${{ matrix.os }})"
+          title: "${{ steps.refresh.outputs.timestamp }} UTC - updating thumbnail URLs - ${{ steps.refresh.outputs.ok }} ok / ${{ steps.refresh.outputs.tried }} tried (${{ matrix.os }})"
           body: |
             Automated refresh of Instagram CDN thumbnail URLs in
             `_data/thumbnails.json` via `scripts/refresh_thumb_urls.py`
-            from runner **${{ matrix.os }}**.
+            from runner **${{ matrix.os }}** at
+            **${{ steps.refresh.outputs.timestamp }} UTC**.
+
+            | metric | value |
+            |---|---|
+            | ok | ${{ steps.refresh.outputs.ok }} |
+            | rate_limit | ${{ steps.refresh.outputs.rate_limit }} |
+            | error | ${{ steps.refresh.outputs.error }} |
+            | not_found | ${{ steps.refresh.outputs.not_found }} |
+            | tried | ${{ steps.refresh.outputs.tried }} |
+            | posts total | ${{ steps.refresh.outputs.posts }} |
+            | stale remaining | ${{ steps.refresh.outputs.stale_remaining }} |
+            | aborted early | ${{ steps.refresh.outputs.aborted }} |
 
             URLs from Instagram's CDN expire after a few weeks, so this
             workflow runs every few hours and refreshes the oldest entries.
