@@ -79,7 +79,7 @@ phases:
       - name: "Mountain Climbers"
         duration: "45s"
         video_id: "7W4JEfEKuC4"
-        link: "/2026/04/29/mountain-climbs--beginner--advanced/"
+        link: "/2026/04/29/mountain-climbs-beginner-advanced/"
         note:
           de: "Nicht rennen! Knie kontrolliert ranziehen, Rücken wie ein Brett."
           en: "Don't sprint! Pull the knees in with control, back flat as a board."
