@@ -316,6 +316,19 @@ def write_step_summary(lines: list[str]) -> None:
         pass
 
 
+def write_step_outputs(outputs: dict) -> None:
+    """Write key=value lines to $GITHUB_OUTPUT for downstream workflow steps."""
+    path = os.environ.get("GITHUB_OUTPUT")
+    if not path:
+        return
+    try:
+        with open(path, "a", encoding="utf-8") as f:
+            for k, v in outputs.items():
+                f.write(f"{k}={v}\n")
+    except OSError:
+        pass
+
+
 def summarize_state(data: dict) -> Counter:
     counts: Counter = Counter()
     for entry in data.values():
@@ -411,6 +424,13 @@ def main() -> int:
             f"- Cache entries: **{len(data)}**",
             f"- Stale entries: **0**",
         ])
+        write_step_outputs({
+            "timestamp": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S"),
+            "ok": 0, "rate_limit": 0, "error": 0, "not_found": 0,
+            "tried": 0, "posts": len(valid_ids),
+            "stale_remaining": pre_state.get("stale", 0) + pre_state.get("pending", 0),
+            "aborted": "no",
+        })
         return 0
 
     print(f"Picked {len(work)} entries to refresh "
@@ -427,6 +447,13 @@ def main() -> int:
             f"- Would refresh **{len(work)}** of {len(valid_ids)} posts.",
             f"- Orphans dropped: **{len(orphans)}**, expires backfilled: **{backfilled}**.",
         ])
+        write_step_outputs({
+            "timestamp": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S"),
+            "ok": 0, "rate_limit": 0, "error": 0, "not_found": 0,
+            "tried": len(work), "posts": len(valid_ids),
+            "stale_remaining": pre_state.get("stale", 0) + pre_state.get("pending", 0),
+            "aborted": "no",
+        })
         return 0
 
     today_iso = today.isoformat()
@@ -534,6 +561,19 @@ def main() -> int:
     if sample_errors:
         summary += ["", "### Sample errors"] + [f"- {e}" for e in sample_errors]
     write_step_summary(summary)
+
+    # Outputs consumed by the workflow to build informative PR titles.
+    write_step_outputs({
+        "timestamp": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S"),
+        "ok": run_counts.get("ok", 0),
+        "rate_limit": run_counts.get("rate_limit", 0),
+        "error": run_counts.get("error", 0),
+        "not_found": run_counts.get("not_found", 0),
+        "tried": len(work),
+        "posts": len(valid_ids),
+        "stale_remaining": post_state.get("stale", 0) + post_state.get("pending", 0),
+        "aborted": "yes" if aborted else "no",
+    })
 
     return 0
 
