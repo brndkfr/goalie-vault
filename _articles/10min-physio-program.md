@@ -25,7 +25,7 @@ phases:
       - name: "Cossack Squats"
         duration: "60s"
         video_id: "uK5bgeZixIY"
-        link: "/2026/04/27/cossack-squats.html"
+        link: "/2026/04/27/cossack-squats/"
         note:
           de: "Langsame, kontrollierte Bewegung."
           en: "Slow, controlled movement."
@@ -36,7 +36,7 @@ phases:
       - name: "Frontfoot Elevated Split Squats"
         duration: "60s (30s/leg)"
         video_id: "nrDHMmAxqFA"
-        link: "/2026/04/29/frontfoot-elevated-split-squat.html"
+        link: "/2026/04/29/frontfoot-elevated-split-squat/"
         note:
           de: "Oberkörper aufrecht lassen."
           en: "Keep the upper body upright."
@@ -47,7 +47,7 @@ phases:
       - name: "Lateral Box Step-Ups"
         duration: "60s (30s/leg)"
         video_id: "Vr7G2yzb9f4"
-        link: "/2026/04/29/lateral-box-step-up.html"
+        link: "/2026/04/29/lateral-box-step-up/"
         note:
           de: "Nutze eine niedrige Stufe. Drück dich kontrolliert hoch, ohne das untere Bein zu nutzen."
           en: "Use a low step. Drive up in a controlled way without using the lower leg."
@@ -58,7 +58,7 @@ phases:
       - name: "Heel Taps"
         duration: "60s"
         video_id: "i-BBrCVNT9A"
-        link: "/2026/04/29/heel-tap.html"
+        link: "/2026/04/29/heel-tap/"
         note:
           de: "Rücken flach auf den Boden pressen."
           en: "Press the lower back flat into the floor."
@@ -79,7 +79,7 @@ phases:
       - name: "Mountain Climbers"
         duration: "45s"
         video_id: "7W4JEfEKuC4"
-        link: "/2026/04/29/mountain-climbs--beginner--advanced.html"
+        link: "/2026/04/29/mountain-climbs--beginner--advanced/"
         note:
           de: "Nicht rennen! Knie kontrolliert ranziehen, Rücken wie ein Brett."
           en: "Don't sprint! Pull the knees in with control, back flat as a board."
@@ -90,7 +90,7 @@ phases:
       - name: "Body Saw"
         duration: "45s"
         video_id: "SNw27niRKTU"
-        link: "/2026/04/29/body-saw.html"
+        link: "/2026/04/29/body-saw/"
         note:
           de: "Aus dem Unterarmstütz den Körper vor- und zurückschieben."
           en: "From the forearm plank, slide the body forward and back."
@@ -101,7 +101,7 @@ phases:
       - name: "Plank Ups"
         duration: "60s"
         video_id: "mHzGyMLN144"
-        link: "/2026/04/29/plank-up-plank-push-up.html"
+        link: "/2026/04/29/plank-up-plank-push-up/"
         note:
           de: "Wechsel vom Unterarmstütz in den Liegestütz."
           en: "Alternate between forearm plank and push-up position."
@@ -122,7 +122,7 @@ phases:
       - name: "Dynamic Lateral Bounds"
         duration: "60s"
         video_id: "ZkYORFHgRTw"
-        link: "/2026/04/29/dynamic-lateral-bounds.html"
+        link: "/2026/04/29/dynamic-lateral-bounds/"
         note:
           de: "Springe seitlich und halte die Landung 1 Sekunde (Stick the landing)."
           en: "Leap laterally and hold the landing for 1 second (stick the landing)."
@@ -133,7 +133,7 @@ phases:
       - name: "Squat Jumps"
         duration: "45s"
         video_id: "BRfxI2Es2lE"
-        link: "/2026/04/29/jump-squads.html"
+        link: "/2026/04/29/jump-squads/"
         note:
           de: "Leise Landung auf dem Mittelfuß. Knie nicht nach innen knicken!"
           en: "Quiet landing on the mid-foot. Don't let the knees cave in!"
@@ -144,7 +144,7 @@ phases:
       - name: "Kneeling Broad Jumps"
         duration: "45s"
         video_id: "ObnrLyFnAXk"
-        link: "/2026/04/29/kneeling-jump-to-broad-jump.html"
+        link: "/2026/04/29/kneeling-jump-to-broad-jump/"
         note:
           de: "Aus dem Knien explosiv nach vorne in den Stand springen."
           en: "From kneeling, explode forward into a standing position."

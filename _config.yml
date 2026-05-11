@@ -20,3 +20,16 @@ collections:
 
 # Build settings
 markdown: kramdown
+
+# Don't let Jekyll process tooling/curation files (they're not site content
+# and contain relative `../assets/...` links that html-proofer flags).
+exclude:
+  - scripts/
+  - vendor/
+  - .venv/
+  - .github/
+  - README.md
+  - LICENSE
+  - LICENSE-CONTENT
+  - Gemfile
+  - Gemfile.lock
