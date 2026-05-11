@@ -94,12 +94,19 @@ jobs:
           add-paths: |
             _data/thumbnails.json
 
-      - name: Enable auto-merge
-        # Don't fail the whole job if auto-merge isn't available on the repo
-        # or the PR has no diff (e.g. the run only produced rate_limit
-        # entries that don't change the file).
+      - name: Enable auto-merge (or merge directly if no checks pending)
+        # `gh pr merge --auto` fails with "Pull request is in clean status"
+        # when there are no required status checks pending - GitHub refuses
+        # to "schedule" a merge that could happen right now. Fall back to
+        # an immediate merge in that case.
+        # `continue-on-error` keeps a hiccup here from failing the workflow.
         continue-on-error: true
         if: ${{ steps.cpr.outputs.pull-request-number }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh pr merge --squash --auto "${{ steps.cpr.outputs.pull-request-number }}" --repo "${{ github.repository }}"
+          PR: ${{ steps.cpr.outputs.pull-request-number }}
+          REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          gh pr merge --squash --auto "$PR" --repo "$REPO" \
+            || gh pr merge --squash "$PR" --repo "$REPO"
