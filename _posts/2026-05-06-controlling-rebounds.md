@@ -8,7 +8,7 @@ tags: [rebound-control]
 platform: "instagram"
 video_id: "BhIeq9jASoA"
 thumbnail: "/assets/images/thumbs/BhIeq9jASoA.jpg"
-description: "71 likes, 1 comments - goaliesaara on April 3, 2018: &quot;Controlling rebounds. Sometimes it is hard to handle that ball bouncing wherever &.\n&;lvakt &quot."
+description: ""
 auto_generated: true
 redirect_from:
   - /2026/05/06/saara-on-instagram-quot-controlling-rebounds/

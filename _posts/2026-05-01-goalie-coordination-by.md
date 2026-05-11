@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Goalie coordination by Нейро-Вратарь"
+title: "Goalie coordination"
 author: "Нейро-Вратарь"
 handle: "_neuro_keeper"
 category: coordination

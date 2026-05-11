@@ -8,6 +8,6 @@ tags: []
 platform: "instagram"
 video_id: "DXygBtii6dU"
 thumbnail: "/assets/images/thumbs/DXygBtii6dU.jpg"
-description: "Off-season is where real players are built. Train with purpose, stay consistent, and watch your game level up fast"
+description: "The off-season is your edge. Train with purpose, stay consistent, level up."
 auto_generated: true
 ---
