@@ -2,13 +2,13 @@ name: Refresh Instagram thumbnail URLs
 
 on:
   schedule:
-    # Every 3 hours (8x/day, ~48 URLs/day @ cap=6). IG throttles after ~6
-    # anon requests/IP, so we keep batches small but run more often.
+    # Every 3 hours (8x/day). Each matrix runner gets its own egress IP, so
+    # 3 OSes x ~6 cap = up to ~18 fresh URLs per run.
     - cron: "17 */3 * * *"
   workflow_dispatch:
     inputs:
       max:
-        description: "Max IDs to refresh in this run"
+        description: "Max IDs to refresh per matrix runner"
         required: false
         default: "6"
       dry_run:
@@ -23,20 +23,33 @@ permissions:
 
 jobs:
   refresh:
-    runs-on: ubuntu-latest
+    strategy:
+      # Independent runners with different egress IPs => independent IG
+      # rate-limit budgets. Don't fail the whole matrix if one OS gets
+      # blocked.
+      fail-fast: false
+      # Serialize so PRs don't race on _data/thumbnails.json; later legs
+      # check out the post-merge state of main.
+      max-parallel: 1
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Install yt-dlp
+      - name: Install yt-dlp (fallback only)
         run: pip install --upgrade yt-dlp
 
       - name: Refresh thumbnail URLs
+        shell: bash
         env:
           MAX: ${{ github.event.inputs.max || '6' }}
           DRY: ${{ github.event.inputs.dry_run }}
@@ -52,20 +65,27 @@ jobs:
         if: ${{ github.event.inputs.dry_run != 'true' }}
         uses: peter-evans/create-pull-request@v6
         with:
-          commit-message: "chore: refresh Instagram thumbnail URLs"
-          title: "chore: refresh Instagram thumbnail URLs"
+          commit-message: "chore: refresh Instagram thumbnail URLs (${{ matrix.os }})"
+          title: "chore: refresh Instagram thumbnail URLs (${{ matrix.os }})"
           body: |
             Automated refresh of Instagram CDN thumbnail URLs in
-            `_data/thumbnails.json` via `scripts/refresh_thumb_urls.py`.
+            `_data/thumbnails.json` via `scripts/refresh_thumb_urls.py`
+            from runner **${{ matrix.os }}**.
 
             URLs from Instagram's CDN expire after a few weeks, so this
-            workflow runs daily and refreshes the oldest entries.
-          branch: chore/refresh-thumbs
+            workflow runs every few hours and refreshes the oldest entries.
+          # One branch per matrix leg so concurrent/serialized runs don't
+          # clobber each other; auto-merge picks them up one by one.
+          branch: chore/refresh-thumbs-${{ matrix.os }}
           delete-branch: true
           add-paths: |
             _data/thumbnails.json
 
       - name: Enable auto-merge
+        # Don't fail the whole job if auto-merge isn't available on the repo
+        # or the PR has no diff (e.g. the run only produced rate_limit
+        # entries that don't change the file).
+        continue-on-error: true
         if: ${{ steps.cpr.outputs.pull-request-number }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

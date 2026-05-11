@@ -20,6 +20,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import html
 import json
 import os
 import random
@@ -27,6 +28,8 @@ import re
 import subprocess
 import sys
 import time
+import urllib.error
+import urllib.request
 from collections import Counter
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
@@ -49,6 +52,15 @@ VIDEO_RE = re.compile(r"^video_id:\s*[\"']?([A-Za-z0-9_-]+)", re.M)
 # `oe=` is a Unix timestamp encoded as hex in the Instagram CDN URL
 # signature; it tells us when the URL stops being accepted by the CDN.
 OE_RE = re.compile(r"[?&]oe=([0-9A-Fa-f]+)")
+# Instagram embed pages return the actual post media as <img src=...> when
+# we identify as a link-preview bot. Profile pics use the `-19` bucket
+# suffix (e.g. t51.2885-19, t51.82787-19); post media uses `-15`.
+IMG_SRC_RE = re.compile(
+    r'src="(https?://[^"]*scontent[^"]+\.(?:jpe?g|webp|png)[^"]*)"',
+    re.I,
+)
+PROFILE_PIC_RE = re.compile(r"/t\d+\.\d+-19/")
+LOGIN_HINT_RE = re.compile(r"(login|log in|too many requests)", re.I)
 
 
 def load_data() -> dict:
@@ -156,7 +168,19 @@ def pick_work(
                 continue
         url = entry.get("url")
         if not url or status in ("stale", "pending", "rate_limit", "error"):
-            sort_key = "0000-00-00"
+            # Prioritize: never-fetched (no url) > stale/pending > rate_limit > error.
+            # Within each tier, oldest fetched first. This ensures a fresh run
+            # spends its precious request budget on entries that have the
+            # highest chance of succeeding (never tried) before retrying ones
+            # that previously rate-limited (likely to fail again on a fresh IP).
+            tier = {
+                None: 0,
+                "pending": 1,
+                "stale": 1,
+                "rate_limit": 2,
+                "error": 3,
+            }.get(status if url else None, 1)
+            sort_key = f"{tier}|{entry.get('fetched') or '0000-00-00'}"
         else:
             expires = entry.get("expires") or parse_url_expiry(url)
             try:
@@ -171,16 +195,64 @@ def pick_work(
             too_old = f_date < age_cutoff
             if not (expiring_soon or too_old):
                 continue
-            # Sort by expiry (sooner first); fall back to fetched date.
-            sort_key = (expires or "9999-12-31") + "|" + (entry.get("fetched") or "0000-00-00")
+            # `ok` entries refresh last (tier 9), sorted by expiry then fetched.
+            sort_key = "9|" + (expires or "9999-12-31") + "|" + (entry.get("fetched") or "0000-00-00")
         pool.append((sort_key, vid))
 
     pool.sort(key=lambda p: (p[0], random.random()))
     return [vid for _, vid in pool[:cap]]
 
 
-def fetch_one(video_id: str) -> tuple[str, dict | None, str]:
-    """Return (status, info-or-None, error-message)."""
+def _fetch_embed(video_id: str) -> tuple[str, dict | None, str]:
+    """Scrape thumbnail URL from Instagram's embed page.
+
+    Identifying as a link-preview bot (facebookexternalhit) is what makes
+    IG serve the lightweight embed HTML with the post media as a real
+    <img src="...scontent...">. Browser-style UAs get the full SPA bundle
+    instead, which doesn't contain the thumbnail in static markup.
+    Browser UAs also rate-limit ~10x faster than bot UAs do.
+    """
+    url = f"https://www.instagram.com/p/{video_id}/embed/captioned/"
+    req = urllib.request.Request(
+        url,
+        headers={
+            "User-Agent": "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+            "Accept-Language": "en-US,en;q=0.5",
+        },
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=20) as resp:
+            body = resp.read().decode("utf-8", errors="replace")
+    except urllib.error.HTTPError as exc:
+        if exc.code in (404, 410):
+            return ("not_found", None, f"http {exc.code}")
+        if exc.code in (401, 403, 429):
+            return ("rate_limit", None, f"http {exc.code}")
+        return ("error", None, f"http {exc.code}")
+    except (urllib.error.URLError, TimeoutError, OSError) as exc:
+        return ("error", None, f"network: {exc}")
+
+    # Pick the first scontent <img src> that is NOT a profile picture.
+    # If only profile pics are present, fall back to the last image (which
+    # in practice is the post media for image-less video posts).
+    candidates = IMG_SRC_RE.findall(body)
+    for raw in candidates:
+        if PROFILE_PIC_RE.search(raw):
+            continue
+        return ("ok", {"thumbnail": html.unescape(raw)}, "")
+    if candidates:
+        return ("ok", {"thumbnail": html.unescape(candidates[-1])}, "")
+
+    if "Sorry, this page isn't available" in body or "Page Not Found" in body:
+        return ("not_found", None, "embed says page not available")
+    if LOGIN_HINT_RE.search(body):
+        return ("rate_limit", None, "login/rate-limit page")
+    return ("error", None, "no post-media <img> in embed")
+
+
+def _fetch_ytdlp(video_id: str) -> tuple[str, dict | None, str]:
+    """Fallback: full yt-dlp scrape (heavier; triggers IG rate-limit faster)."""
     url = f"https://www.instagram.com/p/{video_id}/"
     cmd = [
         "yt-dlp",
@@ -198,6 +270,8 @@ def fetch_one(video_id: str) -> tuple[str, dict | None, str]:
         )
     except subprocess.TimeoutExpired:
         return ("error", None, f"timeout after {time.monotonic()-t0:.1f}s")
+    except FileNotFoundError:
+        return ("error", None, "yt-dlp not installed")
     except subprocess.CalledProcessError as exc:
         err = (exc.stderr or "").strip().splitlines()[-1].lower() if exc.stderr else ""
         if "rate-limit" in err or "rate limit" in err or "login required" in err:
@@ -210,6 +284,24 @@ def fetch_one(video_id: str) -> tuple[str, dict | None, str]:
     except (ValueError, IndexError):
         return ("error", None, "no json from yt-dlp")
     return ("ok", info, "")
+
+
+def fetch_one(video_id: str) -> tuple[str, dict | None, str]:
+    """Return (status, info-or-None, error-message).
+
+    Tries the cheap embed scrape first; only falls through to yt-dlp on
+    'error' (NOT on rate_limit/not_found, since those would just burn the
+    runner IP further with no chance of success).
+    """
+    status, info, err = _fetch_embed(video_id)
+    if status == "ok" or status in ("rate_limit", "not_found"):
+        return (status, info, err)
+    # Embed gave us 'error' (e.g. parse failure) — try yt-dlp as a fallback.
+    fb_status, fb_info, fb_err = _fetch_ytdlp(video_id)
+    if fb_status == "ok":
+        return (fb_status, fb_info, fb_err)
+    # Surface whichever message is more informative.
+    return (fb_status, fb_info, fb_err or err)
 
 
 def write_step_summary(lines: list[str]) -> None:
@@ -357,7 +449,12 @@ def main() -> int:
                 vid,
                 {"url": None, "fetched": None, "status": "pending", "attempts": 0},
             )
-            entry["attempts"] = int(entry.get("attempts", 0)) + 1
+            # Rate-limit responses reflect the runner IP being throttled, not
+            # something wrong with this specific entry — don't count those
+            # against the per-entry attempt budget (would otherwise back off
+            # entries that have never had a fair chance).
+            if status != "rate_limit":
+                entry["attempts"] = int(entry.get("attempts", 0)) + 1
             run_counts[status] += 1
             if status == "ok":
                 new_url = (info or {}).get("thumbnail")
@@ -377,12 +474,18 @@ def main() -> int:
                 print(f"  404  {vid} ({dt:.1f}s)")
             elif status == "rate_limit":
                 entry["status"] = "rate_limit"
+                entry["fetched"] = today_iso  # so cooldown skips it next run
                 consecutive_rl += 1
                 print(f"  rl   {vid} ({dt:.1f}s) :: {err[:120]}")
                 if len(sample_errors) < 3:
                     sample_errors.append(f"`{vid}`: {err[:200]}")
-                if consecutive_rl >= 3:
-                    print("Aborting early: 3 consecutive rate-limits.")
+                # Once IG starts rate-limiting this runner IP, additional
+                # requests in the same run virtually never succeed and just
+                # burn the per-run budget on entries that will likely succeed
+                # next time. Bail out after the second hit (first might be a
+                # transient).
+                if consecutive_rl >= 2:
+                    print("Aborting early: 2 consecutive rate-limits.")
                     aborted = True
                     break
             else:
@@ -411,7 +514,7 @@ def main() -> int:
         "## Refresh thumbnails",
         f"- Posts scanned: **{len(valid_ids)}**",
         f"- Picked for refresh: **{len(work)}**",
-        f"- Aborted early: **{'yes (3 consecutive rate-limits)' if aborted else 'no'}**",
+        f"- Aborted early: **{'yes (2 consecutive rate-limits)' if aborted else 'no'}**",
         f"- Elapsed: **{elapsed:.0f}s**",
         "",
         "### This run",
