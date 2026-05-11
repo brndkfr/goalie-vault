@@ -23,13 +23,13 @@ markdown: kramdown
 
 # Don't let Jekyll process tooling/curation files (they're not site content
 # and contain relative `../assets/...` links that html-proofer flags).
+# NOTE: don't exclude LICENSE / LICENSE-CONTENT — the site footer links
+# to them as static files, so Jekyll needs to copy them to _site/.
 exclude:
   - scripts/
   - vendor/
   - .venv/
   - .github/
   - README.md
-  - LICENSE
-  - LICENSE-CONTENT
   - Gemfile
   - Gemfile.lock
