@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Glove hand program coming soon"
+title: "Sharpen your hand-eye coordination with a bouncy ball"
 author: "Goalie Strength"
 handle: "goaliestrength"
 category: coordination
@@ -8,8 +8,6 @@ tags: [hand-eye, strength]
 platform: "instagram"
 video_id: "DXXJZs_AAZN"
 thumbnail: "/assets/images/thumbs/DXXJZs_AAZN.jpg"
-description: "908 likes, 6 comments - goaliestrength on April 20, 2026: &quot;Glove hand program coming soon. &\n\nBe like Vladislav Tretiak and Rocky Balboa and carry a bouncy ball with you everywhere.\n\nThink of how much better your hand-eye coordination will be.&quot."
+description: "Sharpen your hand-eye coordination with a bouncy ball"
 auto_generated: true
-redirect_from:
-  - /2026/05/06/goalie-strength-on-instagram-quot-glove-hand-program-coming-soon/
 ---
