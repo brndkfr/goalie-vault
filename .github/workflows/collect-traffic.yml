@@ -16,9 +16,13 @@ on:
 
 permissions:
   contents: write
-  # Traffic API requires "administration" read; without it the
-  # default GITHUB_TOKEN gets HTTP 403 on /traffic/* endpoints.
-  administration: read
+
+# NOTE: The default GITHUB_TOKEN cannot read the /traffic/* endpoints
+# (they require admin access and the auto-token has no `administration`
+# scope). Create a fine-grained PAT scoped to this repo with
+# "Administration: Read" + "Metadata: Read" and store it as the
+# repo secret `TRAFFIC_TOKEN`. Without it the job exits early with
+# a clear message instead of failing.
 
 jobs:
   collect:
@@ -36,9 +40,13 @@ jobs:
 
       - name: Collect traffic
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.TRAFFIC_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
+          if [ -z "$GITHUB_TOKEN" ]; then
+            echo "::warning::TRAFFIC_TOKEN secret not set; skipping. See workflow comments for setup."
+            exit 0
+          fi
           if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
             python scripts/collect_traffic.py --dry-run
           else
