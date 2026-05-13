@@ -43,7 +43,7 @@ layout: default
   {% elsif page.platform == "instagram" %}
   {% assign thumb_data = site.data.thumbnails[page.video_id] %}
   {% if thumb_data and thumb_data.url and thumb_data.status != "not_found" %}
-    {% assign embed_thumb = thumb_data.url %}
+    {% capture embed_thumb %}https://wsrv.nl/?url={{ thumb_data.url | url_encode }}{% endcapture %}
   {% elsif page.thumbnail and page.thumbnail != "" %}
     {% if page.thumbnail contains "://" %}{% assign embed_thumb = page.thumbnail %}
     {% else %}{% capture embed_thumb %}{{ site.baseurl }}{{ page.thumbnail }}{% endcapture %}{% endif %}

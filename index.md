@@ -98,7 +98,7 @@ title: "Goalie Vault"
         {% assign thumb_data = site.data.thumbnails[post.video_id] %}
         {% if thumb_data and thumb_data.url and thumb_data.status != "not_found" %}
           <img class="drill-card__thumb"
-               src="{{ thumb_data.url }}"
+               src="https://wsrv.nl/?url={{ thumb_data.url | url_encode }}"
                alt="{{ post.title }}"
                loading="lazy"
                referrerpolicy="no-referrer"
