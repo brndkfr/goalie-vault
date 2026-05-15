@@ -35,7 +35,8 @@ noindex: true
   {% assign meta = site.data.traffic.meta %}
   <div class="stats__sub">
     {% if meta %}
-      Last updated <strong>{{ meta.last_run }}</strong> &middot; source: GitHub Traffic API for <code>{{ meta.repo }}</code>
+      Last updated <strong>{{ meta.last_run }}</strong> &middot; GitHub Traffic API for <code>{{ meta.repo }}</code>
+      &mdash; <em>tracks github.com/{{ meta.repo }} visits; GitHub Pages traffic is not available via this API.</em>
     {% else %}
       No data collected yet. The daily workflow will populate this page once it runs.
     {% endif %}
@@ -95,23 +96,26 @@ noindex: true
     </div>
 
     {% comment %} ---- latest snapshots ---- {% endcomment %}
-    {% assign paths_keys = site.data.traffic.paths | sort %}
-    {% assign refs_keys = site.data.traffic.referrers | sort %}
-    {% assign latest_paths_key = paths_keys | last %}
-    {% assign latest_refs_key = refs_keys | last %}
-    {% assign latest_paths = site.data.traffic.paths[latest_paths_key] %}
-    {% assign latest_refs = site.data.traffic.referrers[latest_refs_key] %}
+    {% assign paths_sorted    = site.data.traffic.paths      | sort %}
+    {% assign refs_sorted     = site.data.traffic.referrers  | sort %}
+    {% assign latest_paths_pair = paths_sorted | last %}
+    {% assign latest_refs_pair  = refs_sorted  | last %}
+    {% assign latest_paths_key = latest_paths_pair | first %}
+    {% assign latest_refs_key  = latest_refs_pair  | first %}
+    {% assign latest_paths     = latest_paths_pair | last %}
+    {% assign latest_refs      = latest_refs_pair  | last %}
 
     <div class="stats__tables">
       <div class="panel">
-        <h2>Top paths (last 14d, snapshot {{ latest_paths_key }})</h2>
+        <h2>Top paths &mdash; snapshot {{ latest_paths_key }}</h2>
+        <p style="font-size:0.78rem;color:#888;margin:0 0 10px">github.com/{{ meta.repo }}/* &mdash; note: github.io page views are not included</p>
         {% if latest_paths and latest_paths.size > 0 %}
           <table class="stats-table">
             <thead><tr><th>Path</th><th class="num">Views</th><th class="num">Uniques</th></tr></thead>
             <tbody>
               {% for p in latest_paths %}
               <tr>
-                <td><a href="{{ p.path }}">{{ p.title | default: p.path }}</a></td>
+                <td><a href="https://github.com{{ p.path }}" target="_blank" rel="noopener">{{ p.title | default: p.path | truncate: 55 }}</a></td>
                 <td class="num">{{ p.count }}</td>
                 <td class="num">{{ p.uniques }}</td>
               </tr>
@@ -123,7 +127,7 @@ noindex: true
         {% endif %}
       </div>
       <div class="panel">
-        <h2>Top referrers (last 14d, snapshot {{ latest_refs_key }})</h2>
+        <h2>Top referrers &mdash; snapshot {{ latest_refs_key }}</h2>
         {% if latest_refs and latest_refs.size > 0 %}
           <table class="stats-table">
             <thead><tr><th>Referrer</th><th class="num">Views</th><th class="num">Uniques</th></tr></thead>
@@ -146,9 +150,7 @@ noindex: true
     <script id="viewsData" type="application/json">[{% for r in views_csv %}{"date":"{{ r.date }}","views":{{ r.views }},"uniques":{{ r.uniques }}}{% unless forloop.last %},{% endunless %}{% endfor %}]</script>
     <script id="clonesData" type="application/json">[{% for r in clones_csv %}{"date":"{{ r.date }}","clones":{{ r.clones }},"uniques":{{ r.uniques }}}{% unless forloop.last %},{% endunless %}{% endfor %}]</script>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"
-            integrity="sha384-JUh163oCRItcbPme8pYnROHQMC6fNKTBWtRG3I3I0erJkzNgL7uxKlNwcrcFKeqF"
-            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js" crossorigin="anonymous"></script>
     <script>
       (function () {
         if (typeof Chart === 'undefined') return;
