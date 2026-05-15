@@ -103,14 +103,9 @@ title: "Goalie Vault"
                loading="lazy"
                referrerpolicy="no-referrer"
                onerror="this.parentNode.replaceChild(window.__vaultIgPlaceholder.cloneNode(true), this);">
-        {% elsif post.thumbnail and post.thumbnail != "" and post.thumbnail != "skip" %}
-          {% if post.thumbnail contains "://" %}
-            {% assign thumb_src = post.thumbnail %}
-          {% else %}
-            {% capture thumb_src %}{{ site.baseurl }}{{ post.thumbnail }}{% endcapture %}
-          {% endif %}
+        {% elsif post.thumbnail contains "://" %}
           <img class="drill-card__thumb"
-               src="{{ thumb_src }}"
+               src="{{ post.thumbnail }}"
                alt="{{ post.title }}"
                loading="lazy">
         {% elsif post.platform == "youtube" %}

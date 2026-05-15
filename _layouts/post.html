@@ -44,9 +44,8 @@ layout: default
   {% assign thumb_data = site.data.thumbnails[page.video_id] %}
   {% if thumb_data and thumb_data.url and thumb_data.status != "not_found" %}
     {% capture embed_thumb %}https://wsrv.nl/?url={{ thumb_data.url | url_encode }}{% endcapture %}
-  {% elsif page.thumbnail and page.thumbnail != "" %}
-    {% if page.thumbnail contains "://" %}{% assign embed_thumb = page.thumbnail %}
-    {% else %}{% capture embed_thumb %}{{ site.baseurl }}{{ page.thumbnail }}{% endcapture %}{% endif %}
+  {% elsif page.thumbnail contains "://" %}
+    {% assign embed_thumb = page.thumbnail %}
   {% else %}
     {% assign embed_thumb = "" %}
   {% endif %}
