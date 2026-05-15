@@ -1,7 +1,7 @@
 """Remove all resources for posts marked status='discard' in scripts/curate/curation.json.
 
 Actions per discarded id:
-  - delete `assets/images/thumbs/<id>*` (any extension, plus carousel siblings <id>_N.*)
+  - delete `scripts/curate/thumbs/<id>*` (any extension, plus carousel siblings <id>_N.*)
   - delete `scripts/curate/instagram/<id>.json`
   - strip `<a href=".../p/<id>/" ...>...</a>` anchors (with optional surrounding whitespace) from `scripts/curate/instagram_links.md`
 """
@@ -13,7 +13,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 CURATION = ROOT / "scripts" / "curate" / "curation.json"
-THUMBS = ROOT / "assets" / "images" / "thumbs"
+THUMBS = ROOT / "scripts" / "curate" / "thumbs"
 META = ROOT / "scripts" / "curate" / "instagram"
 DOC = ROOT / "scripts" / "curate" / "instagram_links.md"
 

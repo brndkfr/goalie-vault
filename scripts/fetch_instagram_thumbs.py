@@ -1,7 +1,7 @@
 """Fetch Instagram thumbnails + metadata for links in scripts/curate/instagram_links.md.
 
 For each unique Instagram post ID found in the doc:
-  * Download the thumbnail to assets/images/thumbs/<id>.<ext>
+  * Download the thumbnail to scripts/curate/thumbs/<id>.<ext>
   * Save metadata JSON to scripts/curate/instagram/<id>.json
 
 Both files act as resume state: an ID is skipped if its JSON already exists.
@@ -26,9 +26,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DOC = ROOT / "scripts" / "curate" / "instagram_links.md"
-THUMB_DIR = ROOT / "assets" / "images" / "thumbs"
+THUMB_DIR = ROOT / "scripts" / "curate" / "thumbs"
 META_DIR = ROOT / "scripts" / "curate" / "instagram"
-THUMB_REL = "/assets/images/thumbs"
+THUMB_REL = "/scripts/curate/thumbs"
 
 LINK_RE = re.compile(r"^https://www\.instagram\.com/p/([A-Za-z0-9_-]+)/?\s*$")
 

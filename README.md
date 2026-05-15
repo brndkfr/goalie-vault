@@ -85,11 +85,10 @@ The site will be available at `http://localhost:4000/goalie-vault`.
 
 | Workflow | Trigger | What it does |
 |---|---|---|
-| `new-drill.yml` | Issue labeled `new-drill` | Parses the issue form, fetches a thumbnail (YouTube CDN URL or `yt-dlp` for Instagram), creates `_posts/*.md`, commits, and closes the issue |
+| `new-drill.yml` | Issue labeled `new-drill` | Parses the issue form, looks up Instagram CDN thumbnail URL into `_data/thumbnails.json`, creates `_posts/*.md`, commits, and closes the issue |
 | `build-and-verify.yml` | Push / PR | Runs `validate_taxonomy.py` (strict YAML + tag check) and `check_site.py` (landing pages + API endpoints) |
 | `refresh-thumbs.yml` | Daily 06:17 UTC + manual | Calls `scripts/refresh_thumb_urls.py` to re-fetch expiring Instagram CDN URLs into `_data/thumbnails.json` and opens an auto-merging PR |
-| `remove-thumbnail.yml` | Manual — Actions tab → **Run workflow** | Clears `thumbnail:` from the post frontmatter and deletes the image from `assets/images/thumbs/`. Input: `post_slug` |
-| `refetch-thumbnails.yml` | Manual or weekly (Mon 03:00 UTC) | Legacy: scans Instagram posts with empty `thumbnail:`, retries `yt-dlp`, patches post files |
+| `remove-thumbnail.yml` | Manual — Actions tab → **Run workflow** | Removes the entry from `_data/thumbnails.json` so the post falls back to a placeholder. Input: `post_slug` |
 
 To trigger `remove-thumbnail`: go to **Actions → Remove Drill Thumbnail → Run workflow** and enter the post slug.
 
@@ -110,8 +109,8 @@ which:
 - Backs off after `--max-attempts` failures.
 - Opens a PR (auto-merged when checks pass).
 
-Layouts read `site.data.thumbnails[post.video_id].url`, falling back to the
-legacy `post.thumbnail` field, then to a placeholder via `onerror`.
+Layouts read `site.data.thumbnails[post.video_id].url`, falling back to
+a YouTube CDN URL (for YouTube posts) or an SVG placeholder.
 
 See [_docs/legal-and-compliance-plan.md](_docs/legal-and-compliance-plan.md)
 §1.2 + §3.2 for context.
@@ -130,9 +129,9 @@ _data/
   quiz_config.yml        # Google Sheets submission config (optional)
   thumbnails.json        # Instagram CDN URL cache (refreshed daily)
 assets/images/           # Logo and media
-assets/images/thumbs/    # Legacy local Instagram thumbnails (being phased out)
 scripts/                 # Local curation pipeline + audit/validator scripts
   curate/                # Static-served vanilla-JS UIs + manifests
+    thumbs/              # Local curation thumbnails (not deployed)
 assets/js/
   quiz.js                # Quiz engine (state, scoring, Chart.js)
   api.js                 # GoalieAPI static REST fetcher
@@ -155,7 +154,7 @@ index.md                 # Home page with drill grid and filter bar
 programs.md              # Programs index (lists `_articles/`)
 quizzes.md               # Quiz index page
 .github/
-  workflows/             # new-drill.yml, remove-thumbnail.yml, refetch-thumbnails.yml
+  workflows/             # new-drill.yml, remove-thumbnail.yml, refresh-thumbs.yml
   ISSUE_TEMPLATE/        # new-drill.yml — issue form for contributors
 ```
 
@@ -198,7 +197,7 @@ disk.
 **Instagram triage** — pick which Instagram links become posts.
 
 ```bash
-python scripts/fetch_instagram_thumbs.py     # yt-dlp -> assets/images/thumbs/ + scripts/curate/instagram/*.json
+python scripts/fetch_instagram_thumbs.py     # yt-dlp -> scripts/curate/thumbs/ + scripts/curate/instagram/*.json
 python scripts/build_curate_manifest.py      # -> scripts/curate/manifest.json
 python scripts/auto_categorize.py            # heuristic suggestions
 # open http://localhost:8765/scripts/curate/  -> keep / maybe / discard, edit categories, Export
@@ -243,8 +242,8 @@ The quiz engine (`assets/js/quiz.js`) handles state, scoring, and a Chart.js dou
 - [x] Local curation tooling for Instagram triage and post editing
 - [x] On-demand Instagram thumbnail URL cache (`_data/thumbnails.json`)
 - [x] Programs / articles collection (`_articles/` rendered at [`/programs`](https://brndkfr.github.io/goalie-vault/programs/))
-- [ ] Wire API `thumbnail` field to use `_data/thumbnails.json` (Instagram CDN URL) instead of legacy `post.thumbnail`
-- [ ] Phase-4 cleanup: drop local `assets/images/thumbs/*.jpg` once URL cache is fully populated
+- [x] Wire API `thumbnail` field to use `_data/thumbnails.json` (Instagram CDN URL) instead of legacy `post.thumbnail`
+- [x] Phase-4 cleanup: drop local `assets/images/thumbs/*.jpg` once URL cache is fully populated
 
 ---
 

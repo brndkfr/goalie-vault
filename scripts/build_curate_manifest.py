@@ -1,7 +1,7 @@
 """Build the manifest consumed by scripts/curate/index.html.
 
 Pairs each metadata JSON in scripts/curate/instagram/ with the matching thumbnail file
-under assets/images/thumbs/ (extension-agnostic). Also extracts the section
+under scripts/curate/thumbs/ (extension-agnostic). Also extracts the section
 headings from scripts/curate/instagram_links.md so the UI's category dropdown stays
 in sync.
 
@@ -16,12 +16,12 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 META_DIR = ROOT / "scripts" / "curate" / "instagram"
-THUMB_DIR = ROOT / "assets" / "images" / "thumbs"
+THUMB_DIR = ROOT / "scripts" / "curate" / "thumbs"
 DOC = ROOT / "scripts" / "curate" / "instagram_links.md"
 OUT = ROOT / "scripts" / "curate" / "manifest.json"
 
 # Path used in the HTML (relative to scripts/curate/index.html).
-THUMB_REL_PREFIX = "../../assets/images/thumbs/"
+THUMB_REL_PREFIX = "thumbs/"
 
 # Fields surfaced to the UI.
 KEEP = (
