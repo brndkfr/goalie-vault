@@ -15,7 +15,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Clear thumbnail from post frontmatter
+      - name: Remove thumbnail from thumbnails.json
         shell: bash
         run: |
           SLUG="${{ github.event.inputs.post_slug }}"
@@ -28,28 +28,36 @@ jobs:
 
           echo "Found post: $FILE"
 
-          # Extract current video_id to find matching image
+          # Extract video_id to find the thumbnails.json entry
           VIDEO_ID=$(grep '^video_id:' "$FILE" | sed 's/video_id: *"\(.*\)"/\1/')
 
-          # Clear the thumbnail field in frontmatter
-          sed -i 's|^thumbnail:.*|thumbnail: ""|' "$FILE"
-          echo "Cleared thumbnail in $FILE"
-
-          # Delete the image file if it exists
-          if [ -n "$VIDEO_ID" ]; then
-            for IMG in assets/images/thumbs/${VIDEO_ID}.*; do
-              if [ -f "$IMG" ]; then
-                rm "$IMG"
-                echo "Deleted $IMG"
-              fi
-            done
+          if [ -z "$VIDEO_ID" ]; then
+            echo "No video_id found in $FILE — nothing to remove"
+            exit 0
           fi
+
+          # Remove the entry from _data/thumbnails.json
+          VIDEO_ID="$VIDEO_ID" python3 -c "
+import json, os, pathlib
+f = pathlib.Path('_data/thumbnails.json')
+if not f.exists():
+    print('thumbnails.json not found')
+    raise SystemExit(0)
+data = json.loads(f.read_text())
+vid = os.environ['VIDEO_ID']
+if vid in data:
+    del data[vid]
+    f.write_text(json.dumps(data, indent=2, sort_keys=True, ensure_ascii=False) + '\n')
+    print(f'Removed {vid} from thumbnails.json')
+else:
+    print(f'{vid} not found in thumbnails.json')
+"
 
       - name: Commit and Push
         run: |
           git config --global user.name "GoalieVault-Bot"
           git config --global user.email "actions@github.com"
-          git add _posts/ assets/images/thumbs/
+          git add _data/thumbnails.json
           git diff --cached --quiet && echo "Nothing to commit" && exit 0
           git commit -m "chore: remove thumbnail for ${{ github.event.inputs.post_slug }}"
           git push
