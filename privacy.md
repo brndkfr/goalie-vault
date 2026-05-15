@@ -101,17 +101,35 @@ permalink: /privacy/
   browser will prevent the requests at the cost of missing previews.
 </p>
 
-<h2>6. What we do not do</h2>
+<h2>6. Analytics</h2>
+
+<p>
+  This site uses <a href="https://www.goatcounter.com" rel="noopener" target="_blank">GoatCounter</a>,
+  an open-source, privacy-friendly web analytics service. GoatCounter:
+</p>
 
 <ul>
-  <li>No analytics (no Google Analytics, no Plausible, no Matomo, nothing).</li>
+  <li>Does <strong>not</strong> use cookies.</li>
+  <li>Does <strong>not</strong> collect personal data or IP addresses.</li>
+  <li>Does <strong>not</strong> track you across sites.</li>
+</ul>
+
+<p>
+  Only basic, anonymous page-view counts are recorded. See
+  <a href="https://www.goatcounter.com/help/privacy" rel="noopener" target="_blank">GoatCounter&rsquo;s privacy policy</a>
+  for details.
+</p>
+
+<h2>7. What we do not do</h2>
+
+<ul>
   <li>No advertising and no advertising trackers.</li>
   <li>No newsletter and no account system &mdash; we do not collect names
     or email addresses from visitors.</li>
   <li>No first-party cookies are set by this site.</li>
 </ul>
 
-<h2>7. Content authors and handles</h2>
+<h2>8. Content authors and handles</h2>
 
 <p>
   Each drill page credits the original creator with their public social-media
@@ -121,7 +139,7 @@ permalink: /privacy/
   above and it will be taken down.
 </p>
 
-<h2>8. Your rights</h2>
+<h2>9. Your rights</h2>
 
 <p>
   Under the Swiss Federal Act on Data Protection (revFADP) and, where
@@ -145,7 +163,7 @@ permalink: /privacy/
   the contact address above.
 </p>
 
-<h2>9. Content removal / takedown</h2>
+<h2>10. Content removal / takedown</h2>
 
 <p>
   If you appear in or own a video embedded here and want it removed, please
@@ -162,7 +180,7 @@ permalink: /privacy/
   required &mdash; a polite email is enough.
 </p>
 
-<h2>10. Jurisdiction</h2>
+<h2>11. Jurisdiction</h2>
 
 <p>
   Goalie Vault is operated from Switzerland. Swiss law applies.
