@@ -63,13 +63,6 @@ jobs:
           SAFE_TITLE=$(echo "$TITLE" | tr -cd '[:alnum:] ' | tr ' ' '-' | tr '[:upper:]' '[:lower:]')
           FILENAME="_posts/${DATE}-${SAFE_TITLE}.md"
 
-          # Determine thumbnail
-          if [[ "$PLATFORM" == "youtube" ]]; then
-            THUMBNAIL="https://img.youtube.com/vi/${VIDEO_ID}/hqdefault.jpg"
-          else
-            THUMBNAIL=""
-          fi
-
           # Pass variables to subsequent steps (use heredoc for values that may contain special chars)
           echo "PLATFORM=$PLATFORM"         >> "$GITHUB_ENV"
           echo "VIDEO_ID=$VIDEO_ID"         >> "$GITHUB_ENV"
@@ -78,37 +71,63 @@ jobs:
           echo "AUTHOR=$AUTHOR"             >> "$GITHUB_ENV"
           echo "HANDLE=$HANDLE"             >> "$GITHUB_ENV"
           echo "CATEGORY=$CATEGORY"         >> "$GITHUB_ENV"
-          echo "THUMBNAIL=$THUMBNAIL"       >> "$GITHUB_ENV"
           # Heredoc format for fields that may contain punctuation or spaces
           { echo 'TITLE<<EOF_TITLE'; echo "$TITLE"; echo 'EOF_TITLE'; } >> "$GITHUB_ENV"
           { echo 'NOTES<<EOF_NOTES';  echo "$NOTES";  echo 'EOF_NOTES';  } >> "$GITHUB_ENV"
 
-      - name: Fetch Instagram Thumbnail
+      - name: Lookup Instagram CDN thumbnail
         if: env.PLATFORM == 'instagram'
         continue-on-error: true
         shell: bash
         run: |
-          mkdir -p assets/images/thumbs
-          pip install -q yt-dlp
-          yt-dlp --write-thumbnail --skip-download \
-            -o "assets/images/thumbs/%(id)s" \
-            "${{ env.URL }}" 2>/dev/null || true
+          VIDEO_ID="${{ env.VIDEO_ID }}"
+          EMBED_URL="https://www.instagram.com/p/${VIDEO_ID}/embed/captioned/"
+          BODY=$(curl -sL --max-time 20 \
+            -H 'User-Agent: facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)' \
+            "$EMBED_URL") || true
 
-          # Detect downloaded file (jpg or webp)
-          THUMB=$(ls assets/images/thumbs/${{ env.VIDEO_ID }}.* 2>/dev/null | head -1)
-          if [ -n "$THUMB" ]; then
-            EXT="${THUMB##*.}"
-            echo "THUMBNAIL=/assets/images/thumbs/${{ env.VIDEO_ID }}.${EXT}" >> "$GITHUB_ENV"
+          # Extract scontent CDN URL (post media, not profile pic)
+          CDN_URL=$(echo "$BODY" \
+            | grep -oP 'src="(https?://[^"]*scontent[^"]+\.(?:jpe?g|webp|png)[^"]*)"' \
+            | head -1 \
+            | sed 's/^src="//;s/"$//' \
+            | python3 -c 'import html,sys; print(html.unescape(sys.stdin.read().strip()))') || true
+
+          if [ -n "$CDN_URL" ]; then
+            # Extract expiry from oe= hex timestamp
+            OE_HEX=$(echo "$CDN_URL" | grep -oP '(?<=[?&]oe=)[0-9A-Fa-f]+' | head -1)
+            if [ -n "$OE_HEX" ]; then
+              EXPIRES=$(python3 -c "from datetime import datetime,timezone; print(datetime.fromtimestamp(int('$OE_HEX',16),tz=timezone.utc).date().isoformat())")
+            else
+              EXPIRES=$(date -d '+5 days' +%Y-%m-%d)
+            fi
+
+            # Upsert into _data/thumbnails.json
+            TODAY=$(date +%Y-%m-%d)
+            CDN_URL="$CDN_URL" EXPIRES="$EXPIRES" TODAY="$TODAY" VIDEO_ID="$VIDEO_ID" \
+            python3 -c "
+import json, os, pathlib
+f = pathlib.Path('_data/thumbnails.json')
+data = json.loads(f.read_text()) if f.exists() else {}
+data[os.environ['VIDEO_ID']] = {
+    'url': os.environ['CDN_URL'],
+    'status': 'ok',
+    'fetched': os.environ['TODAY'],
+    'expires': os.environ['EXPIRES'],
+    'attempts': 0
+}
+f.write_text(json.dumps(data, indent=2, sort_keys=True, ensure_ascii=False) + '\n')
+"
             echo "THUMB_FETCHED=true" >> "$GITHUB_ENV"
           else
             echo "THUMB_FETCHED=false" >> "$GITHUB_ENV"
           fi
 
-      - name: Warn if thumbnail fetch failed
+      - name: Warn if thumbnail lookup failed
         if: env.PLATFORM == 'instagram' && env.THUMB_FETCHED == 'false'
         run: |
           gh issue comment ${{ github.event.issue.number }} \
-            --body "⚠️ **Thumbnail not fetched** — \`yt-dlp\` could not retrieve a thumbnail for this Instagram post (Instagram may have blocked the request). The drill was created with the SVG placeholder instead. To add a thumbnail manually, upload an image to \`assets/images/thumbs/\` and set \`thumbnail: \"/assets/images/thumbs/YOUR_FILE\"\` in the post frontmatter."
+            --body "⚠️ **Thumbnail not fetched** — could not retrieve a CDN thumbnail URL for this Instagram post. The drill was created with the SVG placeholder instead. The weekly \`refetch-thumbnails\` run will retry automatically."
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -124,7 +143,6 @@ jobs:
             echo "category: [${{ env.CATEGORY }}]"
             echo "platform: \"${{ env.PLATFORM }}\""
             echo "video_id: \"${{ env.VIDEO_ID }}\""
-            echo "thumbnail: \"${{ env.THUMBNAIL }}\""
             echo "description: \"${{ env.NOTES }}\""
             echo "---"
           } > "${{ env.FILENAME }}"
@@ -133,7 +151,7 @@ jobs:
         run: |
           git config --global user.name "GoalieVault-Bot"
           git config --global user.email "actions@github.com"
-          git add _posts/ assets/images/thumbs/
+          git add _posts/ _data/thumbnails.json
           git commit -m "Automated: New Drill - ${{ github.event.issue.title }}"
           # Retry with rebase if remote moved while we were working
           for i in 1 2 3 4 5; do
