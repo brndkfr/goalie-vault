@@ -7,7 +7,6 @@ category: technique
 tags: [positioning]
 platform: "instagram"
 video_id: "DWcODsnjT1Y"
-thumbnail: "/assets/images/thumbs/DWcODsnjT1Y.jpg"
 description: "Simple drill to improve ball aggression and angle positioning\n\nBe aware of your surroundingsStay readyReact fast\n\nSide Blazepods = correct positioning and making the saveMiddle Blazepod = go first… win the ball before the coach does\n\nCatch your dream!"
 auto_generated: true
 ---

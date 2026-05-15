@@ -7,6 +7,5 @@ category: mobility
 tags: [stretching]
 platform: "instagram"
 video_id: "CpQNjccofpu"
-thumbnail: "skip"
 description: ""
 ---

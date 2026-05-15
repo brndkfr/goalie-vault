@@ -7,7 +7,6 @@ category: coordination
 tags: [hand-eye, juggling, rebound-control]
 platform: "instagram"
 video_id: "BqXW40Jitib"
-thumbnail: "/assets/images/thumbs/BqXW40Jitib.jpg"
 description: ""
 auto_generated: true
 ---

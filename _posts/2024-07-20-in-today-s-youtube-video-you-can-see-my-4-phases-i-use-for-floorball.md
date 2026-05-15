@@ -7,7 +7,6 @@ category: warmup
 tags: []
 platform: "instagram"
 video_id: "C9oyiIdMM9J"
-thumbnail: "/assets/images/thumbs/C9oyiIdMM9J.jpg"
 description: "In today's youtube video you can see my 4 phases I use for floorball goalie warm up in 2024! Link in bio\n\nParkanon Keräystuote Oy"
 auto_generated: true
 ---

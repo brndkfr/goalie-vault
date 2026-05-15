@@ -7,7 +7,6 @@ category: strength
 tags: []
 platform: "instagram"
 video_id: "BstGQQhlskh"
-thumbnail: "/assets/images/thumbs/BstGQQhlskh.jpg"
 description: "Movement training"
 auto_generated: true
 ---

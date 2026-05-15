@@ -7,7 +7,6 @@ category: coordination
 tags: [brock-string]
 platform: "instagram"
 video_id: "DX6lFRNsGwO"
-thumbnail: "/assets/images/thumbs/DX6lFRNsGwO.jpg"
 description: "Brock-Schnur-Übung: zentrales und peripheres Sehen kombinieren für bessere Reaktionen im Tor."
 auto_generated: true
 ---

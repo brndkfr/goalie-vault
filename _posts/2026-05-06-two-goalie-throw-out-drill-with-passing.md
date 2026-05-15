@@ -7,7 +7,6 @@ category: coordination
 tags: []
 platform: "instagram"
 video_id: "CmHGWKdgaD7"
-thumbnail: "/assets/images/thumbs/CmHGWKdgaD7.jpg"
 description: ""
 auto_generated: true
 ---

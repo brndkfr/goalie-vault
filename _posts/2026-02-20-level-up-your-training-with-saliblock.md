@@ -7,7 +7,6 @@ category: technique
 tags: []
 platform: "instagram"
 video_id: "DU_hgaFDbeN"
-thumbnail: "/assets/images/thumbs/DU_hgaFDbeN.jpg"
 description: "Level up your training with Saliblock!\nThis tool is a game-changer for your stickhandling and spatial awareness\nUse it to practice\nShooting around defenders\nFast pull-backs\nSpin moves & creative dekes"
 auto_generated: true
 ---

@@ -7,6 +7,5 @@ category: strength
 tags: [footwork, movement, stretching]
 platform: "youtube"
 video_id: "ZkYORFHgRTw"
-thumbnail: "https://img.youtube.com/vi/ZkYORFHgRTw/hqdefault.jpg"
 description: ""
 ---

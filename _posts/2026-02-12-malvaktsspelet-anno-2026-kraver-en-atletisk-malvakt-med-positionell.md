@@ -7,7 +7,6 @@ category: technique
 tags: [positioning]
 platform: "instagram"
 video_id: "DUq_o2nDETZ"
-thumbnail: "/assets/images/thumbs/DUq_o2nDETZ.jpg"
 description: "Målvaktsspelet anno 2026 kräver en atletisk målvakt med positionell kondition."
 auto_generated: true
 ---

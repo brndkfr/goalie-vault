@@ -7,6 +7,5 @@ category: technique
 tags: [rebound-control]
 platform: "instagram"
 video_id: "DU6AHvTDX9I"
-thumbnail: "/assets/images/thumbs/DU6AHvTDX9I.jpg"
 description: ""
 ---

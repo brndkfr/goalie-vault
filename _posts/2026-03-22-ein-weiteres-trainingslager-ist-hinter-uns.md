@@ -7,7 +7,6 @@ category: coordination
 tags: []
 platform: "instagram"
 video_id: "DWMg_l-Dd_H"
-thumbnail: "/assets/images/thumbs/DWMg_l-Dd_H.jpg"
 description: "Ein weiteres Trainingslager ist hinter uns"
 auto_generated: true
 ---

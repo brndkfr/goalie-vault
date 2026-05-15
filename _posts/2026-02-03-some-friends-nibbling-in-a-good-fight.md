@@ -7,7 +7,6 @@ category: technique
 tags: []
 platform: "instagram"
 video_id: "DUS3bgBDXOO"
-thumbnail: "/assets/images/thumbs/DUS3bgBDXOO.jpg"
 description: "Some friends nibbling in a good fight"
 auto_generated: true
 ---

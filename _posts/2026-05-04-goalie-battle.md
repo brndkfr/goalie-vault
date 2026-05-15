@@ -7,6 +7,5 @@ category: reaction
 tags: [movement, strength, warmup]
 platform: "instagram"
 video_id: "ChkDKeKo-Rz"
-thumbnail: ""
 description: ""
 ---

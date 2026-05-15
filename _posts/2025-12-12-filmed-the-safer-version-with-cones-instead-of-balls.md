@@ -7,7 +7,6 @@ category: coordination
 tags: [footwork]
 platform: "instagram"
 video_id: "DSKHqkwCD5v"
-thumbnail: "/assets/images/thumbs/DSKHqkwCD5v.jpg"
 description: "Filmed the safer version with cones instead of balls)"
 auto_generated: true
 ---

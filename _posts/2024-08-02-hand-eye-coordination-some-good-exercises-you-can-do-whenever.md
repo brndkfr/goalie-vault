@@ -7,7 +7,6 @@ category: technique
 tags: [coordination]
 platform: "instagram"
 video_id: "C-LO9lMIeuS"
-thumbnail: "/assets/images/thumbs/C-LO9lMIeuS.jpg"
 description: "Hand - eye - coordination some good exercises you can do whenever to improve your goalie skills ̊lvaktsträning ̈ning"
 auto_generated: true
 ---

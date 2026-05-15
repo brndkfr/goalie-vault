@@ -7,6 +7,5 @@ category: coordination
 tags: [footwork, movement, strength]
 platform: "youtube"
 video_id: "65YHeaYTKbk"
-thumbnail: "https://img.youtube.com/vi/65YHeaYTKbk/hqdefault.jpg"
 description: ""
 ---

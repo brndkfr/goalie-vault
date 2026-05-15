@@ -7,6 +7,5 @@ category: reaction
 tags: [coordination, vision, warmup]
 platform: "instagram"
 video_id: "DWGuKktiELx"
-thumbnail: "skip"
 description: "Training eye motion, reaction and coordination."
 ---

@@ -7,7 +7,6 @@ category: strength
 tags: []
 platform: "instagram"
 video_id: "CixqCEyuuOR"
-thumbnail: "/assets/images/thumbs/CixqCEyuuOR.jpg"
 description: ""
 auto_generated: true
 ---

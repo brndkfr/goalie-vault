@@ -7,6 +7,5 @@ category: strength
 tags: [stretching]
 platform: "youtube"
 video_id: "XveVp8NqCZ0"
-thumbnail: "https://img.youtube.com/vi/XveVp8NqCZ0/hqdefault.jpg"
 description: "knee to feet jump for explosive power. | Sprung vom Knie auf die Füsse für explosive Kraft."
 ---

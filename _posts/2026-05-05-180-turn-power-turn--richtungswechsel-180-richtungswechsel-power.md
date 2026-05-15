@@ -7,7 +7,6 @@ category: reaction
 tags: [coordination, movement, strength]
 platform: "youtube"
 video_id: "tncCHweZreQ"
-thumbnail: "https://img.youtube.com/vi/tncCHweZreQ/hqdefault.jpg"
 description: "Testung der Antrittsschnelligkeit und des maximal schnellen Richtungswechsels
 über beide Seiten als Voraussetzung für ein schnelles Angriffs- und
 Umschaltspiel, Täuschungsmanöver sowie agiles Zweikampfverhalten in der

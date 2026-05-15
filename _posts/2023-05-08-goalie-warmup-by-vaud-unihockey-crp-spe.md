@@ -7,7 +7,6 @@ category: warmup
 tags: []
 platform: "instagram"
 video_id: "Cr-oLb6rrav"
-thumbnail: "/assets/images/thumbs/Cr-oLb6rrav.jpg"
 description: ""
 auto_generated: true
 ---

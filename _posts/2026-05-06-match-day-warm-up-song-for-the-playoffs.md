@@ -7,7 +7,6 @@ category: technique
 tags: [positioning]
 platform: "instagram"
 video_id: "DV9eD8IiGB4"
-thumbnail: "/assets/images/thumbs/DV9eD8IiGB4.jpg"
 description: "Goalie technique session focused on timing and block position."
 auto_generated: true
 ---

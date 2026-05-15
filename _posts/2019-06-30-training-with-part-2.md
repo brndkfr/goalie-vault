@@ -7,7 +7,6 @@ category: technique
 tags: []
 platform: "instagram"
 video_id: "BzV6ssvBdoX"
-thumbnail: "/assets/images/thumbs/BzV6ssvBdoX.jpg"
 description: "Training with part 2"
 auto_generated: true
 ---

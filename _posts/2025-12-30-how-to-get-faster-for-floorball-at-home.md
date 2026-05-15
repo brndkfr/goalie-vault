@@ -7,7 +7,6 @@ category: technique
 tags: []
 platform: "instagram"
 video_id: "DS4viTnAhxN"
-thumbnail: "/assets/images/thumbs/DS4viTnAhxN.jpg"
 description: "How To Get Faster For Floorball at Home\n\noxdog"
 auto_generated: true
 ---

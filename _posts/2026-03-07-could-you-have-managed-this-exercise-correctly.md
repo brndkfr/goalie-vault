@@ -7,7 +7,6 @@ category: technique
 tags: []
 platform: "instagram"
 video_id: "DVmUNmEDCkK"
-thumbnail: "/assets/images/thumbs/DVmUNmEDCkK.jpg"
 description: "Could you have managed this exercise correctly?"
 auto_generated: true
 ---

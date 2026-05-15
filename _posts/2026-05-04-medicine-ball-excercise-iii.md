@@ -7,6 +7,5 @@ category: strength
 tags: [medicine-ball, warmup]
 platform: "instagram"
 video_id: "ByDMREsBIsg"
-thumbnail: "/assets/images/thumbs/ByDMREsBIsg.jpg"
 description: ""
 ---

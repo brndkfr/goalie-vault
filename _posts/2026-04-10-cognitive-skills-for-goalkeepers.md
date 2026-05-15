@@ -7,7 +7,6 @@ category: reaction
 tags: [coordination, hand-eye]
 platform: "instagram"
 video_id: "DW9RoFAjJB5"
-thumbnail: "/assets/images/thumbs/DW9RoFAjJB5.jpg"
 description: "Cognitive Skills for Goalkeepers\n\n1⃣ Concentration\n2⃣ Reaction speed\n3⃣ Hand-eye coordination"
 auto_generated: true
 ---

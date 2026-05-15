@@ -7,7 +7,6 @@ category: technique
 tags: []
 platform: "instagram"
 video_id: "DJTloBLMjJO"
-thumbnail: "/assets/images/thumbs/DJTloBLMjJO.jpg"
 description: "Framtiden är nu!"
 auto_generated: true
 ---

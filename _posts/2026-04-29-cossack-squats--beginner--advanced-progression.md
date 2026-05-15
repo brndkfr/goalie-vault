@@ -7,6 +7,5 @@ category: strength
 tags: [stretching]
 platform: "youtube"
 video_id: "DAUb0U2RwPY"
-thumbnail: "https://img.youtube.com/vi/DAUb0U2RwPY/hqdefault.jpg"
 description: ""
 ---

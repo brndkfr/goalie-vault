@@ -7,7 +7,6 @@ category: mobility
 tags: [positioning, stretching]
 platform: "instagram"
 video_id: "B0OdUbso9Fa"
-thumbnail: "/assets/images/thumbs/B0OdUbso9Fa.jpg"
 description: "Mobility drill for the basic shin-box (90/90) — trains the hip internal + external rotation goalies need for butterfly drops and lateral pushes."
 auto_generated: true
 ---

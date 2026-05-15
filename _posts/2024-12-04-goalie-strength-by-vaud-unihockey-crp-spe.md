@@ -7,7 +7,6 @@ category: strength
 tags: []
 platform: "instagram"
 video_id: "DDKFV4msAsa"
-thumbnail: "/assets/images/thumbs/DDKFV4msAsa.jpg"
 description: ""
 auto_generated: true
 ---

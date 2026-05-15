@@ -7,7 +7,6 @@ category: technique
 tags: [positioning]
 platform: "instagram"
 video_id: "C-KMJlfswjO"
-thumbnail: "/assets/images/thumbs/C-KMJlfswjO.jpg"
 description: "Great angle to analyze training and games\n\nParkanon Keräystuote Oy"
 auto_generated: true
 ---

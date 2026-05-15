@@ -7,7 +7,6 @@ category: technique
 tags: []
 platform: "instagram"
 video_id: "DFNN0fsM6lw"
-thumbnail: "/assets/images/thumbs/DFNN0fsM6lw.jpg"
 description: ""
 auto_generated: true
 ---

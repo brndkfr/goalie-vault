@@ -7,7 +7,6 @@ category: technique
 tags: [coordination, strength, reaction, movement]
 platform: "youtube"
 video_id: "E4dgAiZ6EZ0"
-thumbnail: "https://img.youtube.com/vi/E4dgAiZ6EZ0/hqdefault.jpg"
 description: "Grundstellung
 Fangtechnik
 Verschieben

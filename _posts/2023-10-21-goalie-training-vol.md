@@ -7,7 +7,6 @@ category: strength
 tags: []
 platform: "instagram"
 video_id: "CyqxatmIAeM"
-thumbnail: "/assets/images/thumbs/CyqxatmIAeM.jpg"
 description: "Goalie training vol. 3"
 auto_generated: true
 ---

@@ -7,7 +7,6 @@ category: stretching
 tags: []
 platform: "instagram"
 video_id: "DJcDoousVA5"
-thumbnail: "/assets/images/thumbs/DJcDoousVA5.jpg"
 description: "This song lives rent free in my head atm"
 auto_generated: true
 ---

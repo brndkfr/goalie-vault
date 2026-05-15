@@ -7,7 +7,6 @@ category: coordination
 tags: []
 platform: "instagram"
 video_id: "DJM-1l_In9U"
-thumbnail: "/assets/images/thumbs/DJM-1l_In9U.jpg"
 description: "New toy for our goalies\n\nОстальных вратарей тренажер ждет уже после URC"
 auto_generated: true
 ---

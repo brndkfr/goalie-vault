@@ -7,7 +7,6 @@ category: coordination
 tags: []
 platform: "instagram"
 video_id: "DWhwA-JjhWO"
-thumbnail: "/assets/images/thumbs/DWhwA-JjhWO.jpg"
 description: "Control your body — then control the game."
 auto_generated: true
 ---

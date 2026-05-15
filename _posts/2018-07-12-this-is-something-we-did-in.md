@@ -7,7 +7,6 @@ category: coordination
 tags: []
 platform: "instagram"
 video_id: "BlIXiA9hMDI"
-thumbnail: "/assets/images/thumbs/BlIXiA9hMDI.jpg"
 description: "Another Hand-Eye Coordination Drill"
 auto_generated: true
 ---

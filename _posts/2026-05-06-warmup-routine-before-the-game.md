@@ -7,7 +7,6 @@ category: coordination
 tags: [match-prep, warmup]
 platform: "instagram"
 video_id: "DXCPXwWCJbH"
-thumbnail: "/assets/images/thumbs/DXCPXwWCJbH.jpg"
 description: ""
 auto_generated: true
 redirect_from:

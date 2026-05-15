@@ -7,7 +7,6 @@ category: coordination
 tags: [medicine-ball, movement, strength]
 platform: "youtube"
 video_id: "p-ccdnXgeVs"
-thumbnail: "https://img.youtube.com/vi/p-ccdnXgeVs/hqdefault.jpg"
 description: "Testung der Fähigkeit rotatorische Kräfte zu entwickeln und abzufangen als
 Voraussetzung für reflexive Stabilität bei Sprints, Richtungswechseln und
 Zweikämpfen. | Assessing the ability to generate and absorb rotational forces as

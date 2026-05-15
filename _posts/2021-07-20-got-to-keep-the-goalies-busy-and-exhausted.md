@@ -7,7 +7,6 @@ category: warmup
 tags: []
 platform: "instagram"
 video_id: "CRjr3-CJBFb"
-thumbnail: "/assets/images/thumbs/CRjr3-CJBFb.jpg"
 description: "Got to keep the goalies busy and exhausted? We got you"
 auto_generated: true
 ---

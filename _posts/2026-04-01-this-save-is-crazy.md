@@ -7,7 +7,6 @@ category: technique
 tags: []
 platform: "instagram"
 video_id: "DWme0majQDU"
-thumbnail: "/assets/images/thumbs/DWme0majQDU.jpg"
 description: "This save is crazy\n\nCatch your dream!"
 auto_generated: true
 ---

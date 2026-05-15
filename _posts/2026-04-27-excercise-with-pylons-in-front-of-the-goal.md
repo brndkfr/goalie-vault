@@ -7,6 +7,5 @@ category: technique
 tags: [movement, reaction]
 platform: "instagram"
 video_id: "DLFOM9QNIZ6"
-thumbnail: "skip"
 description: ""
 ---

@@ -7,6 +7,5 @@ category: technique
 tags: [movement, strength]
 platform: "youtube"
 video_id: "n-Lg7VObfFo"
-thumbnail: "https://img.youtube.com/vi/n-Lg7VObfFo/hqdefault.jpg"
 description: ""
 ---

@@ -7,7 +7,6 @@ category: reaction
 tags: [band, coordination, footwork, movement, strength, warmup]
 platform: "instagram"
 video_id: "BiAL0i7gIl4"
-thumbnail: "/assets/images/thumbs/BiAL0i7gIl4.jpg"
 description: "Krafttraining für die Beine. Man merkt es wahrscheinlich am nächsten Tag.
 
 Strength training for the legs. You might feel it the next day."

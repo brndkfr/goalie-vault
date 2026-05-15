@@ -7,6 +7,5 @@ category: technique
 tags: [coordination, hand-eye, warmup]
 platform: "instagram"
 video_id: "BgOd3zSFgDi"
-thumbnail: "/assets/images/thumbs/BgOd3zSFgDi.jpg"
 description: ""
 ---

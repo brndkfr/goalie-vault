@@ -7,7 +7,6 @@ category: strength
 tags: []
 platform: "instagram"
 video_id: "DUOFfuDDMpU"
-thumbnail: "/assets/images/thumbs/DUOFfuDDMpU.jpg"
 description: "4 with partner core exercises!\nTry it now\nThanks coach TB"
 auto_generated: true
 ---

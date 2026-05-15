@@ -7,7 +7,6 @@ category: coordination
 tags: []
 platform: "instagram"
 video_id: "CxS5ntFIu9g"
-thumbnail: "/assets/images/thumbs/CxS5ntFIu9g.jpg"
 description: "Goalie training vol. 2"
 auto_generated: true
 ---

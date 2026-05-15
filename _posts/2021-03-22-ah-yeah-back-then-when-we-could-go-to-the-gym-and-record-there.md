@@ -7,7 +7,6 @@ category: strength
 tags: [stretching]
 platform: "instagram"
 video_id: "CMu4wLRp0MH"
-thumbnail: "/assets/images/thumbs/CMu4wLRp0MH.jpg"
 description: "Ah yeah back then when we could go to the gym and record there. All about the „Figure 4 Stretch on the Wall“ via link in bio."
 auto_generated: true
 ---

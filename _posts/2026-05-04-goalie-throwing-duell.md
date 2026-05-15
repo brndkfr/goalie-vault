@@ -7,6 +7,5 @@ category: reaction
 tags: [coordination, movement, strength, warmup]
 platform: "instagram"
 video_id: "DTPyJtcjLh6"
-thumbnail: ""
 description: ""
 ---
