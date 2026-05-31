@@ -948,5 +948,25 @@
       "title": "/pulls",
       "uniques": 1
     }
+  ],
+  "2026-05-31": [
+    {
+      "count": 4,
+      "path": "/brndkfr/goalie-vault",
+      "title": "Overview",
+      "uniques": 2
+    },
+    {
+      "count": 3,
+      "path": "/brndkfr/goalie-vault/graphs/contributors",
+      "title": "/graphs/contributors",
+      "uniques": 1
+    },
+    {
+      "count": 1,
+      "path": "/brndkfr/goalie-vault/pulls",
+      "title": "/pulls",
+      "uniques": 1
+    }
   ]
 }
