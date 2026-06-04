@@ -764,10 +764,10 @@
   },
   "DLU9qwlIUa_": {
     "attempts": 0,
-    "expires": "2026-06-04",
-    "fetched": "2026-06-01",
-    "status": "rate_limit",
-    "url": "https://scontent-lga3-3.cdninstagram.com/v/t51.82787-15/521248996_18516585526043468_109592979552111514_n.jpg?stp=c0.90.720.720a_dst-jpg_e15_s240x240_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi43MjAuc2RyLnZpZGVvX2RlZmF1bHRfY292ZXJfZnJhbWUuYzIifQ&_nc_ht=scontent-lga3-3.cdninstagram.com&_nc_cat=108&_nc_oc=Q6cZ2gGwLG8Ter6BWDJLo0HoWS7RtM0WoA_dJEgUWU7IWYww-1gE1oBowbUOWb8PmdalQGU&_nc_ohc=sbKMjgT5kwoQ7kNvwGlizha&_nc_gid=0FaEGO7qI6_MQgvIZSdcrw&edm=APs17CUBAAAA&ccb=7-5&oh=00_Af6WNveEZPnE60-zr5rKPDpJVcMS2DLwHMuotmpB1aB5aw&oe=6A20F08B&_nc_sid=10d13b"
+    "expires": "2026-06-08",
+    "fetched": "2026-06-04",
+    "status": "ok",
+    "url": "https://scontent-iad3-1.cdninstagram.com/v/t51.82787-15/521248996_18516585526043468_109592979552111514_n.jpg?stp=c0.90.720.720a_dst-jpg_e15_s240x240_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi43MjAuc2RyLnZpZGVvX2RlZmF1bHRfY292ZXJfZnJhbWUuYzIifQ&_nc_ht=scontent-iad3-1.cdninstagram.com&_nc_cat=108&_nc_oc=Q6cZ2gFONNQEgclK8GAO6HecI-ashB_0nZGLe9frEQrGzff8yjEIXth0PYjpfv9bctcM8vU&_nc_ohc=j2gln9tXj2wQ7kNvwFHvhn-&_nc_gid=9t24bO-eTUYdFZ3pY2QopA&edm=APs17CUBAAAA&ccb=7-5&oh=00_Af-zTIN725Tx1Nn1QqiRk_9OMXG881DYihEJSuBJdsTDYw&oe=6A26DF4B&_nc_sid=10d13b"
   },
   "DNU7raGsIiN": {
     "attempts": 0,
@@ -1108,7 +1108,7 @@
   "DWCM-0-kRmu": {
     "attempts": 0,
     "expires": "2026-05-11",
-    "fetched": "2026-06-01",
+    "fetched": "2026-06-04",
     "status": "rate_limit",
     "url": "https://scontent-zrh1-1.cdninstagram.com/v/t51.71878-15/653011921_1800559341328769_1902362603497524243_n.jpg?se=-1&stp=dst-jpegr_e15_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi42NDAuaGRyLnZpZGVvX2RlZmF1bHRfY292ZXJfZnJhbWUuYzIifQ&_nc_ht=scontent-zrh1-1.cdninstagram.com&_nc_cat=105&_nc_oc=Q6cZ2gFO04wGp1ahXf0SUlN1Od5nya-sP1bDYcDhAfbBt7LD-y8f3pPag8V-lTGWsHA1ReI&_nc_ohc=Y8lf8rgejqsQ7kNvwFV9Noo&_nc_gid=Y0i580WwmPDYTRRFlM32Gw&edm=ANTKIIoBAAAA&ccb=7-5&oh=00_Af5nEV4wEHVW0mspObFyi_4JhpgyKPGEqYVCYPaLaesGUQ&oe=6A013E08&_nc_sid=d885a2"
   },
@@ -1157,7 +1157,7 @@
   "DWRISc0gD8u": {
     "attempts": 0,
     "expires": "2026-05-11",
-    "fetched": "2026-06-01",
+    "fetched": "2026-06-04",
     "status": "rate_limit",
     "url": "https://scontent-zrh1-1.cdninstagram.com/v/t51.71878-15/656096393_2197189217721227_4081078202921455085_n.jpg?stp=dst-jpg_e15_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi42NDAuc2RyLnZpZGVvX2RlZmF1bHRfY292ZXJfZnJhbWUuYzIifQ&_nc_ht=scontent-zrh1-1.cdninstagram.com&_nc_cat=111&_nc_oc=Q6cZ2gFo5B8RatqXKWRW54O7SBH3BuMdxorR12QwNQGGWh_1haThPGzG3KAeWMD2qtKeE38&_nc_ohc=F4u7LIe24egQ7kNvwHalr8r&_nc_gid=VikGwV5zp6ashnyZ88P8_A&edm=ANTKIIoBAAAA&ccb=7-5&oh=00_Af6OOYVL-BkWosB_Oiq0QHeXGKOTbZgQedmUppJkPaUAVQ&oe=6A016BC0&_nc_sid=d885a2"
   },
